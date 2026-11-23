@@ -579,6 +579,33 @@
       font-size: 1rem;
     }
 
+    /* Fraud review message */
+    .fraud-review-note {
+      margin-top: 14px;
+      padding: 12px 16px;
+      background: #f8f5f1;
+      border-left: 3px solid #9b7b5c;
+      border-radius: 10px;
+      font-size: 0.72rem;
+      color: #6b6b6b;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.5;
+    }
+
+    .fraud-review-note i {
+      color: #9b7b5c;
+      font-size: 0.9rem;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+
+    .fraud-review-note strong {
+      color: #1e2b2c;
+      font-weight: 600;
+    }
+
     /* Stripe link placeholder */
     .stripe-note {
       text-align: center;
@@ -831,7 +858,7 @@
         </div>
 
         <!-- RUG 6: Chandra Zara Round Shag -->
-        <div class="product-card" data-id="rug6" data-brand="Chandra" data-name="Zara 7'9" Round Hand-Woven Shag Area Rug in Dark Lavender" data-price="804.00" data-img="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80" data-colors='["#b8a0c0","#9a80a0","#7a6080","#5a4060"]'>
+        <div class="product-card" data-id="rug6" data-brand="Chandra" data-name="Zara 7'9&quot; Round Hand-Woven Shag Area Rug in Dark Lavender" data-price="804.00" data-img="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80" data-colors='["#b8a0c0","#9a80a0","#7a6080","#5a4060"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80');">
             <span class="product-badge">Round</span>
           </div>
@@ -1226,6 +1253,15 @@
       <button class="btn-stripe" id="stripeBtn">
         <i class="fas fa-lock"></i> Proceed to checkout
       </button>
+
+      <!-- NEW: Fraud review message -->
+      <div class="fraud-review-note">
+        <i class="fas fa-shield-alt"></i>
+        <span>
+          <strong>For your security,</strong> payments flagged by our fraud protection are manually reviewed before your order ships. We'll email you if we need anything further — usually within 24 hours.
+        </span>
+      </div>
+
       <p class="stripe-note">
         Stripe payment link placeholder — replace with your <a href="#" target="_blank">Stripe Checkout link</a>
       </p>
