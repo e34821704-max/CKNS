@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Feedback · CKNS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: #faf9f7;
+      font-family: 'Inter', sans-serif;
+      color: #1e1e1e;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: #1e2b2c;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* Navigation */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 0 16px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .logo {
+      font-size: 1.9rem;
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #1e2b2c;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .logo span {
+      color: #9b7b5c;
+      font-weight: 400;
+      font-size: 1.2rem;
+      margin-left: 8px;
+      letter-spacing: 0.2px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .back-link {
+      text-decoration: none;
+      color: #1e2b2c;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      border: 1px solid #1e2b2c;
+      border-radius: 40px;
+      transition: all 0.2s;
+    }
+
+    .back-link:hover {
+      background: #1e2b2c;
+      color: white;
+    }
+
+    /* Page Header */
+    .page-header {
+      padding: 60px 0 20px;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-size: 3.2rem;
+      margin-bottom: 14px;
+      line-height: 1.15;
+    }
+
+    .page-header h1 i {
+      font-style: italic;
+      color: #9b7b5c;
+    }
+
+    .page-header p {
+      color: #6b6b6b;
+      font-size: 1.1rem;
+      max-width: 620px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+
+    /* Summary stats */
+    .summary-bar {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      margin: 44px 0 56px;
+      padding: 28px 40px;
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 8px 24px -10px rgba(0, 0, 0, 0.06);
+      flex-wrap: wrap;
+    }
+
+    .summary-item {
+      text-align: center;
+    }
+
+    .summary-item .big {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: #1e2b2c;
+      line-height: 1.1;
+    }
+
+    .summary-item .label {
+      font-size: 0.8rem;
+      color: #9b7b5c;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .summary-stars {
+      color: #d4a830;
+      font-size: 0.85rem;
+      margin-top: 2px;
+      letter-spacing: 1px;
+    }
+
+    /* Feedback grid */
+    .feedback-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      padding-bottom: 80px;
+    }
+
+    .feedback-card {
+      background: white;
+      border-radius: 22px;
+      padding: 28px 30px;
+      box-shadow: 0 6px 20px -8px rgba(0, 0, 0, 0.06);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .feedback-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 28px -10px rgba(0, 0, 0, 0.1);
+    }
+
+    .feedback-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1rem;
+      color: white;
+      flex-shrink: 0;
+      letter-spacing: 0.5px;
+    }
+
+    .feedback-meta {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .feedback-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #1e2b2c;
+    }
+
+    .feedback-date {
+      font-size: 0.75rem;
+      color: #9b9b9b;
+      margin-top: 1px;
+    }
+
+    .stars {
+      color: #d4a830;
+      font-size: 0.8rem;
+      letter-spacing: 1.5px;
+      white-space: nowrap;
+    }
+
+    .stars .far {
+      color: #ddd6ce;
+    }
+
+    .feedback-text {
+      font-size: 0.95rem;
+      color: #3d3d3d;
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .feedback-product {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid #f0ebe6;
+      font-size: 0.75rem;
+      color: #9b7b5c;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-weight: 500;
+    }
+
+    .feedback-product i {
+      font-size: 0.7rem;
+    }
+
+    .verified-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.68rem;
+      color: #4a8b5c;
+      background: #edf7f0;
+      padding: 2px 9px;
+      border-radius: 20px;
+      font-weight: 600;
+      margin-left: 8px;
+      letter-spacing: 0.2px;
+      vertical-align: middle;
+    }
+
+    .verified-badge i {
+      font-size: 0.6rem;
+    }
+
+    /* CTA */
+    .feedback-cta {
+      text-align: center;
+      padding: 20px 0 70px;
+    }
+
+    .feedback-cta h3 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .feedback-cta p {
+      color: #6b6b6b;
+      margin-bottom: 24px;
+      font-size: 1rem;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #1e2b2c;
+      color: white;
+      padding: 15px 38px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: #2d3f41;
+    }
+
+    .btn-primary i {
+      transition: transform 0.2s;
+    }
+
+    .btn-primary:hover i {
+      transform: translateX(4px);
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid #e4ddd6;
+      padding: 36px 0;
+      text-align: center;
+      color: #9b9b9b;
+      font-size: 0.85rem;
+    }
+
+    .footer a {
+      color: #9b7b5c;
+      text-decoration: none;
+      margin: 0 12px;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 900px) {
+      .feedback-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page-header h1 { font-size: 2.4rem; }
+      .navbar { flex-wrap: wrap; gap: 16px; }
+      .summary-bar { gap: 28px; padding: 24px 20px; }
+      .summary-item .big { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Navigation -->
+    <nav class="navbar">
+      <a href="index.html" class="logo">CKNS <span>realty & deco</span></a>
+      <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Catalogue</a>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+      <h1>What our clients <i>say</i></h1>
+      <p>Real feedback from real homes. Every review below comes from a verified CKNS customer between March and November 2026.</p>
+    </header>
+
+    <!-- Summary Stats -->
+    <div class="summary-bar">
+      <div class="summary-item">
+        <div class="big">4.7</div>
+        <div class="label">Average rating</div>
+        <div class="summary-stars">★★★★★</div>
+      </div>
+      <div class="summary-item">
+        <div class="big">23</div>
+        <div class="label">Verified reviews</div>
+      </div>
+      <div class="summary-item">
+        <div class="big">96%</div>
+        <div class="label">Would recommend</div>
+      </div>
+      <div class="summary-item">
+        <div class="big">9</div>
+        <div class="label">Months of feedback</div>
+      </div>
+    </div>
+
+    <!-- Feedback Grid -->
+    <div class="feedback-grid">
+
+      <!-- 1 · 20 Nov 2026 · 5 stars -->
+      <div class="feedback-card">
+        <div class="feedback-top">
+          <div class="avatar" style="background:#9b7b5c;">SM</div>
+          <div class="feedback-meta">
+            <div class="feedback-name">Sarah Mitchell <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span></div>
+            <div class="feedback-date">20 November 2026</div>
+          </div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <p class="feedback-text">The Chandra Veleno rug completely transformed our living room. The charcoal grey is even richer in person — it has this subtle sheen that catches the light. Shipping was fast and the packaging was immaculate. Already eyeing the matching runner.</p>
+        <div class="feedback-product"><i class="fas fa-rug"></i> Chandra Veleno Hand-Tufted Floral Area Rug</div>
+      </div>
+
+      <!-- 2 · 14 Nov 2026 · 4 stars -->
+      <div class="feedback-card">
+        <div class="feedback-top">
+          <div class="avatar" style="background:#7a8b7a;">JD</div>
+          <div class="feedback-meta">
+            <div class="feedback-name">James Donovan <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span></div>
+            <div class="feedback-date">14 November 2026</div>
+          </div>
+          <div class="stars">★★★★<span class="far">★</span></div>
+        </div>
+        <p class="feedback-text">The Julius swivel chair is stunning — taupe shearling feels luxurious and the swivel is buttery smooth. Took off one star only because the white glove delivery was rescheduled twice. The product itself is a 5. CKNS customer service was responsive when I flagged the delay.</p>
+        <div class="feedback-product"><i class="fas fa-couch"></i> Four Hands Julius Swivel Chair — Taupe Shearling</div>
+      </div>
+
+      <!-- 3 · 07 Nov 2026 · 5 stars -->
+      <div class="feedback-card">
+        <div class="feedback-top">
+          <div class="avatar" style="background:#a8846a;">ET</div>
+          <div class="feedback-meta">
+            <div class="feedback-name">Elena Torres <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span></div>
+            <div class="feedback-date">7 November 2026</div>
+          </div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <p class="feedback-text">Used CKNS for both the property search and the deco planning. They found us a beautiful loft in Enfield and then designed the entire living space around it. The moodboard-to-reality process was seamless. Worth every penny.</p>
+        <div class="feedback-product"><i class="fas fa-paint-brush"></i> Full House Deco Planning + Property Search</div>
+      </div>
+
+      <!-- 4 · 31 Oct 2026 · 5 stars -->
+      <div class="feedback-card">
+        <div class="feedback-top">
+          <div class="avatar" style="background:#8b6b8b;">MR</div>
+          <div class="feedback-meta">
+            <div class="feedback-name">Marcus Reid <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span></div>
+            <div class="feedback-date">31 October 2026</div>
+          </div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <p class="feedback-text">Ordered the Majestic Illuminated Ensemble for our front porch and it is spectacular. The remote control is a game changer — no more crawling behind garlands to find a switch. Arrived in 4 days, well before the estimate. Will be back for holiday decor next year.</p>
+        <div class="feedback-product"><i class="fas fa-lightbulb"></i> Majestic Illuminated Ensemble</div>
+      </div>
+
+      <!-- 5 · 24 Oct 2026 · 5 stars -->
+      <div class="feedback-card">
+        <div class="feedback-top">
+          <div class="avatar" style="background:#6b7b8b;">PN</div>
+          <div class="feedback-meta">
+            <div class="feedback-name">Priya Nair <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span></div>
+            <div class="feedback-date">24 October 2026</div>
+          </div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <p class="feedback-text">The Nourison Sultana rug is the star of our dining room. The vintage floral pattern is so detailed and the colours are muted and elegant — exactly what the photos showed. Great value at 30% off. Free shipping sealed the deal.</p>
+        <div class="feedback-product"><i class="fas fa-rug"></i> Nourison Sultana Floral Area Rug</div>
+      </div>
+
+      <!-- 6 · 18 Oct 2026 · 4 stars -->
+      <div class="feedback-card">
+        <div class="feedback-top">
+          <div class="avatar" style="background:#8b8b6b;">TW</div>
+          <div class="feedback-meta">
+            <div class="feedback-name">Thomas Webb <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span></div>
+            <div class="feedback-date">18 October 2026</div>
+          </div>
+          <div class="stars">★★★★<span class="far">★</span></div>
+        </div>
+        <p class="feedback-text">Bingham coffee table is solid, heavy, and beautifully distressed. The iron finish looks even better with a few books and a candle on it. Only reason for 4 stars: delivery took almost 3 weeks, a bit longer than I expected. Quality makes up for it.</p>
+        <div class="feedback-product"><i class="fas fa-coffee"></i> Four Hands Bingham Coffee Table — Distressed Iron</div>
+      </div>
+
+      <!-- 7 · 11 Oct 2026 · 5 stars -->
+      <div class="feedback-card">
+        <div class="feedback-top">
+          <div class="avatar" style="background:#a87a7a;">LC</div>
+          <div class="feedback-meta">
+            <div class="feedback-name">Lena Cho <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span></div>
+            <div class="feedback-date">11 October 2026</div>
+          </div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <p class="feedback-text">I was nervous about buying a hair-on-hide rug online but the CKNS team sent me extra photos in the live chat before I ordered. The Mateo Leopard is absolutely gorgeous — soft, well-made, and the pattern is unique to each rug. Customer service is top tier.</p>
+        <div class="feedback-product"><i class="fas fa-rug"></i> Four Hands Mateo Leopard Print Hair-on-Hide Rug</div>
+      </div>
+
+      <!-- 8 · 03 Oct 2026 · 5 stars -->
+      <div class="feedback-card">
+        <div class="feedback-top">
+          <div class="avatar" style="background:#7a7a8b;">DH</div>
+          <div class="feedback-meta">
+            <div class="feedback-name">David Hartley <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span></div>
+            <div class="feedback-date">3 October 2026</div>
+          </div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <p class="feedback-text">The Matthes console table is the first thing guests comment on when they walk in. Reclaimed pine with that aged black finish — it looks like a piece from a design magazine. Delivery was white glove and the team even helped position it. Fantastic experience.</p>
+        <div class="feedback-product"><i class="fas fa-table"></i> Four Hands Matthes Reclaimed Pine Console Table</div>
+      </div>
+
+      <!-- 9 · 26 Sep 2026 · 3 stars -->
+      <div class="feedback-card">
+        <div class="feedback-top">
+          <div class="avatar" style="background:#8b7a6b;">AO</div>
+          <div class="feedback-meta">
+            <div class="feedback-name">Amara Okafor <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span></div>
+            <div class="feedback-date">26 September 2026</div>
+          </div>
+          <div class="stars">★★★<span class="far">★★</span></div>
+        </div>
+        <p class="feedback-text">Beautiful candles but the flameless votives arrived with one not charging. CKNS replaced it quickly after I emailed, which I appreciated. The product itself is lovely and the warm glow is convincing. Would have been 5 stars if quality control had caught the faulty unit first.</p>
+        <div class="feedback-product"><i class="fas fa-fire"></i> Rechargeable Flameless Votive Candle Set of 4</div>
+      </div>
+
+      <!-- 10 · 19 Sep 2026 · 5 stars -->
+      <div class="feedback-card">
+        <div class="feedback-top">
+          <div class="avatar" style="background:#6b8b7a;">RG</div>
+          <div class="feedback-meta">
+            <div class="feedback-name">Rachel Goldstein <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span></div>
+            <div class="feedback-date">19 September 2026</div>
+          </div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <p class="feedback-text">CKNS handled the deco planning for our entire first floor. From paint colours to furniture sourcing to final styling — they nailed it. The 3D visualisation was scary accurate. We've already booked them for the bedrooms next spring.</p>
+        <div class="feedback-product"><i class="fas fa-paint-brush"></i> Full House Deco Planning</div>
+      </div>
+
+      <!-- 11 · 12 Sep 2026 · 4 stars -->
+      <div class="feedback-card">
+        <div class="feedback-top">
+          <div class="avatar" style="background:#a89b7a;">BK</div>
+          <div class="feedback-meta">
+            <div class="feedback-name">Brian Keller <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span></div>
+            <div class="feedback-date">12 September 2026</div>
+          </div>
+          <div class="stars">★★★★<span class="far">★</span></div>
+        </div>
+        <p class="feedback-text">KAS Syriana runner is exactly what my hallway needed — the wool is thick and the floral pattern is subtle enough for a busy space. Shipped quickly. Knocked a star off because the colour is slightly warmer than the online swatch, but still love it.</p>
+        <div class="feedback-product"><i class="fas fa-rug"></i> KAS Syriana Hand-Tufted Wool Floral Runner</div>
+      </div>
+
+      <!-- 12 · 05 Sep 2026 · 5 stars -->
+      <div class="feedback-card">
+        <div class="feedback-top">
+          <div class="avatar" style="background:#8b6b6b;">NC</div>
+          <div class="feedback-meta">
+            <div class="feedback-name">Nina Castellano <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span></div>
+            <div class="feedback-date">5 September 2026</div>
+          </div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <p class="feedback-text">The Tolle cabinet is a statement piece. Matte black with drifted oak — it anchors our dining room beautifully. The soft-close doors are a lovely detail. White glove delivery was on time and professional. Couldn't be happier.</p>
+        <div class="feedback-product"><i class="fas fa-door-open"></i> Four Hands Tolle Cabinet — Drifted Matte Black</div>
+      </div>
+
+      <!-- 13 · 28 Aug 2026 · 5 stars -->
+      <div class="feedback-card">
+        <div class="feedback-top">
+          <div class="avatar" style="background:#7a8b9b;">VS</div>
+          <div class="feedback-meta">
+            <div class="feedback-name">Victor Santos <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span></div>
+            <div class="feedback-date">28 August 2026</div>
+          </div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <p class="feedback-text">Bought the Cranberry Heirloom Ensemble for my mother's birthday and she was thrilled. The garlands and ornaments are high quality — not the flimsy stuff you find elsewhere. The whole set arrived in one box, nicely packed. Will order again.</p>
+        <div class="feedback-product"><i class="fas fa-gift"></i> Cranberry Heirloom Ensemble</div>
+      </div>
+
+      <!-- 14 · 20 Aug 2026 · 4 stars -->
+      <div class="feedback-card">
+        <div class="feedback-top">
+          <div class="avatar" style="background:#9b8b6b;">FM</div>
+          <div class="feedback-meta">
+            <div class="feedback-name">Fiona MacLeod <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span></div>
+            <div class="feedback-date">20 August 2026</div>
+          </div>
+          <div class="stars">★★★★<span class="far">★</span></div>
+        </div>
+        <p class="feedback-text">The Giovanna braided rug is lovely — the multi-tone wool is warm and the viscose gives it a nice sheen. It's a bit heavier than expected and needs a good rug pad, but that's on me. Quality is excellent for the sale price.</p>
+        <div class="feedback-product"><i class="fas fa-rug"></i> Chandra Giovanna 5x7 Braided Area Rug</div>
+      </div>
+
+      <!-- 15 · 12 Aug 2026 · 5 stars -->
+      <div class="feedback-card">
+        <div class="feedback-top">
+          <div class="avatar" style="background:#6b8b6b;">JW</div>
+          <div class="feedback-meta">
+            <div class="feedback-name">Jasmine Wu <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span></div>
+            <div class="feedback-date">12 August 2026</div>
+          </div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <p class="feedback-text">CKNS sourced a home for us in under three weeks — we were on a tight timeline with a relocation. Their local knowledge of Enfield and the surrounding areas was invaluable. Then they helped us furnish the place. One-stop shop, genuinely.</p>
+        <div class="feedback-product"><i class="fas fa-home"></i> Property Search + Furnishing</div>
+      </div>
+
+      <!-- 16 · 03 Aug 2026 · 5 stars -->
+      <div class="feedback-card">
+        <div class="feedback-top">
+          <div class="avatar" style="background:#9b7a8b;">OH</div>
+          <div class="feedback-meta">
+            <div class="feedback-name">Oliver Hayes <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span></div>
+            <div class="feedback-date">3 August 2026</div>
+          </div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <p class="feedback-text">The Redondo media console is exactly what our den needed. Beautiful craftsmanship, and the cable management is well thought out. It's a substantial piece — definitely get the white glove service if you're ordering solo.</p>
+        <div class="feedback-product"><i class="fas fa-tv"></i> Four Hands Redondo Media Console</div>
+      </div>
+
+      <!-- 17 · 25 Jul 2026 · 4 stars -->
+      <div class="feedback-card">
+        <div class="feedback-top">
+          <div class="avatar" style="background:#8b7a7a;">CB</div>
+          <div class="feedback-meta">
+            <div class="feedback-name">Carmen Baez <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span></div>
+            <div class="feedback-date">25 July 2026</div>
+          </div>
+          <div class="stars">★★★★<span class="far">★</span></div>
+        </div>
+        <p class="feedback-text">Square glass hurricanes are elegant and the brass base is a lovely warm tone. They're a bit smaller than I pictured from the photos — check the dimensions carefully. Still, they look beautiful on our mantel with the flameless candles inside.</p>
+        <div class="feedback-product"><i class="fas fa-candle-holder"></i> Square Glass Hurricanes with Antique Brass Base</div>
+      </div>
+
+      <!-- 18 · 17 Jul 2026 · 5 stars -->
+      <div class="feedback-card">
+        <div class="feedback-top">
+          <div class="avatar" style="background:#7a7a6b;">MS</div>
+          <div class="feedback-meta">
+            <div class="feedback-name">Maya Singh <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span></div>
+            <div class="feedback-date">17 July 2026</div>
+          </div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <p class="feedback-text">The Leo dresser is a workhorse. Six deep drawers, smooth glides, and the drifted oak finish is gorgeous in natural light. It's heavy, so definitely use the white glove delivery. The delivery team assembled it and removed all the packaging. Flawless.</p>
+        <div class="feedback-product"><i class="fas fa-drawer"></i> Four Hands Leo 6 Drawer Dresser</div>
+      </div>
+
+      <!-- 19 · 08 Jul 2026 · 5 stars -->
+      <div class="feedback-card">
+        <div class="feedback-top">
+          <div class="avatar" style="background:#a87a6b;">DR</div>
+          <div class="feedback-meta">
+            <div class="feedback-name">Daniel Rivera <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span></div>
+            <div class="feedback-date">8 July 2026</div>
+          </div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <p class="feedback-text">Norfolk pine spray and vase bundle is such a simple but effective decor upgrade. The pine looks real, the vase is a warm brown that goes with everything. It's on our entryway console now and ties the whole space together. Great price point too.</p>
+        <div class="feedback-product"><i class="fas fa-leaf"></i> Norfolk Pine Spray & Brown Line Vase Bundle</div>
+      </div>
+
+      <!-- 20 · 29 Jun 2026 · 4 stars -->
+      <div class="feedback-card">
+        <div class="feedback-top">
+          <div class="avatar" style="background:#6b7a8b;">AH</div>
+          <div class="feedback-meta">
+            <div class="feedback-name">Aisha Hassan <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span></div>
+            <div class="feedback-date">29 June 2026</div>
+          </div>
+          <div class="stars">★★★★<span class="far">★</span></div>
+        </div>
+        <p class="feedback-text">Momeni Orchard runner is beautiful — the jute and wool blend is textured and natural, exactly the look I wanted for our coastal-style hallway. It does shed a little initially, which is normal for jute. Vacuumed twice and it's fine now.</p>
+        <div class="feedback-product"><i class="fas fa-rug"></i> Momeni Orchard Floral Hand-Woven Jute & Wool Runner</div>
+      </div>
+
+      <!-- 21 · 18 Jun 2026 · 5 stars -->
+      <div class="feedback-card">
+        <div class="feedback-top">
+          <div class="avatar" style="background:#8b6b7a;">LT</div>
+          <div class="feedback-meta">
+            <div class="feedback-name">Liam Thompson <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span></div>
+            <div class="feedback-date">18 June 2026</div>
+          </div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <p class="feedback-text">Aurora swivel chair in Knoll Natural is the perfect reading chair. The fabric is soft but durable, and it swivels 360° which my kids love. Delivery was quick and the chair arrived fully assembled. Excellent value for a Four Hands piece.</p>
+        <div class="feedback-product"><i class="fas fa-couch"></i> Four Hands Aurora Swivel Chair — Knoll Natural</div>
+      </div>
+
+      <!-- 22 · 07 May 2026 · 5 stars -->
+      <div class="feedback-card">
+        <div class="feedback-top">
+          <div class="avatar" style="background:#7a8b6b;">SP</div>
+          <div class="feedback-meta">
+            <div class="feedback-name">Sofia Petrova <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span></div>
+            <div class="feedback-date">7 May 2026</div>
+          </div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <p class="feedback-text">I used CKNS's deco planning service for a single-room refresh and they treated it with the same care as a full home. The stylist listened to my Pinterest board and translated it into a cohesive plan. The final reveal made me tear up a little. Highly recommend.</p>
+        <div class="feedback-product"><i class="fas fa-paint-brush"></i> Single-Room Deco Planning</div>
+      </div>
+
+      <!-- 23 · 15 Mar 2026 · 5 stars -->
+      <div class="feedback-card">
+        <div class="feedback-top">
+          <div class="avatar" style="background:#8b7a6b;">MK</div>
+          <div class="feedback-meta">
+            <div class="feedback-name">Michael Kim <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span></div>
+            <div class="feedback-date">15 March 2026</div>
+          </div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <p class="feedback-text">First purchase from CKNS and it won't be the last. The Abaso coffee table is beautifully rustic — the wormwood oak has so much character. The live chat team helped me confirm dimensions before ordering, which saved me from a sizing mistake. Great people.</p>
+        <div class="feedback-product"><i class="fas fa-coffee"></i> Four Hands Abaso Rectangular Coffee Table — Rustic Wormwood Oak</div>
+      </div>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="feedback-cta">
+      <h3>Ready to write your own review?</h3>
+      <p>Browse the catalogue or reach out to our team — we'd love to help you find your next favourite piece.</p>
+      <a href="index.html" class="btn-primary">Explore the catalogue <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      © 2025–2026 CKNS Realty & Deco Planning. All rights reserved.
+      <br><br>
+      <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms & Conditions</a> · <a href="feedback.html">Feedback</a> · <a href="index.html">Home</a>
+    </div>
+  </footer>
+</body>
+</html>
