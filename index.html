@@ -28,6 +28,35 @@
       color: #1e1e1e;
       line-height: 1.5;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ============ 3D BACKGROUND CANVAS ============ */
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.85;
+    }
+
+    /* Soft veil to keep content legible over 3D */
+    .bg-veil {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 90% 60% at 50% 0%, rgba(250,249,247,0.15), rgba(250,249,247,0.6) 60%, rgba(250,249,247,0.92) 100%),
+        linear-gradient(180deg, rgba(250,249,247,0.4), rgba(250,249,247,0.75));
+    }
+
+    /* All page content sits above the 3D layer */
+    .page-content {
+      position: relative;
+      z-index: 2;
     }
 
     h1, h2, h3, .serif {
@@ -69,7 +98,7 @@
       60%, 100% { left: 100%; }
     }
 
-    /* ============ HEADER (layered bars) ============ */
+    /* ============ HEADER ============ */
     .header-wrap {
       position: sticky;
       top: 0;
@@ -84,7 +113,6 @@
       background: rgba(250, 249, 247, 0.95);
     }
 
-    /* utility bar */
     .utility-bar {
       border-bottom: 1px solid rgba(0,0,0,0.04);
       font-size: 0.72rem;
@@ -114,7 +142,6 @@
     .utility-bar a:hover { color: var(--accent); }
     .utility-bar i { color: var(--accent); font-size: 0.7rem; }
 
-    /* main nav */
     .navbar {
       display: flex;
       align-items: center;
@@ -193,7 +220,7 @@
       box-shadow: 0 8px 18px -8px rgba(30,43,44,0.4);
     }
 
-    /* ============ CART TRIGGER (3D press) ============ */
+    /* ============ CART TRIGGER ============ */
     .cart-trigger {
       position: relative;
       background: var(--ink);
@@ -237,7 +264,7 @@
       box-shadow: 0 4px 10px -2px rgba(155,123,92,0.5);
     }
 
-    /* ============ HERO STRIP (premium intro) ============ */
+    /* ============ HERO STRIP ============ */
     .hero-strip {
       padding: 56px 0 12px;
       display: flex;
@@ -266,9 +293,7 @@
     }
 
     /* ============ SECTION HEADINGS ============ */
-    .catalogue-section {
-      padding: 50px 0 20px;
-    }
+    .catalogue-section { padding: 50px 0 20px; }
     .catalogue-section h2 {
       font-size: 2.6rem;
       color: var(--ink);
@@ -277,10 +302,7 @@
       align-items: center;
       gap: 16px;
     }
-    .catalogue-section h2 i {
-      color: var(--accent);
-      font-size: 1.8rem;
-    }
+    .catalogue-section h2 i { color: var(--accent); font-size: 1.8rem; }
     .section-desc {
       color: #6b6b6b;
       font-size: 1.05rem;
@@ -313,12 +335,9 @@
       transform: translateY(-2px);
       box-shadow: 0 12px 22px -10px rgba(155,123,92,0.3);
     }
-    .review-teaser .stars {
-      color: var(--gold);
-      letter-spacing: 1px;
-    }
+    .review-teaser .stars { color: var(--gold); letter-spacing: 1px; }
 
-    /* ============ PRODUCT GRID (3D tilt) ============ */
+    /* ============ PRODUCT GRID ============ */
     .product-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -328,7 +347,8 @@
     }
 
     .product-card {
-      background: white;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(6px);
       border-radius: 20px;
       overflow: hidden;
       box-shadow: 0 8px 22px -10px rgba(0,0,0,0.08);
@@ -340,12 +360,9 @@
       will-change: transform;
       border: 1px solid rgba(0,0,0,0.02);
     }
-
     .product-card:hover {
       box-shadow: 0 28px 48px -18px rgba(30,43,44,0.28);
     }
-
-    /* shine layer */
     .product-card::after {
       content: '';
       position: absolute;
@@ -367,7 +384,6 @@
       flex-shrink: 0;
       transform: translateZ(20px);
     }
-
     .product-badge {
       position: absolute;
       top: 12px;
@@ -382,10 +398,7 @@
       color: var(--ink);
       z-index: 2;
     }
-    .product-badge.sale {
-      background: var(--accent);
-      color: white;
-    }
+    .product-badge.sale { background: var(--accent); color: white; }
 
     .product-info {
       padding: 16px 18px 18px;
@@ -394,7 +407,6 @@
       flex: 1;
       transform: translateZ(12px);
     }
-
     .product-brand {
       font-size: 0.75rem;
       font-weight: 600;
@@ -436,12 +448,7 @@
       font-family: 'Inter', sans-serif;
     }
 
-    .color-swatches {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 14px;
-      flex-wrap: wrap;
-    }
+    .color-swatches { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
     .swatch {
       width: 28px;
       height: 28px;
@@ -450,7 +457,6 @@
       cursor: pointer;
       transition: border 0.2s, transform 0.15s, box-shadow 0.2s;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1), inset 0 -2px 3px rgba(0,0,0,0.15);
-      position: relative;
     }
     .swatch:hover { transform: scale(1.12); }
     .swatch.active {
@@ -505,7 +511,7 @@
     .btn-add:active { transform: scale(0.97); }
     .btn-add i { font-size: 0.75rem; }
 
-    /* ============ CART SIDEBAR (refined) ============ */
+    /* ============ CART SIDEBAR ============ */
     .cart-overlay {
       position: fixed;
       inset: 0;
@@ -543,10 +549,7 @@
       border-bottom: 1px solid var(--line);
       background: linear-gradient(180deg, #ffffff, var(--bg));
     }
-    .cart-header h3 {
-      font-size: 1.7rem;
-      color: var(--ink);
-    }
+    .cart-header h3 { font-size: 1.7rem; color: var(--ink); }
     .cart-close {
       background: none;
       border: none;
@@ -578,17 +581,8 @@
     .cart-items::-webkit-scrollbar-thumb { background: #ddd6ce; border-radius: 10px; }
     .cart-items::-webkit-scrollbar-track { background: transparent; }
 
-    .cart-empty {
-      text-align: center;
-      padding: 80px 0;
-      color: #9b9b9b;
-    }
-    .cart-empty i {
-      font-size: 3rem;
-      color: #ddd6ce;
-      margin-bottom: 16px;
-      display: block;
-    }
+    .cart-empty { text-align: center; padding: 80px 0; color: #9b9b9b; }
+    .cart-empty i { font-size: 3rem; color: #ddd6ce; margin-bottom: 16px; display: block; }
 
     .cart-item {
       display: flex;
@@ -690,10 +684,7 @@
       margin-bottom: 20px;
       font-family: 'Playfair Display', serif;
     }
-    .cart-total span:last-child {
-      font-size: 1.5rem;
-      color: var(--accent);
-    }
+    .cart-total span:last-child { font-size: 1.5rem; color: var(--accent); }
 
     .btn-stripe {
       background: var(--ink);
@@ -790,7 +781,7 @@
     }
     .toast i { color: var(--gold); }
 
-    /* ============ FOOTER (premium) ============ */
+    /* ============ FOOTER ============ */
     .footer {
       padding: 60px 0 30px;
       display: grid;
@@ -824,10 +815,7 @@
       transition: all 0.2s;
       display: inline-block;
     }
-    .footer ul a:hover {
-      color: var(--accent);
-      transform: translateX(3px);
-    }
+    .footer ul a:hover { color: var(--accent); transform: translateX(3px); }
     .copyright {
       grid-column: 1 / -1;
       text-align: center;
@@ -851,12 +839,9 @@
       transform: translateY(30px);
       transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
     }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* ============ FLOATING CTA (mobile-ish premium touch) ============ */
+    /* ============ FLOATING CTA ============ */
     .float-cta {
       position: fixed;
       bottom: 26px;
@@ -865,7 +850,8 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      background: white;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
       border: 1px solid var(--line);
       border-radius: 50px;
       padding: 10px 18px 10px 10px;
@@ -900,6 +886,7 @@
       .product-grid { grid-template-columns: repeat(2, 1fr); }
       .footer { grid-template-columns: 1fr 1fr; }
       .hero-strip h1 { font-size: 2.6rem; }
+      #bg-canvas { opacity: 0.55; }
     }
     @media (max-width: 720px) {
       .navbar { flex-wrap: wrap; gap: 16px; }
@@ -911,519 +898,528 @@
       .catalogue-section h2 { font-size: 2rem; }
       .hero-strip h1 { font-size: 2.2rem; }
       .float-cta { display: none; }
+      #bg-canvas { opacity: 0.4; }
     }
 
-    /* button arrow hover */
-    .btn-add i, .btn-stripe i, .review-teaser i {
-      transition: transform 0.25s;
-    }
-    .btn-add:hover i, .btn-stripe:hover i, .review-teaser:hover i {
-      transform: translateX(4px);
+    .btn-add i, .btn-stripe i, .review-teaser i { transition: transform 0.25s; }
+    .btn-add:hover i, .btn-stripe:hover i, .review-teaser:hover i { transform: translateX(4px); }
+
+    /* respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+      #bg-canvas { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ============ ANNOUNCEMENT BAR ============ -->
-  <div class="announcement">
-    <span>✦ Complimentary white glove delivery on furniture orders over $2,000 ✦</span>
-  </div>
+  <!-- ============ 3D BACKGROUND ============ -->
+  <canvas id="bg-canvas"></canvas>
+  <div class="bg-veil"></div>
 
-  <!-- ============ HEADER (layered, sticky) ============ -->
-  <div class="header-wrap" id="headerWrap">
-    <!-- utility bar -->
-    <div class="utility-bar">
-      <div class="container">
-        <div class="utility-left">
-          <a href="tel:+18572689887"><i class="fas fa-phone-alt"></i> 857-268-9887</a>
-          <a href="mailto:info@cknsworld.store"><i class="fas fa-envelope"></i> info@cknsworld.store</a>
-        </div>
-        <div class="utility-right">
-          <a href="feedback.html"><i class="fas fa-star"></i> 4.7 · 23 reviews</a>
-          <a href="privacy.html">Privacy</a>
-          <a href="terms.html">Terms</a>
-        </div>
-      </div>
+  <!-- Everything below is above the 3D layer -->
+  <div class="page-content">
+
+    <!-- ANNOUNCEMENT BAR -->
+    <div class="announcement">
+      <span>✦ Complimentary white glove delivery on furniture orders over $2,000 ✦</span>
     </div>
 
-    <!-- main nav -->
-    <nav class="navbar container">
-      <a href="index.html" class="logo">CKNS <span>realty & deco</span></a>
-      <div class="nav-links">
-        <a href="#">Properties</a>
-        <a href="index.html" class="active">Catalogue</a>
-        <a href="#">Deco planning</a>
-        <a href="#">Contact</a>
-        <button class="cart-trigger" id="cartToggle">
-          <i class="fas fa-shopping-bag"></i>
-          <span class="cart-count" id="cartCount">0</span>
-        </button>
+    <!-- HEADER -->
+    <div class="header-wrap" id="headerWrap">
+      <div class="utility-bar">
+        <div class="container">
+          <div class="utility-left">
+            <a href="tel:+18572689887"><i class="fas fa-phone-alt"></i> 857-268-9887</a>
+            <a href="mailto:info@cknsworld.store"><i class="fas fa-envelope"></i> info@cknsworld.store</a>
+          </div>
+          <div class="utility-right">
+            <a href="feedback.html"><i class="fas fa-star"></i> 4.7 · 23 reviews</a>
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+          </div>
+        </div>
       </div>
-    </nav>
+
+      <nav class="navbar container">
+        <a href="index.html" class="logo">CKNS <span>realty & deco</span></a>
+        <div class="nav-links">
+          <a href="#">Properties</a>
+          <a href="index.html" class="active">Catalogue</a>
+          <a href="#">Deco planning</a>
+          <a href="#">Contact</a>
+          <button class="cart-trigger" id="cartToggle">
+            <i class="fas fa-shopping-bag"></i>
+            <span class="cart-count" id="cartCount">0</span>
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+      <!-- HERO STRIP -->
+      <section class="hero-strip reveal">
+        <h1>The art of <em>living well</em>,<br>curated for you.</h1>
+        <p>Thoughtfully sourced rugs, furniture, and decor — each piece chosen to bring warmth and character to your home.</p>
+      </section>
+
+      <!-- RUGS & FLOORING -->
+      <section class="catalogue-section reveal" id="rugs">
+        <h2><i class="fas fa-rug"></i> Rugs & flooring</h2>
+        <p class="section-desc">Hand-picked rugs from Momeni, KAS, Nourison, Chandra, and Four Hands. Select your colour below.</p>
+
+        <a href="feedback.html" class="review-teaser">
+          <span class="stars">★★★★★</span>
+          4.7 from 23 verified reviews
+          <i class="fas fa-arrow-right" style="font-size:0.75rem;"></i>
+        </a>
+
+        <div class="product-grid" id="rugsGrid" style="margin-top: 36px;">
+          <!-- RUG 1 -->
+          <div class="product-card" data-id="rug1" data-brand="Momeni" data-name="Orchard Floral Hand-Woven Jute and Wool Runner Rug" data-price="427.14" data-img="https://images.unsplash.com/photo-1600166898405-da9535204843?w=400&q=80" data-colors='["#d4c5b0","#b8a88a","#8b7b6b","#5e5548"]'>
+            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600166898405-da9535204843?w=400&q=80');">
+              <span class="product-badge">New</span>
+            </div>
+            <div class="product-info">
+              <div class="product-brand">Momeni</div>
+              <div class="product-name">Orchard Floral Hand-Woven Jute & Wool Runner</div>
+              <div class="product-price">$427.14</div>
+              <div class="color-swatches" data-product="rug1"></div>
+              <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
+              <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
+            </div>
+          </div>
+
+          <!-- RUG 2 -->
+          <div class="product-card" data-id="rug2" data-brand="KAS" data-name="Syriana Hand-Tufted Wool Floral Runner Area Rug" data-price="319" data-img="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=400&q=80" data-colors='["#e8d8c8","#c4b5a5","#9b8b7a","#6b5d50"]'>
+            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=400&q=80');">
+              <span class="product-badge">New</span>
+            </div>
+            <div class="product-info">
+              <div class="product-brand">KAS</div>
+              <div class="product-name">Syriana Hand-Tufted Wool Floral Runner Area Rug</div>
+              <div class="product-price">$319.00</div>
+              <div class="color-swatches" data-product="rug2"></div>
+              <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
+              <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
+            </div>
+          </div>
+
+          <!-- RUG 3 -->
+          <div class="product-card" data-id="rug3" data-brand="Nourison" data-name="Sultana Floral Area Rug with Vintage Style" data-price="653.00" data-compare="932.86" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&q=80" data-colors='["#c9b8a8","#a89480","#7d6b5a","#4d4038"]'>
+            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&q=80');">
+              <span class="product-badge sale">30% OFF</span>
+            </div>
+            <div class="product-info">
+              <div class="product-brand">Nourison</div>
+              <div class="product-name">Sultana Floral Area Rug with Vintage Style</div>
+              <div class="product-price">$653.00 <span class="compare">$932.86</span> <span class="off">30% OFF</span></div>
+              <div class="color-swatches" data-product="rug3"></div>
+              <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
+              <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
+            </div>
+          </div>
+
+          <!-- RUG 4 -->
+          <div class="product-card" data-id="rug4" data-brand="Chandra" data-name="Amazon AMA-5603 Hand-Woven Wool Blend Area Rug with Tiger Print" data-price="744.00" data-compare="1062.86" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=400&q=80" data-colors='["#d9c8b0","#b89f80","#8a6f50","#5a4a3a"]'>
+            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=400&q=80');">
+              <span class="product-badge sale">30% OFF</span>
+            </div>
+            <div class="product-info">
+              <div class="product-brand">Chandra</div>
+              <div class="product-name">Amazon AMA-5603 Hand-Woven Wool Blend Rug — Tiger Print</div>
+              <div class="product-price">$744.00 <span class="compare">$1,062.86</span> <span class="off">30% OFF</span></div>
+              <div class="color-swatches" data-product="rug4"></div>
+              <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
+              <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
+            </div>
+          </div>
+
+          <!-- RUG 5 -->
+          <div class="product-card" data-id="rug5" data-brand="Nourison" data-name="2000 Bordered Runner Area Rug in Beige" data-price="803.00" data-compare="1147.14" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&q=80" data-colors='["#e8dcc8","#d4c4b0","#b8a898","#9c8878"]'>
+            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&q=80');">
+              <span class="product-badge sale">30% OFF</span>
+            </div>
+            <div class="product-info">
+              <div class="product-brand">Nourison</div>
+              <div class="product-name">2000 Bordered Runner Area Rug in Beige</div>
+              <div class="product-price">$803.00 <span class="compare">$1,147.14</span> <span class="off">30% OFF</span></div>
+              <div class="color-swatches" data-product="rug5"></div>
+              <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
+              <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
+            </div>
+          </div>
+
+          <!-- RUG 6 -->
+          <div class="product-card" data-id="rug6" data-brand="Chandra" data-name="Zara 7'9&quot; Round Hand-Woven Shag Area Rug in Dark Lavender" data-price="804.00" data-img="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80" data-colors='["#b8a0c0","#9a80a0","#7a6080","#5a4060"]'>
+            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80');">
+              <span class="product-badge">Round</span>
+            </div>
+            <div class="product-info">
+              <div class="product-brand">Chandra</div>
+              <div class="product-name">Zara 7'9" Round Hand-Woven Shag Area Rug — Dark Lavender</div>
+              <div class="product-price">$804.00</div>
+              <div class="color-swatches" data-product="rug6"></div>
+              <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
+              <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
+            </div>
+          </div>
+
+          <!-- RUG 7 -->
+          <div class="product-card" data-id="rug7" data-brand="Four Hands" data-name="Mateo Leopard Print Hair-on-Hide Area Rug — Brown and Black" data-price="519.20" data-compare="649.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=400&q=80" data-colors='["#c9a86a","#a88450","#7a6038","#4a3820"]'>
+            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=400&q=80');">
+              <span class="product-badge sale">20% OFF</span>
+            </div>
+            <div class="product-info">
+              <div class="product-brand">Four Hands</div>
+              <div class="product-name">Mateo Leopard Print Hair-on-Hide Area Rug — Brown & Black</div>
+              <div class="product-price">$519.20 <span class="compare">$649.00</span> <span class="off">20% OFF</span></div>
+              <div class="color-swatches" data-product="rug7"></div>
+              <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
+              <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
+            </div>
+          </div>
+
+          <!-- RUG 8 -->
+          <div class="product-card" data-id="rug8" data-brand="Chandra" data-name="Veleno Hand-Tufted Floral Area Rug in Charcoal Grey Beige" data-price="934.00" data-compare="1334.29" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=400&q=80" data-colors='["#4a4a4a","#6b6b6b","#8b8b8b","#a8a8a8"]'>
+            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=400&q=80');">
+              <span class="product-badge sale">30% OFF</span>
+            </div>
+            <div class="product-info">
+              <div class="product-brand">Chandra</div>
+              <div class="product-name">Veleno Hand-Tufted Floral Area Rug — Charcoal Grey Beige</div>
+              <div class="product-price">$934.00 <span class="compare">$1,334.29</span> <span class="off">30% OFF</span></div>
+              <div class="color-swatches" data-product="rug8"></div>
+              <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
+              <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
+            </div>
+          </div>
+
+          <!-- RUG 9 -->
+          <div class="product-card" data-id="rug9" data-brand="Chandra" data-name="Giovanna 5x7 Braided Area Rug in Multi-Tone Wool Viscose Cotton" data-price="916.00" data-compare="1308.57" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=400&q=80" data-colors='["#d4a878","#b88858","#a07048","#806038"]'>
+            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=400&q=80');">
+              <span class="product-badge sale">30% OFF</span>
+            </div>
+            <div class="product-info">
+              <div class="product-brand">Chandra</div>
+              <div class="product-name">Giovanna 5x7 Braided Area Rug — Multi-Tone Wool Viscose Cotton</div>
+              <div class="product-price">$916.00 <span class="compare">$1,308.57</span> <span class="off">30% OFF</span></div>
+              <div class="color-swatches" data-product="rug9"></div>
+              <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
+              <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
+            </div>
+          </div>
+
+          <!-- RUG 10 -->
+          <div class="product-card" data-id="rug10" data-brand="Four Hands" data-name="Mateo Zebra Printed Hair-on-Hide Area Rug — Natural Black and White" data-price="519.20" data-compare="649.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=400&q=80" data-colors='["#2e2e2e","#4a4a4a","#6b6b6b","#9b9b9b"]'>
+            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=400&q=80');">
+              <span class="product-badge sale">20% OFF</span>
+            </div>
+            <div class="product-info">
+              <div class="product-brand">Four Hands</div>
+              <div class="product-name">Mateo Zebra Printed Hair-on-Hide Area Rug — Natural Black & White</div>
+              <div class="product-price">$519.20 <span class="compare">$649.00</span> <span class="off">20% OFF</span></div>
+              <div class="color-swatches" data-product="rug10"></div>
+              <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
+              <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FURNISHINGS & DECOR -->
+      <section class="catalogue-section reveal" id="furnishings">
+        <h2><i class="fas fa-couch"></i> Furnishings & decor</h2>
+        <p class="section-desc">Seasonal accents and elegant candle holders to complete your space.</p>
+
+        <div class="product-grid" id="furnishingsGrid">
+          <div class="product-card" data-id="f1" data-brand="Majestic" data-name="Illuminated Ensemble: 4 garlands + 6 Lighted Ornaments + Remote + 10 ball ornaments" data-price="399.99" data-compare="499.99" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=400&q=80" data-colors='["#d4a830","#c89828","#a87818","#885810"]'>
+            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=400&q=80');">
+              <span class="product-badge sale">20% OFF</span>
+            </div>
+            <div class="product-info">
+              <div class="product-brand">Majestic</div>
+              <div class="product-name">Illuminated Ensemble: 4 Garlands + 6 Lighted Ornaments + Remote + 10 Ball Ornaments</div>
+              <div class="product-price">$399.99 <span class="compare">$499.99</span> <span class="off">20% OFF</span></div>
+              <div class="color-swatches" data-product="f1"></div>
+              <div class="product-shipping"><i class="fas fa-truck"></i> Ships in 5–7 business days · Final Sale</div>
+              <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
+            </div>
+          </div>
+
+          <div class="product-card" data-id="f2" data-brand="Norfolk" data-name="Norfolk Pine Spray & Brown Line Vase Bundle" data-price="175.99" data-compare="189.93" data-off="7% OFF" data-img="https://images.unsplash.com/photo-1602928321679-560bb453f190?w=400&q=80" data-colors='["#5a7a5a","#3a5a3a","#2a4a2a","#1a3a1a"]'>
+            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1602928321679-560bb453f190?w=400&q=80');">
+              <span class="product-badge sale">7% OFF</span>
+            </div>
+            <div class="product-info">
+              <div class="product-brand">Norfolk</div>
+              <div class="product-name">Norfolk Pine Spray & Brown Line Vase Bundle</div>
+              <div class="product-price">$175.99 <span class="compare">$189.93</span> <span class="off">7% OFF</span></div>
+              <div class="color-swatches" data-product="f2"></div>
+              <div class="product-shipping"><i class="fas fa-undo"></i> 14-day return for refund or store credit</div>
+              <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
+            </div>
+          </div>
+
+          <div class="product-card" data-id="f3" data-brand="Cranberry" data-name="Cranberry Heirloom Ensemble" data-price="399.99" data-compare="499.99" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1543589077-47d81606c1bf?w=400&q=80" data-colors='["#8b2020","#6b1818","#4b1010","#3b0808"]'>
+            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1543589077-47d81606c1bf?w=400&q=80');">
+              <span class="product-badge sale">20% OFF</span>
+            </div>
+            <div class="product-info">
+              <div class="product-brand">Cranberry</div>
+              <div class="product-name">Cranberry Heirloom Ensemble</div>
+              <div class="product-price">$399.99 <span class="compare">$499.99</span> <span class="off">20% OFF</span></div>
+              <div class="color-swatches" data-product="f3"></div>
+              <div class="product-shipping"><i class="fas fa-truck"></i> Ships in 5–7 business days · Final Sale</div>
+              <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
+            </div>
+          </div>
+
+          <div class="product-card" data-id="f4" data-brand="Glass" data-name="Square Glass Hurricanes with Antique Brass Base, Set of 2" data-price="189.99" data-img="https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80" data-colors='["#c8a878","#a88858","#886838","#685018"]'>
+            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80');">
+              <span class="product-badge">Set of 2</span>
+            </div>
+            <div class="product-info">
+              <div class="product-brand">Glass</div>
+              <div class="product-name">Square Glass Hurricanes with Antique Brass Base, Set of 2</div>
+              <div class="product-price">$189.99</div>
+              <div class="color-swatches" data-product="f4"></div>
+              <div class="product-shipping"><i class="fas fa-undo"></i> 14-day return for refund or store credit</div>
+              <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
+            </div>
+          </div>
+
+          <div class="product-card" data-id="f5" data-brand="Candle" data-name="Rechargeable Flameless Votive Candle Set of 4" data-price="99.99" data-img="https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80" data-colors='["#f0e8d8","#e0d8c8","#d0c8b8","#c0b8a8"]'>
+            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80');">
+              <span class="product-badge">Set of 4</span>
+            </div>
+            <div class="product-info">
+              <div class="product-brand">Candle</div>
+              <div class="product-name">Rechargeable Flameless Votive Candle Set of 4</div>
+              <div class="product-price">$99.99</div>
+              <div class="color-swatches" data-product="f5"></div>
+              <div class="product-shipping"><i class="fas fa-undo"></i> 14-day return for refund or store credit</div>
+              <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
+            </div>
+          </div>
+
+          <div class="product-card" data-id="f6" data-brand="Hurricane" data-name="Hurricane Candle Holders: 3 sizes — Sold Individually" data-price="129.99" data-img="https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80" data-colors='["#b8a888","#a89878","#988868","#887858"]'>
+            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80');">
+              <span class="product-badge">3 sizes</span>
+            </div>
+            <div class="product-info">
+              <div class="product-brand">Hurricane</div>
+              <div class="product-name">Hurricane Candle Holders: 3 Sizes — Sold Individually</div>
+              <div class="product-price">$129.99</div>
+              <div class="color-swatches" data-product="f6"></div>
+              <div class="product-shipping"><i class="fas fa-clock"></i> Longer shipping time: 5–7 days</div>
+              <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- HOME CAPES -->
+      <section class="catalogue-section reveal" id="homecapes">
+        <h2><i class="fas fa-gem"></i> Home capes · Four Hands</h2>
+        <p class="section-desc">Premium Four Hands pieces. Complimentary white glove delivery on orders over $2,000.</p>
+
+        <div class="product-grid" id="homecapesGrid">
+          <div class="product-card" data-id="h1" data-brand="Four Hands" data-name="Matthes Reclaimed Pine Console Table — Aged Black Pine" data-price="719.20" data-compare="899.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1532372320572-cda25653a694?w=400&q=80" data-colors='["#2e2e2e","#4a4a4a","#6b6b6b","#8b8b8b"]'>
+            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1532372320572-cda25653a694?w=400&q=80');">
+              <span class="product-badge sale">20% OFF</span>
+            </div>
+            <div class="product-info">
+              <div class="product-brand">Four Hands</div>
+              <div class="product-name">Matthes Reclaimed Pine Console Table — Aged Black Pine</div>
+              <div class="product-price">$719.20 <span class="compare">$899.00</span> <span class="off">20% OFF</span></div>
+              <div class="color-swatches" data-product="h1"></div>
+              <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
+              <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
+            </div>
+          </div>
+
+          <div class="product-card" data-id="h2" data-brand="Four Hands" data-name="Julius Swivel Chair — Taupe Shearling" data-price="2959.20" data-compare="3699.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" data-colors='["#c8b8a8","#b8a898","#a89888","#988878"]'>
+            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80');">
+              <span class="product-badge sale">20% OFF</span>
+            </div>
+            <div class="product-info">
+              <div class="product-brand">Four Hands</div>
+              <div class="product-name">Julius Swivel Chair — Taupe Shearling</div>
+              <div class="product-price">$2,959.20 <span class="compare">$3,699.00</span> <span class="off">20% OFF</span></div>
+              <div class="color-swatches" data-product="h2"></div>
+              <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
+              <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
+            </div>
+          </div>
+
+          <div class="product-card" data-id="h3" data-brand="Four Hands" data-name="Bingham Coffee Table — Distressed Iron" data-price="1919.20" data-compare="2399.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=400&q=80" data-colors='["#3a3a3a","#4a4a4a","#5a5a5a","#6a6a6a"]'>
+            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=400&q=80');">
+              <span class="product-badge sale">20% OFF</span>
+            </div>
+            <div class="product-info">
+              <div class="product-brand">Four Hands</div>
+              <div class="product-name">Bingham Coffee Table — Distressed Iron</div>
+              <div class="product-price">$1,919.20 <span class="compare">$2,399.00</span> <span class="off">20% OFF</span></div>
+              <div class="color-swatches" data-product="h3"></div>
+              <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
+              <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
+            </div>
+          </div>
+
+          <div class="product-card" data-id="h4" data-brand="Four Hands" data-name="Tolle Cabinet — Drifted Matte Black w/ Drifted Oak" data-price="3439.20" data-compare="4299.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80" data-colors='["#2a2a2a","#3a3a3a","#4a4a4a","#5a5a5a"]'>
+            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80');">
+              <span class="product-badge sale">20% OFF</span>
+            </div>
+            <div class="product-info">
+              <div class="product-brand">Four Hands</div>
+              <div class="product-name">Tolle Cabinet — Drifted Matte Black w/ Drifted Oak</div>
+              <div class="product-price">$3,439.20 <span class="compare">$4,299.00</span> <span class="off">20% OFF</span></div>
+              <div class="color-swatches" data-product="h4"></div>
+              <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
+              <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
+            </div>
+          </div>
+
+          <div class="product-card" data-id="h5" data-brand="Four Hands" data-name="Abaso Rectangular Coffee Table — Rustic Wormwood Oak" data-price="2079.20" data-compare="2599.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1532372320572-cda25653a694?w=400&q=80" data-colors='["#8b6b4a","#7a5a3a","#6a4a2a","#5a3a1a"]'>
+            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1532372320572-cda25653a694?w=400&q=80');">
+              <span class="product-badge sale">20% OFF</span>
+            </div>
+            <div class="product-info">
+              <div class="product-brand">Four Hands</div>
+              <div class="product-name">Abaso Rectangular Coffee Table — Rustic Wormwood Oak</div>
+              <div class="product-price">$2,079.20 <span class="compare">$2,599.00</span> <span class="off">20% OFF</span></div>
+              <div class="color-swatches" data-product="h5"></div>
+              <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
+              <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
+            </div>
+          </div>
+
+          <div class="product-card" data-id="h6" data-brand="Four Hands" data-name="Augustine Swivel Chair — Palermo Drift" data-price="2159.20" data-compare="2699.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" data-colors='["#d4c4b0","#c4b4a0","#b4a490","#a49480"]'>
+            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80');">
+              <span class="product-badge sale">20% OFF</span>
+            </div>
+            <div class="product-info">
+              <div class="product-brand">Four Hands</div>
+              <div class="product-name">Augustine Swivel Chair — Palermo Drift</div>
+              <div class="product-price">$2,159.20 <span class="compare">$2,699.00</span> <span class="off">20% OFF</span></div>
+              <div class="color-swatches" data-product="h6"></div>
+              <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
+              <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
+            </div>
+          </div>
+
+          <div class="product-card" data-id="h7" data-brand="Four Hands" data-name="Redondo Media Console" data-price="3679.20" data-compare="4599.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80" data-colors='["#4a3a2a","#3a2a1a","#2a1a0a","#1a0a00"]'>
+            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80');">
+              <span class="product-badge sale">20% OFF</span>
+            </div>
+            <div class="product-info">
+              <div class="product-brand">Four Hands</div>
+              <div class="product-name">Redondo Media Console</div>
+              <div class="product-price">$3,679.20 <span class="compare">$4,599.00</span> <span class="off">20% OFF</span></div>
+              <div class="color-swatches" data-product="h7"></div>
+              <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
+              <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
+            </div>
+          </div>
+
+          <div class="product-card" data-id="h8" data-brand="Four Hands" data-name="Leo 6 Drawer Dresser" data-price="2399.20" data-compare="2999.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80" data-colors='["#6b5a4a","#5b4a3a","#4b3a2a","#3b2a1a"]'>
+            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80');">
+              <span class="product-badge sale">20% OFF</span>
+            </div>
+            <div class="product-info">
+              <div class="product-brand">Four Hands</div>
+              <div class="product-name">Leo 6 Drawer Dresser</div>
+              <div class="product-price">$2,399.20 <span class="compare">$2,999.00</span> <span class="off">20% OFF</span></div>
+              <div class="color-swatches" data-product="h8"></div>
+              <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
+              <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
+            </div>
+          </div>
+
+          <div class="product-card" data-id="h9" data-brand="Four Hands" data-name="Rothler Dining Chair" data-price="559.20" data-compare="699.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" data-colors='["#c8b8a0","#b8a890","#a89880","#988870"]'>
+            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80');">
+              <span class="product-badge sale">20% OFF</span>
+            </div>
+            <div class="product-info">
+              <div class="product-brand">Four Hands</div>
+              <div class="product-name">Rothler Dining Chair</div>
+              <div class="product-price">$559.20 <span class="compare">$699.00</span> <span class="off">20% OFF</span></div>
+              <div class="color-swatches" data-product="h9"></div>
+              <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
+              <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
+            </div>
+          </div>
+
+          <div class="product-card" data-id="h10" data-brand="Four Hands" data-name="Aurora Swivel Chair — Knoll Natural" data-price="799.20" data-compare="999.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" data-colors='["#e0d8c8","#d0c8b8","#c0b8a8","#b0a898"]'>
+            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80');">
+              <span class="product-badge sale">20% OFF</span>
+            </div>
+            <div class="product-info">
+              <div class="product-brand">Four Hands</div>
+              <div class="product-name">Aurora Swivel Chair — Knoll Natural</div>
+              <div class="product-price">$799.20 <span class="compare">$999.00</span> <span class="off">20% OFF</span></div>
+              <div class="color-swatches" data-product="h10"></div>
+              <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
+              <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        <div class="brand">
+          <a href="index.html" class="logo" style="font-size: 2rem;">CKNS</a>
+          <p>Real estate & deco planning studio. Thoughtful spaces, curated for everyday living.</p>
+          <div style="display: flex; gap: 18px; margin-top: 18px; color: var(--accent);">
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-pinterest"></i>
+            <i class="fab fa-houzz"></i>
+          </div>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="#">Properties</a></li>
+            <li><a href="index.html" style="color:var(--accent);">Catalogue</a></li>
+            <li><a href="#">Deco planning</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Studio</h4>
+          <ul>
+            <li><a href="#">About CKNS</a></li>
+            <li><a href="#">Our process</a></li>
+            <li><a href="feedback.html">Customer Feedback</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal & Support</h4>
+          <ul>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms & Conditions</a></li>
+            <li><a href="feedback.html">Leave Feedback</a></li>
+            <li><a href="mailto:info@cknsworld.store">info@cknsworld.store</a></li>
+            <li><a href="tel:+18572689887">857-268-9887</a></li>
+          </ul>
+        </div>
+        <div class="copyright">
+          © 2025–2026 CKNS real estate & deco planning. All rights reserved.
+          <br><br>
+          <a href="privacy.html">Privacy</a> ·
+          <a href="terms.html">Terms</a> ·
+          <a href="feedback.html">Feedback</a> ·
+          <a href="index.html">Home</a>
+        </div>
+      </footer>
+    </div>
   </div>
 
-  <div class="container">
-    <!-- ============ HERO STRIP ============ -->
-    <section class="hero-strip reveal">
-      <h1>The art of <em>living well</em>,<br>curated for you.</h1>
-      <p>Thoughtfully sourced rugs, furniture, and decor — each piece chosen to bring warmth and character to your home.</p>
-    </section>
-
-    <!-- ================= RUGS & FLOORING ================= -->
-    <section class="catalogue-section reveal" id="rugs">
-      <h2><i class="fas fa-rug"></i> Rugs & flooring</h2>
-      <p class="section-desc">Hand-picked rugs from Momeni, KAS, Nourison, Chandra, and Four Hands. Select your colour below.</p>
-
-      <a href="feedback.html" class="review-teaser">
-        <span class="stars">★★★★★</span>
-        4.7 from 23 verified reviews
-        <i class="fas fa-arrow-right" style="font-size:0.75rem;"></i>
-      </a>
-
-      <div class="product-grid" id="rugsGrid" style="margin-top: 36px;">
-        <!-- RUG 1 -->
-        <div class="product-card" data-id="rug1" data-brand="Momeni" data-name="Orchard Floral Hand-Woven Jute and Wool Runner Rug" data-price="427.14" data-img="https://images.unsplash.com/photo-1600166898405-da9535204843?w=400&q=80" data-colors='["#d4c5b0","#b8a88a","#8b7b6b","#5e5548"]'>
-          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600166898405-da9535204843?w=400&q=80');">
-            <span class="product-badge">New</span>
-          </div>
-          <div class="product-info">
-            <div class="product-brand">Momeni</div>
-            <div class="product-name">Orchard Floral Hand-Woven Jute & Wool Runner</div>
-            <div class="product-price">$427.14</div>
-            <div class="color-swatches" data-product="rug1"></div>
-            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
-          </div>
-        </div>
-
-        <!-- RUG 2 -->
-        <div class="product-card" data-id="rug2" data-brand="KAS" data-name="Syriana Hand-Tufted Wool Floral Runner Area Rug" data-price="319" data-img="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=400&q=80" data-colors='["#e8d8c8","#c4b5a5","#9b8b7a","#6b5d50"]'>
-          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=400&q=80');">
-            <span class="product-badge">New</span>
-          </div>
-          <div class="product-info">
-            <div class="product-brand">KAS</div>
-            <div class="product-name">Syriana Hand-Tufted Wool Floral Runner Area Rug</div>
-            <div class="product-price">$319.00</div>
-            <div class="color-swatches" data-product="rug2"></div>
-            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
-          </div>
-        </div>
-
-        <!-- RUG 3 -->
-        <div class="product-card" data-id="rug3" data-brand="Nourison" data-name="Sultana Floral Area Rug with Vintage Style" data-price="653.00" data-compare="932.86" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&q=80" data-colors='["#c9b8a8","#a89480","#7d6b5a","#4d4038"]'>
-          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&q=80');">
-            <span class="product-badge sale">30% OFF</span>
-          </div>
-          <div class="product-info">
-            <div class="product-brand">Nourison</div>
-            <div class="product-name">Sultana Floral Area Rug with Vintage Style</div>
-            <div class="product-price">$653.00 <span class="compare">$932.86</span> <span class="off">30% OFF</span></div>
-            <div class="color-swatches" data-product="rug3"></div>
-            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
-          </div>
-        </div>
-
-        <!-- RUG 4 -->
-        <div class="product-card" data-id="rug4" data-brand="Chandra" data-name="Amazon AMA-5603 Hand-Woven Wool Blend Area Rug with Tiger Print" data-price="744.00" data-compare="1062.86" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=400&q=80" data-colors='["#d9c8b0","#b89f80","#8a6f50","#5a4a3a"]'>
-          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=400&q=80');">
-            <span class="product-badge sale">30% OFF</span>
-          </div>
-          <div class="product-info">
-            <div class="product-brand">Chandra</div>
-            <div class="product-name">Amazon AMA-5603 Hand-Woven Wool Blend Rug — Tiger Print</div>
-            <div class="product-price">$744.00 <span class="compare">$1,062.86</span> <span class="off">30% OFF</span></div>
-            <div class="color-swatches" data-product="rug4"></div>
-            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
-          </div>
-        </div>
-
-        <!-- RUG 5 -->
-        <div class="product-card" data-id="rug5" data-brand="Nourison" data-name="2000 Bordered Runner Area Rug in Beige" data-price="803.00" data-compare="1147.14" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&q=80" data-colors='["#e8dcc8","#d4c4b0","#b8a898","#9c8878"]'>
-          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&q=80');">
-            <span class="product-badge sale">30% OFF</span>
-          </div>
-          <div class="product-info">
-            <div class="product-brand">Nourison</div>
-            <div class="product-name">2000 Bordered Runner Area Rug in Beige</div>
-            <div class="product-price">$803.00 <span class="compare">$1,147.14</span> <span class="off">30% OFF</span></div>
-            <div class="color-swatches" data-product="rug5"></div>
-            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
-          </div>
-        </div>
-
-        <!-- RUG 6 -->
-        <div class="product-card" data-id="rug6" data-brand="Chandra" data-name="Zara 7'9&quot; Round Hand-Woven Shag Area Rug in Dark Lavender" data-price="804.00" data-img="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80" data-colors='["#b8a0c0","#9a80a0","#7a6080","#5a4060"]'>
-          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80');">
-            <span class="product-badge">Round</span>
-          </div>
-          <div class="product-info">
-            <div class="product-brand">Chandra</div>
-            <div class="product-name">Zara 7'9" Round Hand-Woven Shag Area Rug — Dark Lavender</div>
-            <div class="product-price">$804.00</div>
-            <div class="color-swatches" data-product="rug6"></div>
-            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
-          </div>
-        </div>
-
-        <!-- RUG 7 -->
-        <div class="product-card" data-id="rug7" data-brand="Four Hands" data-name="Mateo Leopard Print Hair-on-Hide Area Rug — Brown and Black" data-price="519.20" data-compare="649.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=400&q=80" data-colors='["#c9a86a","#a88450","#7a6038","#4a3820"]'>
-          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=400&q=80');">
-            <span class="product-badge sale">20% OFF</span>
-          </div>
-          <div class="product-info">
-            <div class="product-brand">Four Hands</div>
-            <div class="product-name">Mateo Leopard Print Hair-on-Hide Area Rug — Brown & Black</div>
-            <div class="product-price">$519.20 <span class="compare">$649.00</span> <span class="off">20% OFF</span></div>
-            <div class="color-swatches" data-product="rug7"></div>
-            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
-          </div>
-        </div>
-
-        <!-- RUG 8 -->
-        <div class="product-card" data-id="rug8" data-brand="Chandra" data-name="Veleno Hand-Tufted Floral Area Rug in Charcoal Grey Beige" data-price="934.00" data-compare="1334.29" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=400&q=80" data-colors='["#4a4a4a","#6b6b6b","#8b8b8b","#a8a8a8"]'>
-          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=400&q=80');">
-            <span class="product-badge sale">30% OFF</span>
-          </div>
-          <div class="product-info">
-            <div class="product-brand">Chandra</div>
-            <div class="product-name">Veleno Hand-Tufted Floral Area Rug — Charcoal Grey Beige</div>
-            <div class="product-price">$934.00 <span class="compare">$1,334.29</span> <span class="off">30% OFF</span></div>
-            <div class="color-swatches" data-product="rug8"></div>
-            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
-          </div>
-        </div>
-
-        <!-- RUG 9 -->
-        <div class="product-card" data-id="rug9" data-brand="Chandra" data-name="Giovanna 5x7 Braided Area Rug in Multi-Tone Wool Viscose Cotton" data-price="916.00" data-compare="1308.57" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=400&q=80" data-colors='["#d4a878","#b88858","#a07048","#806038"]'>
-          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=400&q=80');">
-            <span class="product-badge sale">30% OFF</span>
-          </div>
-          <div class="product-info">
-            <div class="product-brand">Chandra</div>
-            <div class="product-name">Giovanna 5x7 Braided Area Rug — Multi-Tone Wool Viscose Cotton</div>
-            <div class="product-price">$916.00 <span class="compare">$1,308.57</span> <span class="off">30% OFF</span></div>
-            <div class="color-swatches" data-product="rug9"></div>
-            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
-          </div>
-        </div>
-
-        <!-- RUG 10 -->
-        <div class="product-card" data-id="rug10" data-brand="Four Hands" data-name="Mateo Zebra Printed Hair-on-Hide Area Rug — Natural Black and White" data-price="519.20" data-compare="649.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=400&q=80" data-colors='["#2e2e2e","#4a4a4a","#6b6b6b","#9b9b9b"]'>
-          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=400&q=80');">
-            <span class="product-badge sale">20% OFF</span>
-          </div>
-          <div class="product-info">
-            <div class="product-brand">Four Hands</div>
-            <div class="product-name">Mateo Zebra Printed Hair-on-Hide Area Rug — Natural Black & White</div>
-            <div class="product-price">$519.20 <span class="compare">$649.00</span> <span class="off">20% OFF</span></div>
-            <div class="color-swatches" data-product="rug10"></div>
-            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= FURNISHINGS & DECOR ================= -->
-    <section class="catalogue-section reveal" id="furnishings">
-      <h2><i class="fas fa-couch"></i> Furnishings & decor</h2>
-      <p class="section-desc">Seasonal accents and elegant candle holders to complete your space.</p>
-
-      <div class="product-grid" id="furnishingsGrid">
-        <div class="product-card" data-id="f1" data-brand="Majestic" data-name="Illuminated Ensemble: 4 garlands + 6 Lighted Ornaments + Remote + 10 ball ornaments" data-price="399.99" data-compare="499.99" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=400&q=80" data-colors='["#d4a830","#c89828","#a87818","#885810"]'>
-          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=400&q=80');">
-            <span class="product-badge sale">20% OFF</span>
-          </div>
-          <div class="product-info">
-            <div class="product-brand">Majestic</div>
-            <div class="product-name">Illuminated Ensemble: 4 Garlands + 6 Lighted Ornaments + Remote + 10 Ball Ornaments</div>
-            <div class="product-price">$399.99 <span class="compare">$499.99</span> <span class="off">20% OFF</span></div>
-            <div class="color-swatches" data-product="f1"></div>
-            <div class="product-shipping"><i class="fas fa-truck"></i> Ships in 5–7 business days · Final Sale</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
-          </div>
-        </div>
-
-        <div class="product-card" data-id="f2" data-brand="Norfolk" data-name="Norfolk Pine Spray & Brown Line Vase Bundle" data-price="175.99" data-compare="189.93" data-off="7% OFF" data-img="https://images.unsplash.com/photo-1602928321679-560bb453f190?w=400&q=80" data-colors='["#5a7a5a","#3a5a3a","#2a4a2a","#1a3a1a"]'>
-          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1602928321679-560bb453f190?w=400&q=80');">
-            <span class="product-badge sale">7% OFF</span>
-          </div>
-          <div class="product-info">
-            <div class="product-brand">Norfolk</div>
-            <div class="product-name">Norfolk Pine Spray & Brown Line Vase Bundle</div>
-            <div class="product-price">$175.99 <span class="compare">$189.93</span> <span class="off">7% OFF</span></div>
-            <div class="color-swatches" data-product="f2"></div>
-            <div class="product-shipping"><i class="fas fa-undo"></i> 14-day return for refund or store credit</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
-          </div>
-        </div>
-
-        <div class="product-card" data-id="f3" data-brand="Cranberry" data-name="Cranberry Heirloom Ensemble" data-price="399.99" data-compare="499.99" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1543589077-47d81606c1bf?w=400&q=80" data-colors='["#8b2020","#6b1818","#4b1010","#3b0808"]'>
-          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1543589077-47d81606c1bf?w=400&q=80');">
-            <span class="product-badge sale">20% OFF</span>
-          </div>
-          <div class="product-info">
-            <div class="product-brand">Cranberry</div>
-            <div class="product-name">Cranberry Heirloom Ensemble</div>
-            <div class="product-price">$399.99 <span class="compare">$499.99</span> <span class="off">20% OFF</span></div>
-            <div class="color-swatches" data-product="f3"></div>
-            <div class="product-shipping"><i class="fas fa-truck"></i> Ships in 5–7 business days · Final Sale</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
-          </div>
-        </div>
-
-        <div class="product-card" data-id="f4" data-brand="Glass" data-name="Square Glass Hurricanes with Antique Brass Base, Set of 2" data-price="189.99" data-img="https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80" data-colors='["#c8a878","#a88858","#886838","#685018"]'>
-          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80');">
-            <span class="product-badge">Set of 2</span>
-          </div>
-          <div class="product-info">
-            <div class="product-brand">Glass</div>
-            <div class="product-name">Square Glass Hurricanes with Antique Brass Base, Set of 2</div>
-            <div class="product-price">$189.99</div>
-            <div class="color-swatches" data-product="f4"></div>
-            <div class="product-shipping"><i class="fas fa-undo"></i> 14-day return for refund or store credit</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
-          </div>
-        </div>
-
-        <div class="product-card" data-id="f5" data-brand="Candle" data-name="Rechargeable Flameless Votive Candle Set of 4" data-price="99.99" data-img="https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80" data-colors='["#f0e8d8","#e0d8c8","#d0c8b8","#c0b8a8"]'>
-          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80');">
-            <span class="product-badge">Set of 4</span>
-          </div>
-          <div class="product-info">
-            <div class="product-brand">Candle</div>
-            <div class="product-name">Rechargeable Flameless Votive Candle Set of 4</div>
-            <div class="product-price">$99.99</div>
-            <div class="color-swatches" data-product="f5"></div>
-            <div class="product-shipping"><i class="fas fa-undo"></i> 14-day return for refund or store credit</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
-          </div>
-        </div>
-
-        <div class="product-card" data-id="f6" data-brand="Hurricane" data-name="Hurricane Candle Holders: 3 sizes — Sold Individually" data-price="129.99" data-img="https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80" data-colors='["#b8a888","#a89878","#988868","#887858"]'>
-          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80');">
-            <span class="product-badge">3 sizes</span>
-          </div>
-          <div class="product-info">
-            <div class="product-brand">Hurricane</div>
-            <div class="product-name">Hurricane Candle Holders: 3 Sizes — Sold Individually</div>
-            <div class="product-price">$129.99</div>
-            <div class="color-swatches" data-product="f6"></div>
-            <div class="product-shipping"><i class="fas fa-clock"></i> Longer shipping time: 5–7 days</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= HOME CAPES ================= -->
-    <section class="catalogue-section reveal" id="homecapes">
-      <h2><i class="fas fa-gem"></i> Home capes · Four Hands</h2>
-      <p class="section-desc">Premium Four Hands pieces. Complimentary white glove delivery on orders over $2,000.</p>
-
-      <div class="product-grid" id="homecapesGrid">
-        <div class="product-card" data-id="h1" data-brand="Four Hands" data-name="Matthes Reclaimed Pine Console Table — Aged Black Pine" data-price="719.20" data-compare="899.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1532372320572-cda25653a694?w=400&q=80" data-colors='["#2e2e2e","#4a4a4a","#6b6b6b","#8b8b8b"]'>
-          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1532372320572-cda25653a694?w=400&q=80');">
-            <span class="product-badge sale">20% OFF</span>
-          </div>
-          <div class="product-info">
-            <div class="product-brand">Four Hands</div>
-            <div class="product-name">Matthes Reclaimed Pine Console Table — Aged Black Pine</div>
-            <div class="product-price">$719.20 <span class="compare">$899.00</span> <span class="off">20% OFF</span></div>
-            <div class="color-swatches" data-product="h1"></div>
-            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
-          </div>
-        </div>
-
-        <div class="product-card" data-id="h2" data-brand="Four Hands" data-name="Julius Swivel Chair — Taupe Shearling" data-price="2959.20" data-compare="3699.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" data-colors='["#c8b8a8","#b8a898","#a89888","#988878"]'>
-          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80');">
-            <span class="product-badge sale">20% OFF</span>
-          </div>
-          <div class="product-info">
-            <div class="product-brand">Four Hands</div>
-            <div class="product-name">Julius Swivel Chair — Taupe Shearling</div>
-            <div class="product-price">$2,959.20 <span class="compare">$3,699.00</span> <span class="off">20% OFF</span></div>
-            <div class="color-swatches" data-product="h2"></div>
-            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
-          </div>
-        </div>
-
-        <div class="product-card" data-id="h3" data-brand="Four Hands" data-name="Bingham Coffee Table — Distressed Iron" data-price="1919.20" data-compare="2399.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=400&q=80" data-colors='["#3a3a3a","#4a4a4a","#5a5a5a","#6a6a6a"]'>
-          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=400&q=80');">
-            <span class="product-badge sale">20% OFF</span>
-          </div>
-          <div class="product-info">
-            <div class="product-brand">Four Hands</div>
-            <div class="product-name">Bingham Coffee Table — Distressed Iron</div>
-            <div class="product-price">$1,919.20 <span class="compare">$2,399.00</span> <span class="off">20% OFF</span></div>
-            <div class="color-swatches" data-product="h3"></div>
-            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
-          </div>
-        </div>
-
-        <div class="product-card" data-id="h4" data-brand="Four Hands" data-name="Tolle Cabinet — Drifted Matte Black w/ Drifted Oak" data-price="3439.20" data-compare="4299.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80" data-colors='["#2a2a2a","#3a3a3a","#4a4a4a","#5a5a5a"]'>
-          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80');">
-            <span class="product-badge sale">20% OFF</span>
-          </div>
-          <div class="product-info">
-            <div class="product-brand">Four Hands</div>
-            <div class="product-name">Tolle Cabinet — Drifted Matte Black w/ Drifted Oak</div>
-            <div class="product-price">$3,439.20 <span class="compare">$4,299.00</span> <span class="off">20% OFF</span></div>
-            <div class="color-swatches" data-product="h4"></div>
-            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
-          </div>
-        </div>
-
-        <div class="product-card" data-id="h5" data-brand="Four Hands" data-name="Abaso Rectangular Coffee Table — Rustic Wormwood Oak" data-price="2079.20" data-compare="2599.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1532372320572-cda25653a694?w=400&q=80" data-colors='["#8b6b4a","#7a5a3a","#6a4a2a","#5a3a1a"]'>
-          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1532372320572-cda25653a694?w=400&q=80');">
-            <span class="product-badge sale">20% OFF</span>
-          </div>
-          <div class="product-info">
-            <div class="product-brand">Four Hands</div>
-            <div class="product-name">Abaso Rectangular Coffee Table — Rustic Wormwood Oak</div>
-            <div class="product-price">$2,079.20 <span class="compare">$2,599.00</span> <span class="off">20% OFF</span></div>
-            <div class="color-swatches" data-product="h5"></div>
-            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
-          </div>
-        </div>
-
-        <div class="product-card" data-id="h6" data-brand="Four Hands" data-name="Augustine Swivel Chair — Palermo Drift" data-price="2159.20" data-compare="2699.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" data-colors='["#d4c4b0","#c4b4a0","#b4a490","#a49480"]'>
-          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80');">
-            <span class="product-badge sale">20% OFF</span>
-          </div>
-          <div class="product-info">
-            <div class="product-brand">Four Hands</div>
-            <div class="product-name">Augustine Swivel Chair — Palermo Drift</div>
-            <div class="product-price">$2,159.20 <span class="compare">$2,699.00</span> <span class="off">20% OFF</span></div>
-            <div class="color-swatches" data-product="h6"></div>
-            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
-          </div>
-        </div>
-
-        <div class="product-card" data-id="h7" data-brand="Four Hands" data-name="Redondo Media Console" data-price="3679.20" data-compare="4599.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80" data-colors='["#4a3a2a","#3a2a1a","#2a1a0a","#1a0a00"]'>
-          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80');">
-            <span class="product-badge sale">20% OFF</span>
-          </div>
-          <div class="product-info">
-            <div class="product-brand">Four Hands</div>
-            <div class="product-name">Redondo Media Console</div>
-            <div class="product-price">$3,679.20 <span class="compare">$4,599.00</span> <span class="off">20% OFF</span></div>
-            <div class="color-swatches" data-product="h7"></div>
-            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
-          </div>
-        </div>
-
-        <div class="product-card" data-id="h8" data-brand="Four Hands" data-name="Leo 6 Drawer Dresser" data-price="2399.20" data-compare="2999.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80" data-colors='["#6b5a4a","#5b4a3a","#4b3a2a","#3b2a1a"]'>
-          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80');">
-            <span class="product-badge sale">20% OFF</span>
-          </div>
-          <div class="product-info">
-            <div class="product-brand">Four Hands</div>
-            <div class="product-name">Leo 6 Drawer Dresser</div>
-            <div class="product-price">$2,399.20 <span class="compare">$2,999.00</span> <span class="off">20% OFF</span></div>
-            <div class="color-swatches" data-product="h8"></div>
-            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
-          </div>
-        </div>
-
-        <div class="product-card" data-id="h9" data-brand="Four Hands" data-name="Rothler Dining Chair" data-price="559.20" data-compare="699.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" data-colors='["#c8b8a0","#b8a890","#a89880","#988870"]'>
-          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80');">
-            <span class="product-badge sale">20% OFF</span>
-          </div>
-          <div class="product-info">
-            <div class="product-brand">Four Hands</div>
-            <div class="product-name">Rothler Dining Chair</div>
-            <div class="product-price">$559.20 <span class="compare">$699.00</span> <span class="off">20% OFF</span></div>
-            <div class="color-swatches" data-product="h9"></div>
-            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
-          </div>
-        </div>
-
-        <div class="product-card" data-id="h10" data-brand="Four Hands" data-name="Aurora Swivel Chair — Knoll Natural" data-price="799.20" data-compare="999.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" data-colors='["#e0d8c8","#d0c8b8","#c0b8a8","#b0a898"]'>
-          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80');">
-            <span class="product-badge sale">20% OFF</span>
-          </div>
-          <div class="product-info">
-            <div class="product-brand">Four Hands</div>
-            <div class="product-name">Aurora Swivel Chair — Knoll Natural</div>
-            <div class="product-price">$799.20 <span class="compare">$999.00</span> <span class="off">20% OFF</span></div>
-            <div class="color-swatches" data-product="h10"></div>
-            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= FOOTER ================= -->
-    <footer class="footer">
-      <div class="brand">
-        <a href="index.html" class="logo" style="font-size: 2rem;">CKNS</a>
-        <p>Real estate & deco planning studio. Thoughtful spaces, curated for everyday living.</p>
-        <div style="display: flex; gap: 18px; margin-top: 18px; color: var(--accent);">
-          <i class="fab fa-instagram"></i>
-          <i class="fab fa-pinterest"></i>
-          <i class="fab fa-houzz"></i>
-        </div>
-      </div>
-      <div>
-        <h4>Explore</h4>
-        <ul>
-          <li><a href="#">Properties</a></li>
-          <li><a href="index.html" style="color:var(--accent);">Catalogue</a></li>
-          <li><a href="#">Deco planning</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Studio</h4>
-        <ul>
-          <li><a href="#">About CKNS</a></li>
-          <li><a href="#">Our process</a></li>
-          <li><a href="feedback.html">Customer Feedback</a></li>
-          <li><a href="#">Careers</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Legal & Support</h4>
-        <ul>
-          <li><a href="privacy.html">Privacy Policy</a></li>
-          <li><a href="terms.html">Terms & Conditions</a></li>
-          <li><a href="feedback.html">Leave Feedback</a></li>
-          <li><a href="mailto:info@cknsworld.store">info@cknsworld.store</a></li>
-          <li><a href="tel:+18572689887">857-268-9887</a></li>
-        </ul>
-      </div>
-      <div class="copyright">
-        © 2025–2026 CKNS real estate & deco planning. All rights reserved.
-        <br><br>
-        <a href="privacy.html">Privacy</a> ·
-        <a href="terms.html">Terms</a> ·
-        <a href="feedback.html">Feedback</a> ·
-        <a href="index.html">Home</a>
-      </div>
-    </footer>
-  </div>
-
-  <!-- ================= CART SIDEBAR ================= -->
+  <!-- CART SIDEBAR -->
   <div class="cart-overlay" id="cartOverlay"></div>
   <aside class="cart-sidebar" id="cartSidebar">
     <div class="cart-header">
@@ -1467,19 +1463,218 @@
   <!-- Toast -->
   <div class="toast" id="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg">Added to cart</span></div>
 
-  <!-- Floating CTA (premium touch) -->
+  <!-- Floating CTA -->
   <a href="feedback.html" class="float-cta">
     <span class="icon"><i class="fas fa-star"></i></span>
     <span>Read 23 verified reviews</span>
   </a>
 
+  <!-- Three.js for 3D background -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
   <script>
-    // ----- STATE -----
+    /* ============================================================
+       3D BACKGROUND — floating architectural forms
+       ============================================================ */
+    (function init3D() {
+      // Respect reduced motion
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      const canvas = document.getElementById('bg-canvas');
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0xfaf9f7, 0.032);
+
+      const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 100);
+      camera.position.set(0, 2.5, 14);
+      camera.lookAt(0, 0, 0);
+
+      // Lighting — soft, warm
+      const ambient = new THREE.AmbientLight(0xfff5ea, 0.85);
+      scene.add(ambient);
+
+      const key = new THREE.DirectionalLight(0xffe4c4, 1.1);
+      key.position.set(6, 10, 8);
+      scene.add(key);
+
+      const rim = new THREE.DirectionalLight(0x9b7b5c, 0.7);
+      rim.position.set(-8, 4, -6);
+      scene.add(rim);
+
+      // === Central architectural form: stylized house frame ===
+      const houseGroup = new THREE.Group();
+      scene.add(houseGroup);
+
+      const lineMat = new THREE.LineBasicMaterial({ color: 0x9b7b5c, transparent: true, opacity: 0.55 });
+
+      // Helper to add a line segment
+      function addEdge(x1, y1, z1, x2, y2, z2) {
+        const g = new THREE.BufferGeometry().setFromPoints([
+          new THREE.Vector3(x1, y1, z1),
+          new THREE.Vector3(x2, y2, z2)
+        ]);
+        const l = new THREE.Line(g, lineMat);
+        houseGroup.add(l);
+      }
+
+      // House base (cube outline) — w=3, h=2.2, d=3
+      const w = 3, h = 2.2, d = 3;
+      const hw = w/2, hh = h/2, hd = d/2;
+      // Bottom square
+      addEdge(-hw, -hh, -hd,  hw, -hh, -hd);
+      addEdge( hw, -hh, -hd,  hw, -hh,  hd);
+      addEdge( hw, -hh,  hd, -hw, -hh,  hd);
+      addEdge(-hw, -hh,  hd, -hw, -hh, -hd);
+      // Top square
+      addEdge(-hw,  hh, -hd,  hw,  hh, -hd);
+      addEdge( hw,  hh, -hd,  hw,  hh,  hd);
+      addEdge( hw,  hh,  hd, -hw,  hh,  hd);
+      addEdge(-hw,  hh,  hd, -hw,  hh, -hd);
+      // Verticals
+      addEdge(-hw, -hh, -hd, -hw,  hh, -hd);
+      addEdge( hw, -hh, -hd,  hw,  hh, -hd);
+      addEdge( hw, -hh,  hd,  hw,  hh,  hd);
+      addEdge(-hw, -hh,  hd, -hw,  hh,  hd);
+
+      // Roof — apex above center
+      const apexY = hh + 1.4;
+      addEdge(-hw, hh, -hd, 0, apexY, 0);
+      addEdge( hw, hh, -hd, 0, apexY, 0);
+      addEdge( hw, hh,  hd, 0, apexY, 0);
+      addEdge(-hw, hh,  hd, 0, apexY, 0);
+
+      // Door
+      addEdge(-0.4, -hh, -hd - 0.001, -0.4, hh*0.55, -hd - 0.001);
+      addEdge( 0.4, -hh, -hd - 0.001,  0.4, hh*0.55, -hd - 0.001);
+      addEdge(-0.4, hh*0.55, -hd - 0.001, 0.4, hh*0.55, -hd - 0.001);
+
+      // Window (small square on side)
+      addEdge(hw + 0.001, -0.3, -0.5, hw + 0.001, 0.6, -0.5);
+      addEdge(hw + 0.001, -0.3,  0.5, hw + 0.001, 0.6,  0.5);
+      addEdge(hw + 0.001, -0.3, -0.5, hw + 0.001, -0.3, 0.5);
+      addEdge(hw + 0.001,  0.6, -0.5, hw + 0.001,  0.6, 0.5);
+
+      // Scale + position
+      houseGroup.position.set(0, -0.3, 0);
+      houseGroup.scale.set(1.1, 1.1, 1.1);
+
+      // === Orbiting rings (deco feel) ===
+      const ringMat = new THREE.LineBasicMaterial({ color: 0xd4a830, transparent: true, opacity: 0.35 });
+      const rings = [];
+      for (let i = 0; i < 3; i++) {
+        const radius = 4.5 + i * 1.2;
+        const segments = 80;
+        const pts = [];
+        for (let j = 0; j <= segments; j++) {
+          const t = (j / segments) * Math.PI * 2;
+          pts.push(new THREE.Vector3(Math.cos(t) * radius, Math.sin(t) * radius * 0.28, Math.sin(t) * radius * 0.6));
+        }
+        const g = new THREE.BufferGeometry().setFromPoints(pts);
+        const ring = new THREE.Line(g, ringMat.clone());
+        ring.rotation.x = (i - 1) * 0.3;
+        ring.rotation.z = i * 0.4;
+        scene.add(ring);
+        rings.push(ring);
+      }
+
+      // === Floating particles (dust motes) ===
+      const particleCount = 220;
+      const positions = new Float32Array(particleCount * 3);
+      const particleSizes = new Float32Array(particleCount);
+      for (let i = 0; i < particleCount; i++) {
+        positions[i*3]     = (Math.random() - 0.5) * 30;
+        positions[i*3 + 1] = (Math.random() - 0.5) * 20;
+        positions[i*3 + 2] = (Math.random() - 0.5) * 25 - 5;
+        particleSizes[i] = Math.random() * 0.06 + 0.02;
+      }
+      const pGeo = new THREE.BufferGeometry();
+      pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      pGeo.setAttribute('size', new THREE.BufferAttribute(particleSizes, 1));
+
+      const pMat = new THREE.PointsMaterial({
+        color: 0x9b7b5c,
+        size: 0.07,
+        transparent: true,
+        opacity: 0.5,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending
+      });
+      const particles = new THREE.Points(pGeo, pMat);
+      scene.add(particles);
+
+      // === Interaction: subtle mouse parallax ===
+      let mouseX = 0, mouseY = 0;
+      let targetX = 0, targetY = 0;
+      document.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+        mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+      });
+
+      // === Resize ===
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(window.innerWidth, window.innerHeight);
+        }, 150);
+      });
+
+      // === Pause when tab hidden ===
+      let paused = false;
+      document.addEventListener('visibilitychange', () => {
+        paused = document.hidden;
+      });
+
+      // === Animation loop ===
+      const clock = new THREE.Clock();
+      function animate() {
+        requestAnimationFrame(animate);
+        if (paused) return;
+
+        const t = clock.getElapsedTime();
+
+        // Smooth mouse follow
+        targetX += (mouseX - targetX) * 0.04;
+        targetY += (mouseY - targetY) * 0.04;
+
+        // House gentle rotation + float
+        houseGroup.rotation.y = t * 0.12 + targetX * 0.3;
+        houseGroup.rotation.x = Math.sin(t * 0.4) * 0.05 + targetY * 0.08;
+        houseGroup.position.y = -0.3 + Math.sin(t * 0.6) * 0.15;
+
+        // Rings orbit
+        rings.forEach((ring, i) => {
+          ring.rotation.y += 0.0015 * (i + 1) + 0.0005;
+          ring.rotation.x += 0.0008 * (i % 2 === 0 ? 1 : -1);
+        });
+
+        // Particles drift
+        particles.rotation.y = t * 0.02;
+        particles.rotation.x = Math.sin(t * 0.1) * 0.05;
+
+        // Camera parallax
+        camera.position.x += (targetX * 1.2 - camera.position.x) * 0.03;
+        camera.position.y += (2.5 + targetY * 0.8 - camera.position.y) * 0.03;
+        camera.lookAt(0, 0, 0);
+
+        renderer.render(scene, camera);
+      }
+      animate();
+    })();
+
+    /* ============================================================
+       EXISTING SITE LOGIC (cart, swatches, tilt, reveal, etc.)
+       ============================================================ */
     let cart = [];
     let cartCount = 0;
     let cartTotal = 0;
 
-    // ----- COLOR SWATCH RENDERING -----
+    // Color swatches
     document.querySelectorAll('.product-card').forEach(card => {
       const swatchContainer = card.querySelector('.color-swatches');
       if (!swatchContainer) return;
@@ -1498,7 +1693,7 @@
       });
     });
 
-    // ----- 3D TILT (premium interaction) -----
+    // 3D tilt on product cards
     document.querySelectorAll('.product-card').forEach(card => {
       card.addEventListener('mousemove', e => {
         const rect = card.getBoundingClientRect();
@@ -1519,7 +1714,6 @@
       });
     });
 
-    // ----- CART FUNCTIONS -----
     function addToCart(btn) {
       const card = btn.closest('.product-card');
       const id = card.dataset.id;
@@ -1548,9 +1742,7 @@
 
     function updateQty(index, delta) {
       cart[index].qty += delta;
-      if (cart[index].qty <= 0) {
-        cart.splice(index, 1);
-      }
+      if (cart[index].qty <= 0) cart.splice(index, 1);
       updateCartUI();
     }
 
@@ -1615,7 +1807,6 @@
       return names[hex] || 'Custom';
     }
 
-    // ----- CART UI TOGGLE -----
     const cartSidebar = document.getElementById('cartSidebar');
     const cartOverlay = document.getElementById('cartOverlay');
     const cartToggle = document.getElementById('cartToggle');
@@ -1624,22 +1815,17 @@
     function openCart() {
       cartSidebar.classList.add('open');
       cartOverlay.classList.add('open');
-      if (window.Tawk_API && typeof Tawk_API.hideWidget === 'function') {
-        Tawk_API.hideWidget();
-      }
+      if (window.Tawk_API && typeof Tawk_API.hideWidget === 'function') Tawk_API.hideWidget();
     }
     function closeCart() {
       cartSidebar.classList.remove('open');
       cartOverlay.classList.remove('open');
-      if (window.Tawk_API && typeof Tawk_API.showWidget === 'function') {
-        Tawk_API.showWidget();
-      }
+      if (window.Tawk_API && typeof Tawk_API.showWidget === 'function') Tawk_API.showWidget();
     }
     cartToggle.addEventListener('click', openCart);
     cartClose.addEventListener('click', closeCart);
     cartOverlay.addEventListener('click', closeCart);
 
-    // ----- TOAST -----
     let toastTimer;
     function showToast(msg) {
       const toast = document.getElementById('toast');
@@ -1649,7 +1835,6 @@
       toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
     }
 
-    // ----- STRIPE PLACEHOLDER -----
     document.getElementById('stripeBtn').addEventListener('click', () => {
       if (cart.length === 0) {
         showToast('Your cart is empty');
@@ -1658,14 +1843,12 @@
       alert('Stripe Checkout placeholder.\n\nReplace this with your actual Stripe Payment Link.\n\nTotal: $' + cartTotal.toFixed(2));
     });
 
-    // ----- HEADER SCROLL EFFECT -----
     const headerWrap = document.getElementById('headerWrap');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 20) headerWrap.classList.add('scrolled');
       else headerWrap.classList.remove('scrolled');
     });
 
-    // ----- SCROLL REVEAL -----
     const revealEls = document.querySelectorAll('.reveal');
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -1677,7 +1860,6 @@
     }, { threshold: 0.08 });
     revealEls.forEach(el => io.observe(el));
 
-    // Initial render
     updateCartUI();
   </script>
 
