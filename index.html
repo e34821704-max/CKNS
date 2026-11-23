@@ -143,6 +143,34 @@
       border: 2px solid #faf9f7;
     }
 
+    /* ----- REVIEW TEASER (new) ----- */
+    .review-teaser {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 16px;
+      text-decoration: none;
+      color: #9b7b5c;
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 10px 20px;
+      border-radius: 40px;
+      background: white;
+      border: 1px solid #ece8e2;
+      transition: all 0.2s;
+    }
+
+    .review-teaser:hover {
+      background: #f8f5f1;
+      border-color: #9b7b5c;
+      transform: translateY(-1px);
+    }
+
+    .review-teaser .stars {
+      color: #d4a830;
+      letter-spacing: 1px;
+    }
+
     /* ----- SECTION HEADINGS ----- */
     .catalogue-section {
       padding: 50px 0 20px;
@@ -606,13 +634,14 @@
       font-weight: 600;
     }
 
-    /* Stripe link placeholder */
+    /* Stripe link placeholder + legal links */
     .stripe-note {
       text-align: center;
       font-size: 0.7rem;
       color: #9b9b9b;
       margin-top: 12px;
       letter-spacing: 0.2px;
+      line-height: 1.6;
     }
 
     .stripe-note a {
@@ -710,6 +739,16 @@
       margin-top: 20px;
     }
 
+    .copyright a {
+      color: #9b7b5c;
+      text-decoration: none;
+      margin: 0 8px;
+    }
+
+    .copyright a:hover {
+      text-decoration: underline;
+    }
+
     /* responsive */
     @media (max-width: 1100px) {
       .product-grid {
@@ -781,7 +820,14 @@
       <h2><i class="fas fa-rug"></i> Rugs & flooring</h2>
       <p class="section-desc">Hand-picked rugs from Momeni, KAS, Nourison, Chandra, and Four Hands. Select your colour below.</p>
 
-      <div class="product-grid" id="rugsGrid">
+      <!-- Review teaser linking to feedback page -->
+      <a href="feedback.html" class="review-teaser">
+        <span class="stars">★★★★★</span>
+        4.7 from 23 verified reviews
+        <i class="fas fa-arrow-right" style="font-size:0.75rem;"></i>
+      </a>
+
+      <div class="product-grid" id="rugsGrid" style="margin-top: 36px;">
         <!-- RUG 1: Momeni Orchard Floral -->
         <div class="product-card" data-id="rug1" data-brand="Momeni" data-name="Orchard Floral Hand-Woven Jute and Wool Runner Rug" data-price="427.14" data-img="https://images.unsplash.com/photo-1600166898405-da9535204843?w=400&q=80" data-colors='["#d4c5b0","#b8a88a","#8b7b6b","#5e5548"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600166898405-da9535204843?w=400&q=80');">
@@ -1190,10 +1236,10 @@
       </div>
     </section>
 
-    <!-- ================= FOOTER ================= -->
+    <!-- ================= FOOTER (UPDATED with legal + feedback links) ================= -->
     <footer class="footer">
       <div class="brand">
-        <a href="#" class="logo" style="font-size: 2rem;">CKNS</a>
+        <a href="index.html" class="logo" style="font-size: 2rem;">CKNS</a>
         <p>Real estate & deco planning studio. Thoughtful spaces, curated for everyday living.</p>
         <div style="display: flex; gap: 18px; margin-top: 18px; color: #9b7b5c;">
           <i class="fab fa-instagram"></i>
@@ -1205,7 +1251,7 @@
         <h4>Explore</h4>
         <ul>
           <li><a href="#">Properties</a></li>
-          <li><a href="#" style="color:#9b7b5c;">Catalogue</a></li>
+          <li><a href="index.html" style="color:#9b7b5c;">Catalogue</a></li>
           <li><a href="#">Deco planning</a></li>
           <li><a href="#">Contact</a></li>
         </ul>
@@ -1215,19 +1261,27 @@
         <ul>
           <li><a href="#">About CKNS</a></li>
           <li><a href="#">Our process</a></li>
+          <li><a href="feedback.html">Customer Feedback</a></li>
           <li><a href="#">Careers</a></li>
         </ul>
       </div>
       <div>
-        <h4>Contact</h4>
+        <h4>Legal & Support</h4>
         <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms & Conditions</a></li>
+          <li><a href="feedback.html">Leave Feedback</a></li>
           <li><a href="mailto:info@cknsworld.store">info@cknsworld.store</a></li>
           <li><a href="tel:+18572689887">857-268-9887</a></li>
-          <li><a href="#">2 PEARSON WAY, ENFIELD CT</a></li>
         </ul>
       </div>
       <div class="copyright">
-        © 2025 CKNS real estate & deco planning. All rights reserved.
+        © 2025–2026 CKNS real estate & deco planning. All rights reserved.
+        <br><br>
+        <a href="privacy.html">Privacy</a> ·
+        <a href="terms.html">Terms</a> ·
+        <a href="feedback.html">Feedback</a> ·
+        <a href="index.html">Home</a>
       </div>
     </footer>
   </div>
@@ -1253,6 +1307,13 @@
       <button class="btn-stripe" id="stripeBtn">
         <i class="fas fa-lock"></i> Proceed to checkout
       </button>
+
+      <!-- Legal consent line (new) -->
+      <p class="stripe-note" style="margin-top: 10px;">
+        By proceeding, you agree to our
+        <a href="terms.html" target="_blank">Terms & Conditions</a> and
+        <a href="privacy.html" target="_blank">Privacy Policy</a>.
+      </p>
 
       <!-- Fraud review message -->
       <div class="fraud-review-note">
@@ -1401,7 +1462,6 @@
     function openCart() {
       cartSidebar.classList.add('open');
       cartOverlay.classList.add('open');
-      // Hide Tawk.to chat bubble while cart is open for a clean checkout view
       if (window.Tawk_API && typeof Tawk_API.hideWidget === 'function') {
         Tawk_API.hideWidget();
       }
@@ -1410,7 +1470,6 @@
     function closeCart() {
       cartSidebar.classList.remove('open');
       cartOverlay.classList.remove('open');
-      // Show Tawk.to chat bubble again after cart closes
       if (window.Tawk_API && typeof Tawk_API.showWidget === 'function') {
         Tawk_API.showWidget();
       }
@@ -1436,8 +1495,6 @@
         showToast('Your cart is empty');
         return;
       }
-      // REPLACE THIS WITH YOUR ACTUAL STRIPE PAYMENT LINK
-      // Example: window.location.href = 'https://buy.stripe.com/your_link_here';
       alert('Stripe Checkout placeholder.\n\nReplace this with your actual Stripe Payment Link.\n\nTotal: $' + cartTotal.toFixed(2));
     });
 
