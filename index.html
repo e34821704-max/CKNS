@@ -1254,7 +1254,7 @@
         <i class="fas fa-lock"></i> Proceed to checkout
       </button>
 
-      <!-- NEW: Fraud review message -->
+      <!-- Fraud review message -->
       <div class="fraud-review-note">
         <i class="fas fa-shield-alt"></i>
         <span>
@@ -1304,12 +1304,10 @@
       const name = card.dataset.name;
       const price = parseFloat(card.dataset.price);
       const img = card.dataset.img;
-      // Get selected color
       const activeSwatch = card.querySelector('.swatch.active');
       const color = activeSwatch ? activeSwatch.dataset.color : '#ccc';
       const colorName = activeSwatch ? getColorName(activeSwatch.dataset.color) : 'Default';
 
-      // Check if item with same id AND same color exists
       const existing = cart.find(item => item.id === id && item.color === color);
       if (existing) {
         existing.qty += 1;
@@ -1394,7 +1392,7 @@
       return names[hex] || 'Custom';
     }
 
-    // ----- CART UI TOGGLE -----
+    // ----- CART UI TOGGLE (with Tawk.to hide/show) -----
     const cartSidebar = document.getElementById('cartSidebar');
     const cartOverlay = document.getElementById('cartOverlay');
     const cartToggle = document.getElementById('cartToggle');
@@ -1403,11 +1401,19 @@
     function openCart() {
       cartSidebar.classList.add('open');
       cartOverlay.classList.add('open');
+      // Hide Tawk.to chat bubble while cart is open for a clean checkout view
+      if (window.Tawk_API && typeof Tawk_API.hideWidget === 'function') {
+        Tawk_API.hideWidget();
+      }
     }
 
     function closeCart() {
       cartSidebar.classList.remove('open');
       cartOverlay.classList.remove('open');
+      // Show Tawk.to chat bubble again after cart closes
+      if (window.Tawk_API && typeof Tawk_API.showWidget === 'function') {
+        Tawk_API.showWidget();
+      }
     }
 
     cartToggle.addEventListener('click', openCart);
@@ -1438,5 +1444,20 @@
     // Initial render
     updateCartUI();
   </script>
+
+  <!--Start of Tawk.to Script-->
+  <script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/6b047cb6fd1d313ce8a5f725/1k84oeas9';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script>
+  <!--End of Tawk.to Script-->
+
 </body>
 </html>
