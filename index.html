@@ -10,17 +10,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #faf9f7;
+      --ink: #1e2b2c;
+      --accent: #9b7b5c;
+      --line: #ece8e2;
+      --gold: #d4a830;
     }
 
+    html { scroll-behavior: smooth; }
+
     body {
-      background-color: #faf9f7;
+      background-color: var(--bg);
       font-family: 'Inter', sans-serif;
       color: #1e1e1e;
       line-height: 1.5;
+      overflow-x: hidden;
     }
 
     h1, h2, h3, .serif {
@@ -35,13 +42,84 @@
       padding: 0 28px;
     }
 
-    /* header / nav */
+    /* ============ ANNOUNCEMENT BAR ============ */
+    .announcement {
+      background: linear-gradient(90deg, #1e2b2c, #2d3f41, #1e2b2c);
+      color: #f5f0ea;
+      font-size: 0.78rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 11px 16px;
+      font-weight: 500;
+      position: relative;
+      overflow: hidden;
+    }
+    .announcement span { position: relative; z-index: 2; }
+    .announcement::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(212,168,48,0.25), transparent);
+      animation: shimmer 6s infinite;
+    }
+    @keyframes shimmer {
+      0% { left: -100%; }
+      60%, 100% { left: 100%; }
+    }
+
+    /* ============ HEADER (layered bars) ============ */
+    .header-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 900;
+      backdrop-filter: blur(14px);
+      background: rgba(250, 249, 247, 0.82);
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+      transition: box-shadow 0.3s ease, background 0.3s ease;
+    }
+    .header-wrap.scrolled {
+      box-shadow: 0 10px 30px -12px rgba(0,0,0,0.12);
+      background: rgba(250, 249, 247, 0.95);
+    }
+
+    /* utility bar */
+    .utility-bar {
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+      font-size: 0.72rem;
+      color: #6b6b6b;
+      letter-spacing: 0.6px;
+    }
+    .utility-bar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+    .utility-left, .utility-right {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+    .utility-bar a {
+      color: #6b6b6b;
+      text-decoration: none;
+      transition: color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .utility-bar a:hover { color: var(--accent); }
+    .utility-bar i { color: var(--accent); font-size: 0.7rem; }
+
+    /* main nav */
     .navbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 24px 0 16px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      padding: 18px 0 14px;
       position: relative;
     }
 
@@ -50,15 +128,16 @@
       font-family: 'Playfair Display', serif;
       font-weight: 600;
       letter-spacing: -0.02em;
-      color: #1e2b2c;
+      color: var(--ink);
       text-decoration: none;
       display: flex;
       align-items: center;
       gap: 4px;
+      transition: opacity 0.2s;
     }
-
+    .logo:hover { opacity: 0.8; }
     .logo span {
-      color: #9b7b5c;
+      color: var(--accent);
       font-weight: 400;
       font-size: 1.2rem;
       margin-left: 8px;
@@ -74,40 +153,50 @@
       color: #2e2e2e;
       align-items: center;
     }
-
     .nav-links a {
       text-decoration: none;
       color: inherit;
       transition: color 0.2s;
       letter-spacing: 0.2px;
+      position: relative;
+      padding: 4px 0;
     }
-
-    .nav-links a:hover {
-      color: #9b7b5c;
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 1px;
+      background: var(--accent);
+      transition: width 0.3s ease;
     }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: var(--accent); font-weight: 500; }
+    .nav-links a.active::after { width: 100%; }
 
     .btn-outline {
-      border: 1px solid #1e2b2c;
+      border: 1px solid var(--ink);
       background: transparent;
       padding: 10px 24px;
       border-radius: 40px;
       font-weight: 500;
       font-size: 0.9rem;
-      transition: all 0.2s;
+      transition: all 0.25s ease;
       cursor: pointer;
-      color: #1e2b2c;
+      color: var(--ink);
     }
-
     .btn-outline:hover {
-      background: #1e2b2c;
+      background: var(--ink);
       color: white;
-      border-color: #1e2b2c;
+      border-color: var(--ink);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px -8px rgba(30,43,44,0.4);
     }
 
-    /* ----- CART TRIGGER ----- */
+    /* ============ CART TRIGGER (3D press) ============ */
     .cart-trigger {
       position: relative;
-      background: #1e2b2c;
+      background: var(--ink);
       color: white;
       border: none;
       width: 52px;
@@ -118,19 +207,23 @@
       justify-content: center;
       font-size: 1.3rem;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: transform 0.15s ease, box-shadow 0.25s ease, background 0.2s;
       margin-left: 10px;
+      box-shadow: 0 10px 20px -8px rgba(30,43,44,0.5), inset 0 -2px 0 rgba(0,0,0,0.15);
     }
-
     .cart-trigger:hover {
       background: #2d3f41;
+      box-shadow: 0 14px 26px -8px rgba(30,43,44,0.6), inset 0 -2px 0 rgba(0,0,0,0.15);
     }
-
+    .cart-trigger:active {
+      transform: scale(0.92) translateY(1px);
+      box-shadow: 0 4px 8px -4px rgba(30,43,44,0.5), inset 0 2px 4px rgba(0,0,0,0.2);
+    }
     .cart-count {
       position: absolute;
       top: -6px;
       right: -6px;
-      background: #9b7b5c;
+      background: var(--accent);
       color: white;
       font-size: 0.7rem;
       font-weight: 700;
@@ -140,88 +233,131 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 2px solid #faf9f7;
+      border: 2px solid var(--bg);
+      box-shadow: 0 4px 10px -2px rgba(155,123,92,0.5);
     }
 
-    /* ----- REVIEW TEASER (new) ----- */
+    /* ============ HERO STRIP (premium intro) ============ */
+    .hero-strip {
+      padding: 56px 0 12px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .hero-strip h1 {
+      font-size: 3.4rem;
+      line-height: 1.05;
+      color: var(--ink);
+      max-width: 640px;
+    }
+    .hero-strip h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-strip p {
+      color: #5a5a5a;
+      max-width: 340px;
+      font-size: 1rem;
+      font-weight: 300;
+      border-left: 2px solid var(--accent);
+      padding-left: 18px;
+    }
+
+    /* ============ SECTION HEADINGS ============ */
+    .catalogue-section {
+      padding: 50px 0 20px;
+    }
+    .catalogue-section h2 {
+      font-size: 2.6rem;
+      color: var(--ink);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .catalogue-section h2 i {
+      color: var(--accent);
+      font-size: 1.8rem;
+    }
+    .section-desc {
+      color: #6b6b6b;
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+      font-weight: 300;
+      border-left: 3px solid var(--accent);
+      padding-left: 18px;
+    }
+
+    /* ============ REVIEW TEASER ============ */
     .review-teaser {
       display: inline-flex;
       align-items: center;
       gap: 10px;
       margin-top: 16px;
       text-decoration: none;
-      color: #9b7b5c;
+      color: var(--accent);
       font-weight: 500;
       font-size: 0.9rem;
-      padding: 10px 20px;
+      padding: 11px 22px;
       border-radius: 40px;
       background: white;
-      border: 1px solid #ece8e2;
-      transition: all 0.2s;
+      border: 1px solid var(--line);
+      transition: all 0.25s ease;
+      box-shadow: 0 6px 16px -8px rgba(0,0,0,0.08);
     }
-
     .review-teaser:hover {
       background: #f8f5f1;
-      border-color: #9b7b5c;
-      transform: translateY(-1px);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 22px -10px rgba(155,123,92,0.3);
     }
-
     .review-teaser .stars {
-      color: #d4a830;
+      color: var(--gold);
       letter-spacing: 1px;
     }
 
-    /* ----- SECTION HEADINGS ----- */
-    .catalogue-section {
-      padding: 50px 0 20px;
-    }
-
-    .catalogue-section h2 {
-      font-size: 2.6rem;
-      color: #1e2b2c;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .catalogue-section h2 i {
-      color: #9b7b5c;
-      font-size: 1.8rem;
-    }
-
-    .section-desc {
-      color: #6b6b6b;
-      font-size: 1.05rem;
-      margin-bottom: 36px;
-      font-weight: 300;
-      border-left: 3px solid #9b7b5c;
-      padding-left: 18px;
-    }
-
-    /* ----- PRODUCT GRID ----- */
+    /* ============ PRODUCT GRID (3D tilt) ============ */
     .product-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 24px;
       margin-bottom: 40px;
+      perspective: 1400px;
     }
 
     .product-card {
       background: white;
       border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 6px 18px -6px rgba(0, 0, 0, 0.06);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 8px 22px -10px rgba(0,0,0,0.08);
+      transition: transform 0.25s ease, box-shadow 0.3s ease;
       display: flex;
       flex-direction: column;
       position: relative;
+      transform-style: preserve-3d;
+      will-change: transform;
+      border: 1px solid rgba(0,0,0,0.02);
     }
 
     .product-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 18px 28px -10px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 28px 48px -18px rgba(30,43,44,0.28);
     }
+
+    /* shine layer */
+    .product-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.18), transparent 40%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      z-index: 3;
+    }
+    .product-card:hover::after { opacity: 1; }
 
     .product-img {
       height: 200px;
@@ -229,24 +365,25 @@
       background-position: center;
       position: relative;
       flex-shrink: 0;
+      transform: translateZ(20px);
     }
 
     .product-badge {
       position: absolute;
       top: 12px;
       left: 12px;
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255,255,255,0.92);
       backdrop-filter: blur(2px);
       padding: 4px 14px;
       border-radius: 30px;
       font-size: 0.7rem;
       font-weight: 600;
       letter-spacing: 0.3px;
-      color: #1e2b2c;
+      color: var(--ink);
+      z-index: 2;
     }
-
     .product-badge.sale {
-      background: #9b7b5c;
+      background: var(--accent);
       color: white;
     }
 
@@ -255,6 +392,7 @@
       display: flex;
       flex-direction: column;
       flex: 1;
+      transform: translateZ(12px);
     }
 
     .product-brand {
@@ -262,27 +400,23 @@
       font-weight: 600;
       letter-spacing: 0.8px;
       text-transform: uppercase;
-      color: #9b7b5c;
+      color: var(--accent);
       margin-bottom: 2px;
     }
-
     .product-name {
       font-size: 1rem;
       font-weight: 600;
-      color: #1e2b2c;
+      color: var(--ink);
       margin-bottom: 4px;
       line-height: 1.3;
-      font-family: 'Inter', sans-serif;
     }
-
     .product-price {
       font-size: 1.1rem;
       font-weight: 600;
-      color: #1e2b2c;
+      color: var(--ink);
       font-family: 'Playfair Display', serif;
       margin-bottom: 8px;
     }
-
     .product-price .compare {
       font-size: 0.85rem;
       font-weight: 400;
@@ -291,7 +425,6 @@
       margin-left: 8px;
       font-family: 'Inter', sans-serif;
     }
-
     .product-price .off {
       font-size: 0.75rem;
       font-weight: 600;
@@ -303,31 +436,26 @@
       font-family: 'Inter', sans-serif;
     }
 
-    /* color swatches */
     .color-swatches {
       display: flex;
       gap: 8px;
       margin-bottom: 14px;
       flex-wrap: wrap;
     }
-
     .swatch {
       width: 28px;
       height: 28px;
       border-radius: 50%;
       border: 2px solid transparent;
       cursor: pointer;
-      transition: border 0.2s, transform 0.15s;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      transition: border 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1), inset 0 -2px 3px rgba(0,0,0,0.15);
+      position: relative;
     }
-
-    .swatch:hover {
-      transform: scale(1.1);
-    }
-
+    .swatch:hover { transform: scale(1.12); }
     .swatch.active {
-      border-color: #1e2b2c;
-      box-shadow: 0 0 0 3px rgba(30, 43, 44, 0.15);
+      border-color: var(--ink);
+      box-shadow: 0 0 0 3px rgba(30,43,44,0.15), inset 0 -2px 3px rgba(0,0,0,0.15);
     }
 
     .product-shipping {
@@ -340,11 +468,7 @@
       align-items: center;
       gap: 6px;
     }
-
-    .product-shipping i {
-      color: #9b7b5c;
-      font-size: 0.7rem;
-    }
+    .product-shipping i { color: var(--accent); font-size: 0.7rem; }
 
     .btn-add {
       background: #f2eee9;
@@ -354,97 +478,95 @@
       font-weight: 500;
       font-size: 0.8rem;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.25s ease;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
       margin-top: 12px;
-      color: #1e2b2c;
+      color: var(--ink);
       width: 100%;
+      position: relative;
+      overflow: hidden;
     }
-
-    .btn-add:hover {
-      background: #1e2b2c;
-      border-color: #1e2b2c;
-      color: white;
+    .btn-add::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--ink);
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+      z-index: 0;
     }
+    .btn-add span, .btn-add i { position: relative; z-index: 1; transition: color 0.3s; }
+    .btn-add:hover::before { transform: translateY(0); }
+    .btn-add:hover { color: white; border-color: var(--ink); }
+    .btn-add:hover span, .btn-add:hover i { color: white; }
+    .btn-add:active { transform: scale(0.97); }
+    .btn-add i { font-size: 0.75rem; }
 
-    .btn-add i {
-      font-size: 0.75rem;
-    }
-
-    /* ----- CART SIDEBAR ----- */
+    /* ============ CART SIDEBAR (refined) ============ */
     .cart-overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(3px);
+      inset: 0;
+      background: rgba(20, 25, 25, 0.45);
+      backdrop-filter: blur(6px);
       z-index: 1000;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.3s, visibility 0.3s;
+      transition: opacity 0.35s, visibility 0.35s;
     }
-
-    .cart-overlay.open {
-      opacity: 1;
-      visibility: visible;
-    }
+    .cart-overlay.open { opacity: 1; visibility: visible; }
 
     .cart-sidebar {
       position: fixed;
-      top: 0;
-      right: 0;
-      width: 420px;
+      top: 0; right: 0;
+      width: 440px;
       max-width: 100%;
       height: 100%;
-      background: #faf9f7;
+      background: var(--bg);
       z-index: 1001;
       transform: translateX(100%);
-      transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+      transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
       display: flex;
       flex-direction: column;
-      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+      box-shadow: -20px 0 60px rgba(0,0,0,0.18);
+      border-left: 1px solid rgba(0,0,0,0.04);
     }
-
-    .cart-sidebar.open {
-      transform: translateX(0);
-    }
+    .cart-sidebar.open { transform: translateX(0); }
 
     .cart-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 28px 28px 18px;
-      border-bottom: 1px solid #ece8e2;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #ffffff, var(--bg));
     }
-
     .cart-header h3 {
-      font-size: 1.6rem;
-      color: #1e2b2c;
+      font-size: 1.7rem;
+      color: var(--ink);
     }
-
     .cart-close {
       background: none;
       border: none;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       color: #6b6b6b;
       cursor: pointer;
-      transition: color 0.2s;
-      width: 40px;
-      height: 40px;
+      transition: all 0.2s;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      border: 1px solid var(--line);
     }
-
     .cart-close:hover {
-      background: #f2eee9;
-      color: #1e2b2c;
+      background: var(--ink);
+      color: white;
+      border-color: var(--ink);
+      transform: rotate(90deg);
     }
 
     .cart-items {
@@ -452,75 +574,73 @@
       overflow-y: auto;
       padding: 20px 28px;
     }
+    .cart-items::-webkit-scrollbar { width: 6px; }
+    .cart-items::-webkit-scrollbar-thumb { background: #ddd6ce; border-radius: 10px; }
+    .cart-items::-webkit-scrollbar-track { background: transparent; }
 
     .cart-empty {
       text-align: center;
-      padding: 60px 0;
+      padding: 80px 0;
       color: #9b9b9b;
     }
-
     .cart-empty i {
       font-size: 3rem;
       color: #ddd6ce;
       margin-bottom: 16px;
+      display: block;
     }
 
     .cart-item {
       display: flex;
       gap: 16px;
-      padding: 14px 0;
+      padding: 16px 0;
       border-bottom: 1px solid #f0ebe6;
       align-items: flex-start;
+      animation: fadeUp 0.35s ease;
     }
-
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     .cart-item-img {
-      width: 72px;
-      height: 72px;
+      width: 74px;
+      height: 74px;
       border-radius: 14px;
       background-size: cover;
       background-position: center;
       flex-shrink: 0;
+      box-shadow: 0 6px 14px -6px rgba(0,0,0,0.15);
     }
-
-    .cart-item-info {
-      flex: 1;
-      min-width: 0;
-    }
-
+    .cart-item-info { flex: 1; min-width: 0; }
     .cart-item-info h4 {
       font-size: 0.85rem;
       font-weight: 600;
-      color: #1e2b2c;
+      color: var(--ink);
       margin-bottom: 2px;
-      font-family: 'Inter', sans-serif;
     }
-
     .cart-item-info .item-brand {
       font-size: 0.65rem;
-      color: #9b7b5c;
+      color: var(--accent);
       text-transform: uppercase;
       letter-spacing: 0.5px;
       font-weight: 600;
     }
-
     .cart-item-info .item-price {
       font-size: 0.9rem;
       font-weight: 600;
-      color: #1e2b2c;
+      color: var(--ink);
       margin-top: 4px;
       font-family: 'Playfair Display', serif;
     }
-
     .cart-item-actions {
       display: flex;
       align-items: center;
       gap: 10px;
       margin-top: 6px;
     }
-
     .qty-btn {
-      width: 24px;
-      height: 24px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       border: 1px solid #e4ddd6;
       background: white;
@@ -529,90 +649,93 @@
       align-items: center;
       justify-content: center;
       font-size: 0.7rem;
-      color: #1e2b2c;
+      color: var(--ink);
       transition: all 0.2s;
     }
-
     .qty-btn:hover {
-      background: #1e2b2c;
+      background: var(--ink);
       color: white;
-      border-color: #1e2b2c;
+      border-color: var(--ink);
+      transform: scale(1.08);
     }
-
     .qty-value {
       font-size: 0.85rem;
       font-weight: 600;
       min-width: 18px;
       text-align: center;
     }
-
     .remove-item {
       background: none;
       border: none;
       color: #c0392b;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       cursor: pointer;
       text-decoration: underline;
       padding: 0;
       margin-left: 4px;
-      font-family: 'Inter', sans-serif;
     }
-
-    .remove-item:hover {
-      opacity: 0.7;
-    }
+    .remove-item:hover { opacity: 0.7; }
 
     .cart-footer {
       padding: 22px 28px 28px;
-      border-top: 1px solid #ece8e2;
-      background: white;
+      border-top: 1px solid var(--line);
+      background: linear-gradient(0deg, #ffffff, var(--bg));
     }
-
     .cart-total {
       display: flex;
       justify-content: space-between;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 600;
-      color: #1e2b2c;
+      color: var(--ink);
       margin-bottom: 20px;
       font-family: 'Playfair Display', serif;
     }
-
     .cart-total span:last-child {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
+      color: var(--accent);
     }
 
     .btn-stripe {
-      background: #1e2b2c;
+      background: var(--ink);
       border: none;
-      padding: 16px 24px;
+      padding: 17px 24px;
       border-radius: 40px;
       font-weight: 500;
       font-size: 0.95rem;
       color: white;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: all 0.25s ease;
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
+      box-shadow: 0 12px 24px -10px rgba(30,43,44,0.5);
+      position: relative;
+      overflow: hidden;
     }
-
+    .btn-stripe::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      transition: left 0.6s;
+    }
+    .btn-stripe:hover::before { left: 100%; }
     .btn-stripe:hover {
       background: #2d3f41;
+      transform: translateY(-1px);
+      box-shadow: 0 16px 30px -10px rgba(30,43,44,0.6);
     }
+    .btn-stripe:active { transform: translateY(1px) scale(0.99); }
+    .btn-stripe i { font-size: 1rem; }
 
-    .btn-stripe i {
-      font-size: 1rem;
-    }
-
-    /* Fraud review message */
     .fraud-review-note {
       margin-top: 14px;
       padding: 12px 16px;
       background: #f8f5f1;
-      border-left: 3px solid #9b7b5c;
+      border-left: 3px solid var(--accent);
       border-radius: 10px;
       font-size: 0.72rem;
       color: #6b6b6b;
@@ -621,20 +744,14 @@
       gap: 10px;
       line-height: 1.5;
     }
-
     .fraud-review-note i {
-      color: #9b7b5c;
+      color: var(--accent);
       font-size: 0.9rem;
       margin-top: 1px;
       flex-shrink: 0;
     }
+    .fraud-review-note strong { color: var(--ink); font-weight: 600; }
 
-    .fraud-review-note strong {
-      color: #1e2b2c;
-      font-weight: 600;
-    }
-
-    /* Stripe link placeholder + legal links */
     .stripe-note {
       text-align: center;
       font-size: 0.7rem;
@@ -643,169 +760,198 @@
       letter-spacing: 0.2px;
       line-height: 1.6;
     }
+    .stripe-note a { color: var(--accent); text-decoration: none; }
+    .stripe-note a:hover { text-decoration: underline; }
 
-    .stripe-note a {
-      color: #9b7b5c;
-      text-decoration: none;
-    }
-
-    .stripe-note a:hover {
-      text-decoration: underline;
-    }
-
-    /* Toast notification */
+    /* ============ TOAST ============ */
     .toast {
       position: fixed;
       bottom: 30px;
       left: 50%;
       transform: translateX(-50%) translateY(80px);
-      background: #1e2b2c;
+      background: var(--ink);
       color: white;
       padding: 14px 28px;
       border-radius: 40px;
       font-size: 0.9rem;
       z-index: 2000;
       opacity: 0;
-      transition: opacity 0.3s, transform 0.3s;
+      transition: opacity 0.35s, transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
       pointer-events: none;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.3);
       display: flex;
       align-items: center;
       gap: 10px;
+      border: 1px solid rgba(255,255,255,0.08);
     }
-
     .toast.show {
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
+    .toast i { color: var(--gold); }
 
-    .toast i {
-      color: #9b7b5c;
-    }
-
-    /* ----- FOOTER ----- */
+    /* ============ FOOTER (premium) ============ */
     .footer {
-      padding: 50px 0 30px;
+      padding: 60px 0 30px;
       display: grid;
       grid-template-columns: 2fr 1fr 1fr 1fr;
       gap: 40px;
       border-top: 1px solid #e4ddd6;
-      margin-top: 50px;
+      margin-top: 60px;
+      background: linear-gradient(180deg, transparent, rgba(242,238,233,0.5));
     }
-
     .footer .brand p {
       margin: 18px 0;
       color: #6b6b6b;
       font-size: 0.9rem;
       max-width: 280px;
     }
-
     .footer h4 {
       font-family: 'Inter', sans-serif;
       font-weight: 600;
       font-size: 0.9rem;
       letter-spacing: 0.5px;
       text-transform: uppercase;
-      color: #1e2b2c;
+      color: var(--ink);
       margin-bottom: 20px;
     }
-
-    .footer ul {
-      list-style: none;
-    }
-
-    .footer ul li {
-      margin-bottom: 12px;
-    }
-
+    .footer ul { list-style: none; }
+    .footer ul li { margin-bottom: 12px; }
     .footer ul a {
       text-decoration: none;
       color: #6b6b6b;
       font-size: 0.9rem;
-      transition: color 0.2s;
+      transition: all 0.2s;
+      display: inline-block;
     }
-
     .footer ul a:hover {
-      color: #9b7b5c;
+      color: var(--accent);
+      transform: translateX(3px);
     }
-
     .copyright {
       grid-column: 1 / -1;
       text-align: center;
       color: #9b9b9b;
       font-size: 0.8rem;
       padding-top: 30px;
-      border-top: 1px solid #ece8e2;
+      border-top: 1px solid var(--line);
       margin-top: 20px;
     }
-
     .copyright a {
-      color: #9b7b5c;
+      color: var(--accent);
       text-decoration: none;
       margin: 0 8px;
+      transition: opacity 0.2s;
+    }
+    .copyright a:hover { text-decoration: underline; }
+
+    /* ============ SCROLL REVEAL ============ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    .copyright a:hover {
-      text-decoration: underline;
+    /* ============ FLOATING CTA (mobile-ish premium touch) ============ */
+    .float-cta {
+      position: fixed;
+      bottom: 26px;
+      left: 26px;
+      z-index: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 50px;
+      padding: 10px 18px 10px 10px;
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 0.82rem;
+      font-weight: 500;
+      box-shadow: 0 12px 28px -10px rgba(0,0,0,0.15);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .float-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 36px -12px rgba(0,0,0,0.22);
+    }
+    .float-cta .icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
     }
 
-    /* responsive */
+    /* ============ RESPONSIVE ============ */
     @media (max-width: 1100px) {
-      .product-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
+      .product-grid { grid-template-columns: repeat(3, 1fr); }
     }
-
     @media (max-width: 900px) {
-      .product-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .footer {
-        grid-template-columns: 1fr 1fr;
-      }
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer { grid-template-columns: 1fr 1fr; }
+      .hero-strip h1 { font-size: 2.6rem; }
     }
-
     @media (max-width: 720px) {
-      .navbar {
-        flex-wrap: wrap;
-        gap: 16px;
-      }
-      .nav-links {
-        gap: 18px;
-        font-size: 0.85rem;
-        flex-wrap: wrap;
-      }
-      .product-grid {
-        grid-template-columns: 1fr;
-      }
-      .footer {
-        grid-template-columns: 1fr;
-      }
-      .cart-sidebar {
-        width: 100%;
-      }
-      .catalogue-section h2 {
-        font-size: 2rem;
-      }
+      .navbar { flex-wrap: wrap; gap: 16px; }
+      .nav-links { gap: 18px; font-size: 0.85rem; flex-wrap: wrap; }
+      .utility-left { display: none; }
+      .product-grid { grid-template-columns: 1fr; }
+      .footer { grid-template-columns: 1fr; }
+      .cart-sidebar { width: 100%; }
+      .catalogue-section h2 { font-size: 2rem; }
+      .hero-strip h1 { font-size: 2.2rem; }
+      .float-cta { display: none; }
     }
 
-    /* subtle decor */
-    .btn-add i, .btn-stripe i {
-      transition: transform 0.2s;
+    /* button arrow hover */
+    .btn-add i, .btn-stripe i, .review-teaser i {
+      transition: transform 0.25s;
     }
-    .btn-add:hover i, .btn-stripe:hover i {
-      transform: translateX(3px);
+    .btn-add:hover i, .btn-stripe:hover i, .review-teaser:hover i {
+      transform: translateX(4px);
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Navigation -->
-    <nav class="navbar">
-      <a href="#" class="logo">CKNS <span>realty & deco</span></a>
+
+  <!-- ============ ANNOUNCEMENT BAR ============ -->
+  <div class="announcement">
+    <span>✦ Complimentary white glove delivery on furniture orders over $2,000 ✦</span>
+  </div>
+
+  <!-- ============ HEADER (layered, sticky) ============ -->
+  <div class="header-wrap" id="headerWrap">
+    <!-- utility bar -->
+    <div class="utility-bar">
+      <div class="container">
+        <div class="utility-left">
+          <a href="tel:+18572689887"><i class="fas fa-phone-alt"></i> 857-268-9887</a>
+          <a href="mailto:info@cknsworld.store"><i class="fas fa-envelope"></i> info@cknsworld.store</a>
+        </div>
+        <div class="utility-right">
+          <a href="feedback.html"><i class="fas fa-star"></i> 4.7 · 23 reviews</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- main nav -->
+    <nav class="navbar container">
+      <a href="index.html" class="logo">CKNS <span>realty & deco</span></a>
       <div class="nav-links">
         <a href="#">Properties</a>
-        <a href="#" style="color: #9b7b5c; font-weight: 500;">Catalogue</a>
+        <a href="index.html" class="active">Catalogue</a>
         <a href="#">Deco planning</a>
         <a href="#">Contact</a>
         <button class="cart-trigger" id="cartToggle">
@@ -814,13 +960,20 @@
         </button>
       </div>
     </nav>
+  </div>
 
-    <!-- ================= RUGS & FLOORING SECTION ================= -->
-    <section class="catalogue-section" id="rugs">
+  <div class="container">
+    <!-- ============ HERO STRIP ============ -->
+    <section class="hero-strip reveal">
+      <h1>The art of <em>living well</em>,<br>curated for you.</h1>
+      <p>Thoughtfully sourced rugs, furniture, and decor — each piece chosen to bring warmth and character to your home.</p>
+    </section>
+
+    <!-- ================= RUGS & FLOORING ================= -->
+    <section class="catalogue-section reveal" id="rugs">
       <h2><i class="fas fa-rug"></i> Rugs & flooring</h2>
       <p class="section-desc">Hand-picked rugs from Momeni, KAS, Nourison, Chandra, and Four Hands. Select your colour below.</p>
 
-      <!-- Review teaser linking to feedback page -->
       <a href="feedback.html" class="review-teaser">
         <span class="stars">★★★★★</span>
         4.7 from 23 verified reviews
@@ -828,7 +981,7 @@
       </a>
 
       <div class="product-grid" id="rugsGrid" style="margin-top: 36px;">
-        <!-- RUG 1: Momeni Orchard Floral -->
+        <!-- RUG 1 -->
         <div class="product-card" data-id="rug1" data-brand="Momeni" data-name="Orchard Floral Hand-Woven Jute and Wool Runner Rug" data-price="427.14" data-img="https://images.unsplash.com/photo-1600166898405-da9535204843?w=400&q=80" data-colors='["#d4c5b0","#b8a88a","#8b7b6b","#5e5548"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600166898405-da9535204843?w=400&q=80');">
             <span class="product-badge">New</span>
@@ -839,11 +992,11 @@
             <div class="product-price">$427.14</div>
             <div class="color-swatches" data-product="rug1"></div>
             <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
           </div>
         </div>
 
-        <!-- RUG 2: KAS Syriana -->
+        <!-- RUG 2 -->
         <div class="product-card" data-id="rug2" data-brand="KAS" data-name="Syriana Hand-Tufted Wool Floral Runner Area Rug" data-price="319" data-img="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=400&q=80" data-colors='["#e8d8c8","#c4b5a5","#9b8b7a","#6b5d50"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=400&q=80');">
             <span class="product-badge">New</span>
@@ -854,11 +1007,11 @@
             <div class="product-price">$319.00</div>
             <div class="color-swatches" data-product="rug2"></div>
             <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
           </div>
         </div>
 
-        <!-- RUG 3: Nourison Sultana -->
+        <!-- RUG 3 -->
         <div class="product-card" data-id="rug3" data-brand="Nourison" data-name="Sultana Floral Area Rug with Vintage Style" data-price="653.00" data-compare="932.86" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&q=80" data-colors='["#c9b8a8","#a89480","#7d6b5a","#4d4038"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&q=80');">
             <span class="product-badge sale">30% OFF</span>
@@ -869,11 +1022,11 @@
             <div class="product-price">$653.00 <span class="compare">$932.86</span> <span class="off">30% OFF</span></div>
             <div class="color-swatches" data-product="rug3"></div>
             <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
           </div>
         </div>
 
-        <!-- RUG 4: Chandra Amazon Tiger Print -->
+        <!-- RUG 4 -->
         <div class="product-card" data-id="rug4" data-brand="Chandra" data-name="Amazon AMA-5603 Hand-Woven Wool Blend Area Rug with Tiger Print" data-price="744.00" data-compare="1062.86" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=400&q=80" data-colors='["#d9c8b0","#b89f80","#8a6f50","#5a4a3a"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=400&q=80');">
             <span class="product-badge sale">30% OFF</span>
@@ -884,11 +1037,11 @@
             <div class="product-price">$744.00 <span class="compare">$1,062.86</span> <span class="off">30% OFF</span></div>
             <div class="color-swatches" data-product="rug4"></div>
             <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
           </div>
         </div>
 
-        <!-- RUG 5: Nourison 2000 Bordered Runner -->
+        <!-- RUG 5 -->
         <div class="product-card" data-id="rug5" data-brand="Nourison" data-name="2000 Bordered Runner Area Rug in Beige" data-price="803.00" data-compare="1147.14" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&q=80" data-colors='["#e8dcc8","#d4c4b0","#b8a898","#9c8878"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&q=80');">
             <span class="product-badge sale">30% OFF</span>
@@ -899,11 +1052,11 @@
             <div class="product-price">$803.00 <span class="compare">$1,147.14</span> <span class="off">30% OFF</span></div>
             <div class="color-swatches" data-product="rug5"></div>
             <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
           </div>
         </div>
 
-        <!-- RUG 6: Chandra Zara Round Shag -->
+        <!-- RUG 6 -->
         <div class="product-card" data-id="rug6" data-brand="Chandra" data-name="Zara 7'9&quot; Round Hand-Woven Shag Area Rug in Dark Lavender" data-price="804.00" data-img="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80" data-colors='["#b8a0c0","#9a80a0","#7a6080","#5a4060"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80');">
             <span class="product-badge">Round</span>
@@ -914,11 +1067,11 @@
             <div class="product-price">$804.00</div>
             <div class="color-swatches" data-product="rug6"></div>
             <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
           </div>
         </div>
 
-        <!-- RUG 7: Four Hands Mateo Leopard -->
+        <!-- RUG 7 -->
         <div class="product-card" data-id="rug7" data-brand="Four Hands" data-name="Mateo Leopard Print Hair-on-Hide Area Rug — Brown and Black" data-price="519.20" data-compare="649.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=400&q=80" data-colors='["#c9a86a","#a88450","#7a6038","#4a3820"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=400&q=80');">
             <span class="product-badge sale">20% OFF</span>
@@ -929,11 +1082,11 @@
             <div class="product-price">$519.20 <span class="compare">$649.00</span> <span class="off">20% OFF</span></div>
             <div class="color-swatches" data-product="rug7"></div>
             <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
           </div>
         </div>
 
-        <!-- RUG 8: Chandra Veleno -->
+        <!-- RUG 8 -->
         <div class="product-card" data-id="rug8" data-brand="Chandra" data-name="Veleno Hand-Tufted Floral Area Rug in Charcoal Grey Beige" data-price="934.00" data-compare="1334.29" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=400&q=80" data-colors='["#4a4a4a","#6b6b6b","#8b8b8b","#a8a8a8"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=400&q=80');">
             <span class="product-badge sale">30% OFF</span>
@@ -944,11 +1097,11 @@
             <div class="product-price">$934.00 <span class="compare">$1,334.29</span> <span class="off">30% OFF</span></div>
             <div class="color-swatches" data-product="rug8"></div>
             <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
           </div>
         </div>
 
-        <!-- RUG 9: Chandra Giovanna Braided -->
+        <!-- RUG 9 -->
         <div class="product-card" data-id="rug9" data-brand="Chandra" data-name="Giovanna 5x7 Braided Area Rug in Multi-Tone Wool Viscose Cotton" data-price="916.00" data-compare="1308.57" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=400&q=80" data-colors='["#d4a878","#b88858","#a07048","#806038"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=400&q=80');">
             <span class="product-badge sale">30% OFF</span>
@@ -959,11 +1112,11 @@
             <div class="product-price">$916.00 <span class="compare">$1,308.57</span> <span class="off">30% OFF</span></div>
             <div class="color-swatches" data-product="rug9"></div>
             <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
           </div>
         </div>
 
-        <!-- RUG 10: Four Hands Mateo Zebra -->
+        <!-- RUG 10 -->
         <div class="product-card" data-id="rug10" data-brand="Four Hands" data-name="Mateo Zebra Printed Hair-on-Hide Area Rug — Natural Black and White" data-price="519.20" data-compare="649.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=400&q=80" data-colors='["#2e2e2e","#4a4a4a","#6b6b6b","#9b9b9b"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=400&q=80');">
             <span class="product-badge sale">20% OFF</span>
@@ -974,19 +1127,18 @@
             <div class="product-price">$519.20 <span class="compare">$649.00</span> <span class="off">20% OFF</span></div>
             <div class="color-swatches" data-product="rug10"></div>
             <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ================= FURNISHINGS SECTION ================= -->
-    <section class="catalogue-section" id="furnishings">
+    <!-- ================= FURNISHINGS & DECOR ================= -->
+    <section class="catalogue-section reveal" id="furnishings">
       <h2><i class="fas fa-couch"></i> Furnishings & decor</h2>
       <p class="section-desc">Seasonal accents and elegant candle holders to complete your space.</p>
 
       <div class="product-grid" id="furnishingsGrid">
-        <!-- F1: Majestic Illuminated Ensemble -->
         <div class="product-card" data-id="f1" data-brand="Majestic" data-name="Illuminated Ensemble: 4 garlands + 6 Lighted Ornaments + Remote + 10 ball ornaments" data-price="399.99" data-compare="499.99" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=400&q=80" data-colors='["#d4a830","#c89828","#a87818","#885810"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=400&q=80');">
             <span class="product-badge sale">20% OFF</span>
@@ -997,11 +1149,10 @@
             <div class="product-price">$399.99 <span class="compare">$499.99</span> <span class="off">20% OFF</span></div>
             <div class="color-swatches" data-product="f1"></div>
             <div class="product-shipping"><i class="fas fa-truck"></i> Ships in 5–7 business days · Final Sale</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
           </div>
         </div>
 
-        <!-- F2: Norfolk Pine Spray & Brown Line Vase Bundle -->
         <div class="product-card" data-id="f2" data-brand="Norfolk" data-name="Norfolk Pine Spray & Brown Line Vase Bundle" data-price="175.99" data-compare="189.93" data-off="7% OFF" data-img="https://images.unsplash.com/photo-1602928321679-560bb453f190?w=400&q=80" data-colors='["#5a7a5a","#3a5a3a","#2a4a2a","#1a3a1a"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1602928321679-560bb453f190?w=400&q=80');">
             <span class="product-badge sale">7% OFF</span>
@@ -1012,11 +1163,10 @@
             <div class="product-price">$175.99 <span class="compare">$189.93</span> <span class="off">7% OFF</span></div>
             <div class="color-swatches" data-product="f2"></div>
             <div class="product-shipping"><i class="fas fa-undo"></i> 14-day return for refund or store credit</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
           </div>
         </div>
 
-        <!-- F3: Cranberry Heirloom Ensemble -->
         <div class="product-card" data-id="f3" data-brand="Cranberry" data-name="Cranberry Heirloom Ensemble" data-price="399.99" data-compare="499.99" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1543589077-47d81606c1bf?w=400&q=80" data-colors='["#8b2020","#6b1818","#4b1010","#3b0808"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1543589077-47d81606c1bf?w=400&q=80');">
             <span class="product-badge sale">20% OFF</span>
@@ -1027,11 +1177,10 @@
             <div class="product-price">$399.99 <span class="compare">$499.99</span> <span class="off">20% OFF</span></div>
             <div class="color-swatches" data-product="f3"></div>
             <div class="product-shipping"><i class="fas fa-truck"></i> Ships in 5–7 business days · Final Sale</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
           </div>
         </div>
 
-        <!-- F4: Square Glass Hurricanes -->
         <div class="product-card" data-id="f4" data-brand="Glass" data-name="Square Glass Hurricanes with Antique Brass Base, Set of 2" data-price="189.99" data-img="https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80" data-colors='["#c8a878","#a88858","#886838","#685018"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80');">
             <span class="product-badge">Set of 2</span>
@@ -1042,11 +1191,10 @@
             <div class="product-price">$189.99</div>
             <div class="color-swatches" data-product="f4"></div>
             <div class="product-shipping"><i class="fas fa-undo"></i> 14-day return for refund or store credit</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
           </div>
         </div>
 
-        <!-- F5: Rechargeable Flameless Votive Candle Set -->
         <div class="product-card" data-id="f5" data-brand="Candle" data-name="Rechargeable Flameless Votive Candle Set of 4" data-price="99.99" data-img="https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80" data-colors='["#f0e8d8","#e0d8c8","#d0c8b8","#c0b8a8"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80');">
             <span class="product-badge">Set of 4</span>
@@ -1057,11 +1205,10 @@
             <div class="product-price">$99.99</div>
             <div class="color-swatches" data-product="f5"></div>
             <div class="product-shipping"><i class="fas fa-undo"></i> 14-day return for refund or store credit</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
           </div>
         </div>
 
-        <!-- F6: Hurricane Candle Holders 3 sizes -->
         <div class="product-card" data-id="f6" data-brand="Hurricane" data-name="Hurricane Candle Holders: 3 sizes — Sold Individually" data-price="129.99" data-img="https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80" data-colors='["#b8a888","#a89878","#988868","#887858"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80');">
             <span class="product-badge">3 sizes</span>
@@ -1072,19 +1219,18 @@
             <div class="product-price">$129.99</div>
             <div class="color-swatches" data-product="f6"></div>
             <div class="product-shipping"><i class="fas fa-clock"></i> Longer shipping time: 5–7 days</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ================= HOME CAPES SECTION (FOUR HANDS) ================= -->
-    <section class="catalogue-section" id="homecapes">
+    <!-- ================= HOME CAPES ================= -->
+    <section class="catalogue-section reveal" id="homecapes">
       <h2><i class="fas fa-gem"></i> Home capes · Four Hands</h2>
       <p class="section-desc">Premium Four Hands pieces. Complimentary white glove delivery on orders over $2,000.</p>
 
       <div class="product-grid" id="homecapesGrid">
-        <!-- H1: Matthes Reclaimed Pine Console Table -->
         <div class="product-card" data-id="h1" data-brand="Four Hands" data-name="Matthes Reclaimed Pine Console Table — Aged Black Pine" data-price="719.20" data-compare="899.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1532372320572-cda25653a694?w=400&q=80" data-colors='["#2e2e2e","#4a4a4a","#6b6b6b","#8b8b8b"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1532372320572-cda25653a694?w=400&q=80');">
             <span class="product-badge sale">20% OFF</span>
@@ -1095,11 +1241,10 @@
             <div class="product-price">$719.20 <span class="compare">$899.00</span> <span class="off">20% OFF</span></div>
             <div class="color-swatches" data-product="h1"></div>
             <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
           </div>
         </div>
 
-        <!-- H2: Julius Swivel Chair -->
         <div class="product-card" data-id="h2" data-brand="Four Hands" data-name="Julius Swivel Chair — Taupe Shearling" data-price="2959.20" data-compare="3699.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" data-colors='["#c8b8a8","#b8a898","#a89888","#988878"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80');">
             <span class="product-badge sale">20% OFF</span>
@@ -1110,11 +1255,10 @@
             <div class="product-price">$2,959.20 <span class="compare">$3,699.00</span> <span class="off">20% OFF</span></div>
             <div class="color-swatches" data-product="h2"></div>
             <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
           </div>
         </div>
 
-        <!-- H3: Bingham Coffee Table -->
         <div class="product-card" data-id="h3" data-brand="Four Hands" data-name="Bingham Coffee Table — Distressed Iron" data-price="1919.20" data-compare="2399.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=400&q=80" data-colors='["#3a3a3a","#4a4a4a","#5a5a5a","#6a6a6a"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=400&q=80');">
             <span class="product-badge sale">20% OFF</span>
@@ -1125,11 +1269,10 @@
             <div class="product-price">$1,919.20 <span class="compare">$2,399.00</span> <span class="off">20% OFF</span></div>
             <div class="color-swatches" data-product="h3"></div>
             <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
           </div>
         </div>
 
-        <!-- H4: Tolle Cabinet -->
         <div class="product-card" data-id="h4" data-brand="Four Hands" data-name="Tolle Cabinet — Drifted Matte Black w/ Drifted Oak" data-price="3439.20" data-compare="4299.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80" data-colors='["#2a2a2a","#3a3a3a","#4a4a4a","#5a5a5a"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80');">
             <span class="product-badge sale">20% OFF</span>
@@ -1140,11 +1283,10 @@
             <div class="product-price">$3,439.20 <span class="compare">$4,299.00</span> <span class="off">20% OFF</span></div>
             <div class="color-swatches" data-product="h4"></div>
             <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
           </div>
         </div>
 
-        <!-- H5: Abaso Rectangular Coffee Table -->
         <div class="product-card" data-id="h5" data-brand="Four Hands" data-name="Abaso Rectangular Coffee Table — Rustic Wormwood Oak" data-price="2079.20" data-compare="2599.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1532372320572-cda25653a694?w=400&q=80" data-colors='["#8b6b4a","#7a5a3a","#6a4a2a","#5a3a1a"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1532372320572-cda25653a694?w=400&q=80');">
             <span class="product-badge sale">20% OFF</span>
@@ -1155,11 +1297,10 @@
             <div class="product-price">$2,079.20 <span class="compare">$2,599.00</span> <span class="off">20% OFF</span></div>
             <div class="color-swatches" data-product="h5"></div>
             <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
           </div>
         </div>
 
-        <!-- H6: Augustine Swivel Chair -->
         <div class="product-card" data-id="h6" data-brand="Four Hands" data-name="Augustine Swivel Chair — Palermo Drift" data-price="2159.20" data-compare="2699.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" data-colors='["#d4c4b0","#c4b4a0","#b4a490","#a49480"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80');">
             <span class="product-badge sale">20% OFF</span>
@@ -1170,11 +1311,10 @@
             <div class="product-price">$2,159.20 <span class="compare">$2,699.00</span> <span class="off">20% OFF</span></div>
             <div class="color-swatches" data-product="h6"></div>
             <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
           </div>
         </div>
 
-        <!-- H7: Redondo Media Console -->
         <div class="product-card" data-id="h7" data-brand="Four Hands" data-name="Redondo Media Console" data-price="3679.20" data-compare="4599.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80" data-colors='["#4a3a2a","#3a2a1a","#2a1a0a","#1a0a00"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80');">
             <span class="product-badge sale">20% OFF</span>
@@ -1185,11 +1325,10 @@
             <div class="product-price">$3,679.20 <span class="compare">$4,599.00</span> <span class="off">20% OFF</span></div>
             <div class="color-swatches" data-product="h7"></div>
             <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
           </div>
         </div>
 
-        <!-- H8: Leo 6 Drawer Dresser -->
         <div class="product-card" data-id="h8" data-brand="Four Hands" data-name="Leo 6 Drawer Dresser" data-price="2399.20" data-compare="2999.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80" data-colors='["#6b5a4a","#5b4a3a","#4b3a2a","#3b2a1a"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80');">
             <span class="product-badge sale">20% OFF</span>
@@ -1200,11 +1339,10 @@
             <div class="product-price">$2,399.20 <span class="compare">$2,999.00</span> <span class="off">20% OFF</span></div>
             <div class="color-swatches" data-product="h8"></div>
             <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
           </div>
         </div>
 
-        <!-- H9: Rothler Dining Chair -->
         <div class="product-card" data-id="h9" data-brand="Four Hands" data-name="Rothler Dining Chair" data-price="559.20" data-compare="699.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" data-colors='["#c8b8a0","#b8a890","#a89880","#988870"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80');">
             <span class="product-badge sale">20% OFF</span>
@@ -1215,11 +1353,10 @@
             <div class="product-price">$559.20 <span class="compare">$699.00</span> <span class="off">20% OFF</span></div>
             <div class="color-swatches" data-product="h9"></div>
             <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
           </div>
         </div>
 
-        <!-- H10: Aurora Swivel Chair -->
         <div class="product-card" data-id="h10" data-brand="Four Hands" data-name="Aurora Swivel Chair — Knoll Natural" data-price="799.20" data-compare="999.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" data-colors='["#e0d8c8","#d0c8b8","#c0b8a8","#b0a898"]'>
           <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80');">
             <span class="product-badge sale">20% OFF</span>
@@ -1230,18 +1367,18 @@
             <div class="product-price">$799.20 <span class="compare">$999.00</span> <span class="off">20% OFF</span></div>
             <div class="color-swatches" data-product="h10"></div>
             <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
-            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ================= FOOTER (UPDATED with legal + feedback links) ================= -->
+    <!-- ================= FOOTER ================= -->
     <footer class="footer">
       <div class="brand">
         <a href="index.html" class="logo" style="font-size: 2rem;">CKNS</a>
         <p>Real estate & deco planning studio. Thoughtful spaces, curated for everyday living.</p>
-        <div style="display: flex; gap: 18px; margin-top: 18px; color: #9b7b5c;">
+        <div style="display: flex; gap: 18px; margin-top: 18px; color: var(--accent);">
           <i class="fab fa-instagram"></i>
           <i class="fab fa-pinterest"></i>
           <i class="fab fa-houzz"></i>
@@ -1251,7 +1388,7 @@
         <h4>Explore</h4>
         <ul>
           <li><a href="#">Properties</a></li>
-          <li><a href="index.html" style="color:#9b7b5c;">Catalogue</a></li>
+          <li><a href="index.html" style="color:var(--accent);">Catalogue</a></li>
           <li><a href="#">Deco planning</a></li>
           <li><a href="#">Contact</a></li>
         </ul>
@@ -1308,14 +1445,12 @@
         <i class="fas fa-lock"></i> Proceed to checkout
       </button>
 
-      <!-- Legal consent line (new) -->
       <p class="stripe-note" style="margin-top: 10px;">
         By proceeding, you agree to our
         <a href="terms.html" target="_blank">Terms & Conditions</a> and
         <a href="privacy.html" target="_blank">Privacy Policy</a>.
       </p>
 
-      <!-- Fraud review message -->
       <div class="fraud-review-note">
         <i class="fas fa-shield-alt"></i>
         <span>
@@ -1331,6 +1466,12 @@
 
   <!-- Toast -->
   <div class="toast" id="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg">Added to cart</span></div>
+
+  <!-- Floating CTA (premium touch) -->
+  <a href="feedback.html" class="float-cta">
+    <span class="icon"><i class="fas fa-star"></i></span>
+    <span>Read 23 verified reviews</span>
+  </a>
 
   <script>
     // ----- STATE -----
@@ -1354,6 +1495,27 @@
           swatch.classList.add('active');
         });
         swatchContainer.appendChild(swatch);
+      });
+    });
+
+    // ----- 3D TILT (premium interaction) -----
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
+        const dx = (x - cx) / cx;
+        const dy = (y - cy) / cy;
+        const tiltX = dy * 6;
+        const tiltY = -dx * 6;
+        card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-6px)`;
+        card.style.setProperty('--mx', x + 'px');
+        card.style.setProperty('--my', y + 'px');
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)';
       });
     });
 
@@ -1453,7 +1615,7 @@
       return names[hex] || 'Custom';
     }
 
-    // ----- CART UI TOGGLE (with Tawk.to hide/show) -----
+    // ----- CART UI TOGGLE -----
     const cartSidebar = document.getElementById('cartSidebar');
     const cartOverlay = document.getElementById('cartOverlay');
     const cartToggle = document.getElementById('cartToggle');
@@ -1466,7 +1628,6 @@
         Tawk_API.hideWidget();
       }
     }
-
     function closeCart() {
       cartSidebar.classList.remove('open');
       cartOverlay.classList.remove('open');
@@ -1474,7 +1635,6 @@
         Tawk_API.showWidget();
       }
     }
-
     cartToggle.addEventListener('click', openCart);
     cartClose.addEventListener('click', closeCart);
     cartOverlay.addEventListener('click', closeCart);
@@ -1497,6 +1657,25 @@
       }
       alert('Stripe Checkout placeholder.\n\nReplace this with your actual Stripe Payment Link.\n\nTotal: $' + cartTotal.toFixed(2));
     });
+
+    // ----- HEADER SCROLL EFFECT -----
+    const headerWrap = document.getElementById('headerWrap');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) headerWrap.classList.add('scrolled');
+      else headerWrap.classList.remove('scrolled');
+    });
+
+    // ----- SCROLL REVEAL -----
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    revealEls.forEach(el => io.observe(el));
 
     // Initial render
     updateCartUI();
