@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy · CKNS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: #faf9f7;
+      font-family: 'Inter', sans-serif;
+      color: #1e1e1e;
+      line-height: 1.7;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: #1e2b2c;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* Navigation */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 0 16px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .logo {
+      font-size: 1.9rem;
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #1e2b2c;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .logo span {
+      color: #9b7b5c;
+      font-weight: 400;
+      font-size: 1.2rem;
+      margin-left: 8px;
+      letter-spacing: 0.2px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .back-link {
+      text-decoration: none;
+      color: #1e2b2c;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      border: 1px solid #1e2b2c;
+      border-radius: 40px;
+      transition: all 0.2s;
+    }
+
+    .back-link:hover {
+      background: #1e2b2c;
+      color: white;
+    }
+
+    /* Page header */
+    .page-header {
+      padding: 60px 0 40px;
+      border-bottom: 1px solid #ece8e2;
+      margin-bottom: 50px;
+    }
+
+    .page-header h1 {
+      font-size: 3.2rem;
+      margin-bottom: 12px;
+      line-height: 1.15;
+    }
+
+    .page-header .meta {
+      color: #6b6b6b;
+      font-size: 0.95rem;
+    }
+
+    .page-header .meta i {
+      color: #9b7b5c;
+      margin-right: 6px;
+    }
+
+    /* Content */
+    .policy-content {
+      padding-bottom: 80px;
+    }
+
+    .policy-content h2 {
+      font-size: 1.9rem;
+      margin: 40px 0 16px;
+      padding-top: 10px;
+    }
+
+    .policy-content h2:first-of-type {
+      margin-top: 0;
+    }
+
+    .policy-content h3 {
+      font-size: 1.25rem;
+      margin: 28px 0 10px;
+    }
+
+    .policy-content p {
+      color: #3d3d3d;
+      margin-bottom: 16px;
+      font-size: 1rem;
+    }
+
+    .policy-content ul {
+      margin: 0 0 20px 24px;
+      color: #3d3d3d;
+    }
+
+    .policy-content ul li {
+      margin-bottom: 10px;
+      padding-left: 4px;
+    }
+
+    .policy-content a {
+      color: #9b7b5c;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(155, 123, 92, 0.3);
+      transition: border-color 0.2s;
+    }
+
+    .policy-content a:hover {
+      border-color: #9b7b5c;
+    }
+
+    .callout {
+      background: #f8f5f1;
+      border-left: 3px solid #9b7b5c;
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 24px 0;
+      font-size: 0.95rem;
+      color: #4a4a4a;
+    }
+
+    .callout i {
+      color: #9b7b5c;
+      margin-right: 8px;
+    }
+
+    .contact-block {
+      background: white;
+      border: 1px solid #ece8e2;
+      border-radius: 20px;
+      padding: 28px 32px;
+      margin-top: 30px;
+    }
+
+    .contact-block h3 {
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
+
+    .contact-block p {
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    .contact-block i {
+      color: #9b7b5c;
+      width: 20px;
+      margin-right: 10px;
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid #e4ddd6;
+      padding: 36px 0;
+      text-align: center;
+      color: #9b9b9b;
+      font-size: 0.85rem;
+    }
+
+    .footer a {
+      color: #9b7b5c;
+      text-decoration: none;
+      margin: 0 12px;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 720px) {
+      .page-header h1 { font-size: 2.4rem; }
+      .navbar { flex-wrap: wrap; gap: 16px; }
+      .policy-content h2 { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Navigation -->
+    <nav class="navbar">
+      <a href="index.html" class="logo">CKNS <span>realty & deco</span></a>
+      <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Catalogue</a>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+      <h1>Privacy Policy</h1>
+      <p class="meta"><i class="fas fa-calendar-alt"></i> Last updated: 23 November 2025</p>
+    </header>
+
+    <!-- Content -->
+    <main class="policy-content">
+      <p>At CKNS Realty & Deco Planning ("CKNS", "we", "us", or "our"), your privacy matters. This Privacy Policy explains what information we collect when you visit <strong>cknsworld.store</strong>, how we use it, and the choices you have. By using our website, you agree to the practices described here.</p>
+
+      <h2>1. Information We Collect</h2>
+      <p>We collect information in a few different ways to provide and improve our services:</p>
+
+      <h3>Information you give us</h3>
+      <ul>
+        <li><strong>Contact details</strong> — your name, email address, phone number, and shipping/billing address when you place an order or reach out via our contact form or live chat.</li>
+        <li><strong>Order information</strong> — the products you purchase, selected colour variants, and order history.</li>
+        <li><strong>Communications</strong> — messages you send us through Tawk.to live chat, email, or the contact form.</li>
+      </ul>
+
+      <h3>Information collected automatically</h3>
+      <ul>
+        <li><strong>Device and usage data</strong> — IP address, browser type, operating system, pages visited, and time spent on the site.</li>
+        <li><strong>Cookies and similar technologies</strong> — small files that help us remember your cart, preferences, and improve site performance.</li>
+      </ul>
+
+      <h3>Payment information</h3>
+      <p>All payments are processed securely by <strong>Stripe</strong>. We never see or store your full card number, CVC, or bank details. Stripe's own privacy policy governs how your payment data is handled.</p>
+
+      <div class="callout">
+        <i class="fas fa-shield-alt"></i>
+        <strong>Fraud protection:</strong> Payments flagged by our fraud protection systems are manually reviewed for your safety before an order ships.
+      </div>
+
+      <h2>2. How We Use Your Information</h2>
+      <p>We use the information we collect to:</p>
+      <ul>
+        <li>Process and fulfil your orders, including shipping and customer support.</li>
+        <li>Communicate with you about your order, respond to inquiries, and provide live chat support.</li>
+        <li>Detect and prevent fraud, unauthorised transactions, and other security risks.</li>
+        <li>Improve our website, product catalogue, and overall shopping experience.</li>
+        <li>Send occasional updates or promotions — only if you have opted in, and you can unsubscribe at any time.</li>
+      </ul>
+
+      <h2>3. Sharing Your Information</h2>
+      <p>We do <strong>not</strong> sell your personal information. We only share data with trusted service providers who help us operate the business, including:</p>
+      <ul>
+        <li><strong>Stripe</strong> — for secure payment processing.</li>
+        <li><strong>Tawk.to</strong> — for live chat customer support.</li>
+        <li><strong>Shipping carriers</strong> — to deliver your orders.</li>
+        <li><strong>Analytics providers</strong> — to help us understand site usage (in aggregate, anonymised form where possible).</li>
+      </ul>
+      <p>These providers are only given the information necessary to perform their services and are bound by their own privacy and security obligations.</p>
+
+      <h2>4. Cookies</h2>
+      <p>We use cookies to keep your cart working, remember your preferences, and understand how visitors use our site. You can disable cookies in your browser settings, but some features (like the shopping cart) may not function correctly.</p>
+
+      <h2>5. Data Security</h2>
+      <p>We take reasonable technical and organisational measures to protect your personal information from unauthorised access, loss, or misuse. Our site uses HTTPS encryption, and payment processing is handled entirely by Stripe's PCI-compliant infrastructure. However, no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.</p>
+
+      <h2>6. Your Rights</h2>
+      <p>Depending on your location, you may have the right to:</p>
+      <ul>
+        <li>Access the personal information we hold about you.</li>
+        <li>Request correction or deletion of your data.</li>
+        <li>Object to or restrict certain processing.</li>
+        <li>Opt out of marketing communications.</li>
+      </ul>
+      <p>To exercise any of these rights, please contact us using the details below.</p>
+
+      <h2>7. Children's Privacy</h2>
+      <p>Our website is not directed at children under 13, and we do not knowingly collect personal information from them. If you believe a child has provided us with personal data, please contact us so we can remove it.</p>
+
+      <h2>8. Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. When we do, we will revise the "Last updated" date at the top of this page. We encourage you to review it periodically.</p>
+
+      <h2>9. Contact Us</h2>
+      <p>If you have any questions about this Privacy Policy or how your data is handled, please reach out:</p>
+
+      <div class="contact-block">
+        <h3>CKNS Realty & Deco Planning</h3>
+        <p><i class="fas fa-map-pin"></i> 2 Pearson Way, Enfield, CT 06082</p>
+        <p><i class="fas fa-phone-alt"></i> <a href="tel:+18572689887">857-268-9887</a></p>
+        <p><i class="fas fa-envelope"></i> <a href="mailto:info@cknsworld.store">info@cknsworld.store</a></p>
+        <p><i class="fas fa-envelope"></i> <a href="mailto:e34821704@gmail.com">e34821704@gmail.com</a></p>
+      </div>
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      © 2025 CKNS Realty & Deco Planning. All rights reserved.
+      <br><br>
+      <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms & Conditions</a> · <a href="index.html">Home</a>
+    </div>
+  </footer>
+</body>
+</html>
