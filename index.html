@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CKNS · real estate & deco planning · contact</title>
+  <title>CKNS · catalogue · real estate & deco</title>
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,6 +42,7 @@
       justify-content: space-between;
       padding: 24px 0 16px;
       border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      position: relative;
     }
 
     .logo {
@@ -67,10 +68,11 @@
 
     .nav-links {
       display: flex;
-      gap: 40px;
+      gap: 36px;
       font-weight: 400;
       font-size: 0.95rem;
       color: #2e2e2e;
+      align-items: center;
     }
 
     .nav-links a {
@@ -102,602 +104,537 @@
       border-color: #1e2b2c;
     }
 
-    /* hero */
-    .hero {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 50px;
-      padding: 60px 0 80px;
+    /* ----- CART TRIGGER ----- */
+    .cart-trigger {
+      position: relative;
+      background: #1e2b2c;
+      color: white;
+      border: none;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
       align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-left: 10px;
     }
 
-    .hero-left h1 {
-      font-size: 4rem;
-      line-height: 1.1;
+    .cart-trigger:hover {
+      background: #2d3f41;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: #9b7b5c;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 700;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #faf9f7;
+    }
+
+    /* ----- SECTION HEADINGS ----- */
+    .catalogue-section {
+      padding: 50px 0 20px;
+    }
+
+    .catalogue-section h2 {
+      font-size: 2.6rem;
       color: #1e2b2c;
-      margin-bottom: 24px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
 
-    .hero-left h1 i {
-      font-style: italic;
+    .catalogue-section h2 i {
       color: #9b7b5c;
+      font-size: 1.8rem;
     }
 
-    .hero-left p {
-      font-size: 1.1rem;
-      color: #4a4a4a;
-      max-width: 480px;
+    .section-desc {
+      color: #6b6b6b;
+      font-size: 1.05rem;
       margin-bottom: 36px;
       font-weight: 300;
+      border-left: 3px solid #9b7b5c;
+      padding-left: 18px;
     }
 
-    .hero-actions {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary {
-      background-color: #1e2b2c;
-      border: none;
-      padding: 14px 36px;
-      border-radius: 40px;
-      font-weight: 500;
-      font-size: 0.95rem;
-      color: white;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-primary:hover {
-      background-color: #2d3f41;
-    }
-
-    .btn-secondary {
-      background: transparent;
-      border: 1px solid #cbc2b8;
-      padding: 14px 36px;
-      border-radius: 40px;
-      font-weight: 500;
-      font-size: 0.95rem;
-      color: #1e2b2c;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-secondary:hover {
-      background: #f1ede8;
-      border-color: #9b7b5c;
-    }
-
-    .hero-right {
-      position: relative;
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .hero-image-card {
-      width: 100%;
-      max-width: 520px;
-      border-radius: 32px;
-      overflow: hidden;
-      box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease;
-      background: #e8e1d9;
-    }
-
-    .hero-image-card img {
-      width: 100%;
-      height: 400px;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.5s ease;
-    }
-
-    .hero-image-card:hover img {
-      transform: scale(1.03);
-    }
-
-    .deco-badge {
-      position: absolute;
-      bottom: 30px;
-      left: -20px;
-      background: white;
-      padding: 18px 22px;
-      border-radius: 20px;
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      backdrop-filter: blur(4px);
-    }
-
-    .deco-badge i {
-      font-size: 2rem;
-      color: #9b7b5c;
-    }
-
-    .deco-badge div {
-      font-weight: 500;
-    }
-
-    .deco-badge small {
-      display: block;
-      font-weight: 300;
-      color: #6b6b6b;
-      font-size: 0.8rem;
-      letter-spacing: 0.3px;
-    }
-
-    /* featured properties */
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
+    /* ----- PRODUCT GRID ----- */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
       margin-bottom: 40px;
     }
 
-    .section-header h2 {
-      font-size: 2.5rem;
-      color: #1e2b2c;
-    }
-
-    .section-header a {
-      text-decoration: none;
-      font-size: 0.95rem;
-      color: #9b7b5c;
-      font-weight: 500;
-      border-bottom: 1px solid #9b7b5c;
-      padding-bottom: 4px;
-      transition: opacity 0.2s;
-    }
-
-    .section-header a:hover {
-      opacity: 0.7;
-    }
-
-    .property-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-      margin-bottom: 70px;
-    }
-
-    .property-card {
+    .product-card {
       background: white;
-      border-radius: 24px;
+      border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.08);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .property-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 25px 35px -12px rgba(0, 0, 0, 0.15);
-    }
-
-    .property-img {
-      height: 240px;
-      background-size: cover;
-      background-position: center;
+      box-shadow: 0 6px 18px -6px rgba(0, 0, 0, 0.06);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
       position: relative;
     }
 
-    .property-tag {
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 18px 28px -10px rgba(0, 0, 0, 0.12);
+    }
+
+    .product-img {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .product-badge {
       position: absolute;
-      top: 16px;
-      left: 16px;
-      background: rgba(255, 255, 255, 0.9);
+      top: 12px;
+      left: 12px;
+      background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(2px);
-      padding: 6px 16px;
+      padding: 4px 14px;
       border-radius: 30px;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 600;
       letter-spacing: 0.3px;
       color: #1e2b2c;
     }
 
-    .property-info {
-      padding: 20px 20px 24px;
+    .product-badge.sale {
+      background: #9b7b5c;
+      color: white;
     }
 
-    .property-info h3 {
-      font-size: 1.3rem;
-      margin-bottom: 4px;
+    .product-info {
+      padding: 16px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .product-brand {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: #9b7b5c;
+      margin-bottom: 2px;
+    }
+
+    .product-name {
+      font-size: 1rem;
+      font-weight: 600;
       color: #1e2b2c;
+      margin-bottom: 4px;
+      line-height: 1.3;
+      font-family: 'Inter', sans-serif;
     }
 
-    .property-info .location {
-      color: #7a7a7a;
-      font-size: 0.9rem;
+    .product-price {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #1e2b2c;
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 8px;
+    }
+
+    .product-price .compare {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: #9b9b9b;
+      text-decoration: line-through;
+      margin-left: 8px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .product-price .off {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #c0392b;
+      background: #fdf0ee;
+      padding: 2px 8px;
+      border-radius: 20px;
+      margin-left: 8px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* color swatches */
+    .color-swatches {
+      display: flex;
+      gap: 8px;
       margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .swatch {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: border 0.2s, transform 0.15s;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .swatch:hover {
+      transform: scale(1.1);
+    }
+
+    .swatch.active {
+      border-color: #1e2b2c;
+      box-shadow: 0 0 0 3px rgba(30, 43, 44, 0.15);
+    }
+
+    .product-shipping {
+      font-size: 0.7rem;
+      color: #7a7a7a;
+      margin-top: auto;
+      padding-top: 8px;
+      border-top: 1px solid #f0ebe6;
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
-    .property-info .price {
-      font-weight: 600;
-      font-size: 1.3rem;
-      color: #1e2b2c;
-      margin-bottom: 16px;
-      font-family: 'Playfair Display', serif;
-    }
-
-    .property-features {
-      display: flex;
-      gap: 18px;
-      color: #5e5e5e;
-      font-size: 0.85rem;
-      border-top: 1px solid #ece8e2;
-      padding-top: 16px;
-    }
-
-    .property-features i {
-      margin-right: 5px;
+    .product-shipping i {
       color: #9b7b5c;
+      font-size: 0.7rem;
     }
 
-    /* deco planning section */
-    .deco-section {
-      background-color: #f2eee9;
-      border-radius: 48px;
-      padding: 60px 40px;
-      margin: 50px 0 80px;
-    }
-
-    .deco-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 50px;
-      align-items: center;
-    }
-
-    .deco-text h2 {
-      font-size: 2.8rem;
-      color: #1e2b2c;
-      margin-bottom: 20px;
-      line-height: 1.2;
-    }
-
-    .deco-text p {
-      font-size: 1.05rem;
-      color: #3d3d3d;
-      margin-bottom: 32px;
-      max-width: 500px;
-      font-weight: 300;
-    }
-
-    .deco-steps {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      margin-bottom: 36px;
-    }
-
-    .step-item {
-      display: flex;
-      gap: 18px;
-      align-items: flex-start;
-    }
-
-    .step-number {
-      background: white;
-      width: 44px;
-      height: 44px;
-      border-radius: 30px;
+    .btn-add {
+      background: #f2eee9;
+      border: 1px solid #e4ddd6;
+      padding: 10px 18px;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 600;
-      font-size: 1.1rem;
-      color: #9b7b5c;
-      flex-shrink: 0;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.03);
-    }
-
-    .step-item p {
-      margin-bottom: 0;
-      font-weight: 400;
-      color: #1e1e1e;
-    }
-
-    .step-item strong {
-      font-weight: 600;
+      gap: 8px;
+      margin-top: 12px;
       color: #1e2b2c;
-    }
-
-    .deco-visual {
-      background: white;
-      border-radius: 30px;
-      padding: 18px;
-      box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.1);
-    }
-
-    .deco-visual img {
       width: 100%;
-      height: 280px;
-      object-fit: cover;
-      border-radius: 20px;
-      display: block;
     }
 
-    .deco-visual .caption {
+    .btn-add:hover {
+      background: #1e2b2c;
+      border-color: #1e2b2c;
+      color: white;
+    }
+
+    .btn-add i {
+      font-size: 0.75rem;
+    }
+
+    /* ----- CART SIDEBAR ----- */
+    .cart-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(3px);
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+
+    .cart-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .cart-sidebar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 420px;
+      max-width: 100%;
+      height: 100%;
+      background: #faf9f7;
+      z-index: 1001;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+      display: flex;
+      flex-direction: column;
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .cart-sidebar.open {
+      transform: translateX(0);
+    }
+
+    .cart-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 8px 4px;
-      font-size: 0.9rem;
-      color: #4a4a4a;
+      padding: 28px 28px 18px;
+      border-bottom: 1px solid #ece8e2;
     }
 
-    .deco-visual .caption i {
-      color: #9b7b5c;
-      font-size: 1.2rem;
+    .cart-header h3 {
+      font-size: 1.6rem;
+      color: #1e2b2c;
     }
 
-    /* testimonials / trust */
-    .trust-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 30px 0 70px;
-      border-bottom: 1px solid #e4ddd6;
-      margin-bottom: 70px;
-    }
-
-    .trust-item {
+    .cart-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #6b6b6b;
+      cursor: pointer;
+      transition: color 0.2s;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-weight: 400;
-      color: #3f3f3f;
+      justify-content: center;
     }
 
-    .trust-item i {
-      font-size: 1.8rem;
-      color: #9b7b5c;
-      opacity: 0.9;
+    .cart-close:hover {
+      background: #f2eee9;
+      color: #1e2b2c;
     }
 
-    .trust-item span {
-      font-size: 1rem;
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 28px;
     }
 
-    .trust-item strong {
+    .cart-empty {
+      text-align: center;
+      padding: 60px 0;
+      color: #9b9b9b;
+    }
+
+    .cart-empty i {
+      font-size: 3rem;
+      color: #ddd6ce;
+      margin-bottom: 16px;
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid #f0ebe6;
+      align-items: flex-start;
+    }
+
+    .cart-item-img {
+      width: 72px;
+      height: 72px;
+      border-radius: 14px;
+      background-size: cover;
+      background-position: center;
+      flex-shrink: 0;
+    }
+
+    .cart-item-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .cart-item-info h4 {
+      font-size: 0.85rem;
       font-weight: 600;
       color: #1e2b2c;
-      display: block;
-      font-size: 1.3rem;
-      font-family: 'Playfair Display', serif;
-      line-height: 1.2;
+      margin-bottom: 2px;
+      font-family: 'Inter', sans-serif;
     }
 
-    /* ----- CONTACT PAGE SPECIFIC STYLES ----- */
-    .contact-hero {
-      padding: 50px 0 30px;
+    .cart-item-info .item-brand {
+      font-size: 0.65rem;
+      color: #9b7b5c;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+
+    .cart-item-info .item-price {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #1e2b2c;
+      margin-top: 4px;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .cart-item-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .qty-btn {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1px solid #e4ddd6;
+      background: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: #1e2b2c;
+      transition: all 0.2s;
+    }
+
+    .qty-btn:hover {
+      background: #1e2b2c;
+      color: white;
+      border-color: #1e2b2c;
+    }
+
+    .qty-value {
+      font-size: 0.85rem;
+      font-weight: 600;
+      min-width: 18px;
       text-align: center;
     }
 
-    .contact-hero h1 {
-      font-size: 3.8rem;
-      color: #1e2b2c;
-      margin-bottom: 16px;
-    }
-
-    .contact-hero p {
-      font-size: 1.2rem;
-      color: #4a4a4a;
-      max-width: 600px;
-      margin: 0 auto;
-      font-weight: 300;
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 50px;
-      margin: 40px 0 80px;
-      align-items: start;
-    }
-
-    .contact-info-card {
-      background: white;
-      border-radius: 36px;
-      padding: 48px 42px;
-      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
-      border: 1px solid #f0ebe6;
-    }
-
-    .contact-info-card h2 {
-      font-size: 2rem;
-      color: #1e2b2c;
-      margin-bottom: 30px;
-      font-weight: 500;
-      letter-spacing: -0.02em;
-    }
-
-    .contact-detail-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 20px;
-      margin-bottom: 32px;
-    }
-
-    .contact-icon {
-      width: 54px;
-      height: 54px;
-      background: #f2eee9;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #9b7b5c;
-      font-size: 1.4rem;
-      flex-shrink: 0;
-    }
-
-    .contact-detail-item div {
-      flex: 1;
-    }
-
-    .contact-detail-item h4 {
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
-      font-size: 0.85rem;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      color: #9b7b5c;
-      margin-bottom: 8px;
-    }
-
-    .contact-detail-item p, .contact-detail-item a {
-      font-size: 1.15rem;
-      color: #1e2b2c;
-      text-decoration: none;
-      font-weight: 400;
-      line-height: 1.5;
-      word-break: break-word;
-      transition: color 0.2s;
-    }
-
-    .contact-detail-item a:hover {
-      color: #9b7b5c;
-    }
-
-    .contact-detail-item .email-secondary {
-      display: block;
-      margin-top: 6px;
-      font-size: 1rem;
-      color: #5e5e5e;
-    }
-
-    .contact-detail-item .email-secondary:hover {
-      color: #9b7b5c;
-    }
-
-    .contact-note {
-      margin-top: 40px;
-      padding-top: 30px;
-      border-top: 1px solid #ece8e2;
-      font-size: 0.95rem;
-      color: #6b6b6b;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .contact-note i {
-      color: #9b7b5c;
-      font-size: 1.4rem;
-    }
-
-    /* contact form (right side) */
-    .contact-form-card {
-      background: white;
-      border-radius: 36px;
-      padding: 48px 42px;
-      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
-      border: 1px solid #f0ebe6;
-    }
-
-    .contact-form-card h2 {
-      font-size: 2rem;
-      color: #1e2b2c;
-      margin-bottom: 12px;
-      font-weight: 500;
-    }
-
-    .contact-form-card > p {
-      color: #6b6b6b;
-      margin-bottom: 32px;
-      font-size: 1rem;
-    }
-
-    .form-group {
-      margin-bottom: 22px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 500;
-      letter-spacing: 0.3px;
-      color: #1e2b2c;
-      margin-bottom: 8px;
-    }
-
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-      width: 100%;
-      padding: 16px 20px;
-      border: 1px solid #e4ddd6;
-      border-radius: 20px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.95rem;
-      color: #1e1e1e;
-      background: #faf9f7;
-      transition: border 0.2s, box-shadow 0.2s;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus,
-    .form-group select:focus {
-      outline: none;
-      border-color: #9b7b5c;
-      box-shadow: 0 0 0 4px rgba(155, 123, 92, 0.1);
-      background: white;
-    }
-
-    .form-group textarea {
-      min-height: 130px;
-      resize: vertical;
-    }
-
-    .form-group select {
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239b7b5c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 20px center;
-      background-size: 18px;
-    }
-
-    .btn-submit {
-      background-color: #1e2b2c;
+    .remove-item {
+      background: none;
       border: none;
-      padding: 18px 30px;
+      color: #c0392b;
+      font-size: 0.75rem;
+      cursor: pointer;
+      text-decoration: underline;
+      padding: 0;
+      margin-left: 4px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .remove-item:hover {
+      opacity: 0.7;
+    }
+
+    .cart-footer {
+      padding: 22px 28px 28px;
+      border-top: 1px solid #ece8e2;
+      background: white;
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #1e2b2c;
+      margin-bottom: 20px;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .cart-total span:last-child {
+      font-size: 1.4rem;
+    }
+
+    .btn-stripe {
+      background: #1e2b2c;
+      border: none;
+      padding: 16px 24px;
       border-radius: 40px;
       font-weight: 500;
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: white;
       cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
+      transition: background 0.2s;
       width: 100%;
-      display: inline-flex;
+      display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      margin-top: 8px;
     }
 
-    .btn-submit:hover {
-      background-color: #2d3f41;
+    .btn-stripe:hover {
+      background: #2d3f41;
     }
 
-    /* footer */
+    .btn-stripe i {
+      font-size: 1rem;
+    }
+
+    /* Stripe link placeholder */
+    .stripe-note {
+      text-align: center;
+      font-size: 0.7rem;
+      color: #9b9b9b;
+      margin-top: 12px;
+      letter-spacing: 0.2px;
+    }
+
+    .stripe-note a {
+      color: #9b7b5c;
+      text-decoration: none;
+    }
+
+    .stripe-note a:hover {
+      text-decoration: underline;
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #1e2b2c;
+      color: white;
+      padding: 14px 28px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      z-index: 2000;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .toast i {
+      color: #9b7b5c;
+    }
+
+    /* ----- FOOTER ----- */
     .footer {
       padding: 50px 0 30px;
       display: grid;
       grid-template-columns: 2fr 1fr 1fr 1fr;
       gap: 40px;
       border-top: 1px solid #e4ddd6;
+      margin-top: 50px;
     }
 
     .footer .brand p {
@@ -747,32 +684,18 @@
     }
 
     /* responsive */
-    @media (max-width: 1024px) {
-      .hero {
-        grid-template-columns: 1fr;
-        gap: 40px;
+    @media (max-width: 1100px) {
+      .product-grid {
+        grid-template-columns: repeat(3, 1fr);
       }
-      .hero-left h1 {
-        font-size: 3.4rem;
-      }
-      .hero-right {
-        justify-content: center;
-      }
-      .deco-grid {
-        grid-template-columns: 1fr;
-      }
-      .property-grid {
+    }
+
+    @media (max-width: 900px) {
+      .product-grid {
         grid-template-columns: repeat(2, 1fr);
       }
       .footer {
         grid-template-columns: 1fr 1fr;
-      }
-      .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-      .contact-hero h1 {
-        font-size: 3rem;
       }
     }
 
@@ -782,58 +705,30 @@
         gap: 16px;
       }
       .nav-links {
-        gap: 20px;
+        gap: 18px;
         font-size: 0.85rem;
+        flex-wrap: wrap;
       }
-      .hero-left h1 {
-        font-size: 2.6rem;
-      }
-      .property-grid {
+      .product-grid {
         grid-template-columns: 1fr;
-      }
-      .deco-section {
-        padding: 40px 24px;
-      }
-      .trust-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 24px;
       }
       .footer {
         grid-template-columns: 1fr;
       }
-      .deco-badge {
-        left: 0;
-        bottom: 10px;
-        padding: 12px 16px;
+      .cart-sidebar {
+        width: 100%;
       }
-      .contact-info-card, .contact-form-card {
-        padding: 32px 24px;
-      }
-      .contact-hero h1 {
-        font-size: 2.4rem;
-      }
-      .contact-detail-item {
-        gap: 14px;
-      }
-      .contact-icon {
-        width: 46px;
-        height: 46px;
-        font-size: 1.2rem;
+      .catalogue-section h2 {
+        font-size: 2rem;
       }
     }
 
     /* subtle decor */
-    .bg-soft {
-      background-color: #faf9f7;
-    }
-
-    /* tiny animation */
-    .btn-primary i, .btn-secondary i, .btn-submit i {
+    .btn-add i, .btn-stripe i {
       transition: transform 0.2s;
     }
-    .btn-primary:hover i, .btn-secondary:hover i, .btn-submit:hover i {
-      transform: translateX(4px);
+    .btn-add:hover i, .btn-stripe:hover i {
+      transform: translateX(3px);
     }
   </style>
 </head>
@@ -844,115 +739,431 @@
       <a href="#" class="logo">CKNS <span>realty & deco</span></a>
       <div class="nav-links">
         <a href="#">Properties</a>
+        <a href="#" style="color: #9b7b5c; font-weight: 500;">Catalogue</a>
         <a href="#">Deco planning</a>
-        <a href="#">Journal</a>
-        <a href="#">About</a>
-        <a href="#" style="color: #9b7b5c; font-weight: 500;">Contact</a>
+        <a href="#">Contact</a>
+        <button class="cart-trigger" id="cartToggle">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
       </div>
-      <button class="btn-outline">Contact us</button>
     </nav>
 
-    <!-- CONTACT PAGE CONTENT -->
-    <section class="contact-hero">
-      <h1>Let’s talk <i style="font-family: 'Playfair Display', serif; color: #9b7b5c;">space</i></h1>
-      <p>Reach out for property inquiries, deco planning consultations, or just to say hello. We’re here.</p>
+    <!-- ================= RUGS & FLOORING SECTION ================= -->
+    <section class="catalogue-section" id="rugs">
+      <h2><i class="fas fa-rug"></i> Rugs & flooring</h2>
+      <p class="section-desc">Hand-picked rugs from Momeni, KAS, Nourison, Chandra, and Four Hands. Select your colour below.</p>
+
+      <div class="product-grid" id="rugsGrid">
+        <!-- RUG 1: Momeni Orchard Floral -->
+        <div class="product-card" data-id="rug1" data-brand="Momeni" data-name="Orchard Floral Hand-Woven Jute and Wool Runner Rug" data-price="427.14" data-img="https://images.unsplash.com/photo-1600166898405-da9535204843?w=400&q=80" data-colors='["#d4c5b0","#b8a88a","#8b7b6b","#5e5548"]'>
+          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600166898405-da9535204843?w=400&q=80');">
+            <span class="product-badge">New</span>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">Momeni</div>
+            <div class="product-name">Orchard Floral Hand-Woven Jute & Wool Runner</div>
+            <div class="product-price">$427.14</div>
+            <div class="color-swatches" data-product="rug1"></div>
+            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+          </div>
+        </div>
+
+        <!-- RUG 2: KAS Syriana -->
+        <div class="product-card" data-id="rug2" data-brand="KAS" data-name="Syriana Hand-Tufted Wool Floral Runner Area Rug" data-price="319" data-img="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=400&q=80" data-colors='["#e8d8c8","#c4b5a5","#9b8b7a","#6b5d50"]'>
+          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=400&q=80');">
+            <span class="product-badge">New</span>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">KAS</div>
+            <div class="product-name">Syriana Hand-Tufted Wool Floral Runner Area Rug</div>
+            <div class="product-price">$319.00</div>
+            <div class="color-swatches" data-product="rug2"></div>
+            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+          </div>
+        </div>
+
+        <!-- RUG 3: Nourison Sultana -->
+        <div class="product-card" data-id="rug3" data-brand="Nourison" data-name="Sultana Floral Area Rug with Vintage Style" data-price="653.00" data-compare="932.86" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&q=80" data-colors='["#c9b8a8","#a89480","#7d6b5a","#4d4038"]'>
+          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&q=80');">
+            <span class="product-badge sale">30% OFF</span>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">Nourison</div>
+            <div class="product-name">Sultana Floral Area Rug with Vintage Style</div>
+            <div class="product-price">$653.00 <span class="compare">$932.86</span> <span class="off">30% OFF</span></div>
+            <div class="color-swatches" data-product="rug3"></div>
+            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+          </div>
+        </div>
+
+        <!-- RUG 4: Chandra Amazon Tiger Print -->
+        <div class="product-card" data-id="rug4" data-brand="Chandra" data-name="Amazon AMA-5603 Hand-Woven Wool Blend Area Rug with Tiger Print" data-price="744.00" data-compare="1062.86" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=400&q=80" data-colors='["#d9c8b0","#b89f80","#8a6f50","#5a4a3a"]'>
+          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=400&q=80');">
+            <span class="product-badge sale">30% OFF</span>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">Chandra</div>
+            <div class="product-name">Amazon AMA-5603 Hand-Woven Wool Blend Rug — Tiger Print</div>
+            <div class="product-price">$744.00 <span class="compare">$1,062.86</span> <span class="off">30% OFF</span></div>
+            <div class="color-swatches" data-product="rug4"></div>
+            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+          </div>
+        </div>
+
+        <!-- RUG 5: Nourison 2000 Bordered Runner -->
+        <div class="product-card" data-id="rug5" data-brand="Nourison" data-name="2000 Bordered Runner Area Rug in Beige" data-price="803.00" data-compare="1147.14" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&q=80" data-colors='["#e8dcc8","#d4c4b0","#b8a898","#9c8878"]'>
+          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&q=80');">
+            <span class="product-badge sale">30% OFF</span>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">Nourison</div>
+            <div class="product-name">2000 Bordered Runner Area Rug in Beige</div>
+            <div class="product-price">$803.00 <span class="compare">$1,147.14</span> <span class="off">30% OFF</span></div>
+            <div class="color-swatches" data-product="rug5"></div>
+            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+          </div>
+        </div>
+
+        <!-- RUG 6: Chandra Zara Round Shag -->
+        <div class="product-card" data-id="rug6" data-brand="Chandra" data-name="Zara 7'9" Round Hand-Woven Shag Area Rug in Dark Lavender" data-price="804.00" data-img="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80" data-colors='["#b8a0c0","#9a80a0","#7a6080","#5a4060"]'>
+          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80');">
+            <span class="product-badge">Round</span>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">Chandra</div>
+            <div class="product-name">Zara 7'9" Round Hand-Woven Shag Area Rug — Dark Lavender</div>
+            <div class="product-price">$804.00</div>
+            <div class="color-swatches" data-product="rug6"></div>
+            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+          </div>
+        </div>
+
+        <!-- RUG 7: Four Hands Mateo Leopard -->
+        <div class="product-card" data-id="rug7" data-brand="Four Hands" data-name="Mateo Leopard Print Hair-on-Hide Area Rug — Brown and Black" data-price="519.20" data-compare="649.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=400&q=80" data-colors='["#c9a86a","#a88450","#7a6038","#4a3820"]'>
+          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=400&q=80');">
+            <span class="product-badge sale">20% OFF</span>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">Four Hands</div>
+            <div class="product-name">Mateo Leopard Print Hair-on-Hide Area Rug — Brown & Black</div>
+            <div class="product-price">$519.20 <span class="compare">$649.00</span> <span class="off">20% OFF</span></div>
+            <div class="color-swatches" data-product="rug7"></div>
+            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+          </div>
+        </div>
+
+        <!-- RUG 8: Chandra Veleno -->
+        <div class="product-card" data-id="rug8" data-brand="Chandra" data-name="Veleno Hand-Tufted Floral Area Rug in Charcoal Grey Beige" data-price="934.00" data-compare="1334.29" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=400&q=80" data-colors='["#4a4a4a","#6b6b6b","#8b8b8b","#a8a8a8"]'>
+          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=400&q=80');">
+            <span class="product-badge sale">30% OFF</span>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">Chandra</div>
+            <div class="product-name">Veleno Hand-Tufted Floral Area Rug — Charcoal Grey Beige</div>
+            <div class="product-price">$934.00 <span class="compare">$1,334.29</span> <span class="off">30% OFF</span></div>
+            <div class="color-swatches" data-product="rug8"></div>
+            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+          </div>
+        </div>
+
+        <!-- RUG 9: Chandra Giovanna Braided -->
+        <div class="product-card" data-id="rug9" data-brand="Chandra" data-name="Giovanna 5x7 Braided Area Rug in Multi-Tone Wool Viscose Cotton" data-price="916.00" data-compare="1308.57" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=400&q=80" data-colors='["#d4a878","#b88858","#a07048","#806038"]'>
+          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=400&q=80');">
+            <span class="product-badge sale">30% OFF</span>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">Chandra</div>
+            <div class="product-name">Giovanna 5x7 Braided Area Rug — Multi-Tone Wool Viscose Cotton</div>
+            <div class="product-price">$916.00 <span class="compare">$1,308.57</span> <span class="off">30% OFF</span></div>
+            <div class="color-swatches" data-product="rug9"></div>
+            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+          </div>
+        </div>
+
+        <!-- RUG 10: Four Hands Mateo Zebra -->
+        <div class="product-card" data-id="rug10" data-brand="Four Hands" data-name="Mateo Zebra Printed Hair-on-Hide Area Rug — Natural Black and White" data-price="519.20" data-compare="649.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=400&q=80" data-colors='["#2e2e2e","#4a4a4a","#6b6b6b","#9b9b9b"]'>
+          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=400&q=80');">
+            <span class="product-badge sale">20% OFF</span>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">Four Hands</div>
+            <div class="product-name">Mateo Zebra Printed Hair-on-Hide Area Rug — Natural Black & White</div>
+            <div class="product-price">$519.20 <span class="compare">$649.00</span> <span class="off">20% OFF</span></div>
+            <div class="color-swatches" data-product="rug10"></div>
+            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <div class="contact-grid">
-      <!-- LEFT: CONTACT INFORMATION -->
-      <div class="contact-info-card">
-        <h2>Contact details</h2>
-        
-        <!-- Phone -->
-        <div class="contact-detail-item">
-          <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
-          <div>
-            <h4>Phone</h4>
-            <p><a href="tel:+18572689887">857-268-9887</a></p>
+    <!-- ================= FURNISHINGS SECTION ================= -->
+    <section class="catalogue-section" id="furnishings">
+      <h2><i class="fas fa-couch"></i> Furnishings & decor</h2>
+      <p class="section-desc">Seasonal accents and elegant candle holders to complete your space.</p>
+
+      <div class="product-grid" id="furnishingsGrid">
+        <!-- F1: Majestic Illuminated Ensemble -->
+        <div class="product-card" data-id="f1" data-brand="Majestic" data-name="Illuminated Ensemble: 4 garlands + 6 Lighted Ornaments + Remote + 10 ball ornaments" data-price="399.99" data-compare="499.99" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=400&q=80" data-colors='["#d4a830","#c89828","#a87818","#885810"]'>
+          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=400&q=80');">
+            <span class="product-badge sale">20% OFF</span>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">Majestic</div>
+            <div class="product-name">Illuminated Ensemble: 4 Garlands + 6 Lighted Ornaments + Remote + 10 Ball Ornaments</div>
+            <div class="product-price">$399.99 <span class="compare">$499.99</span> <span class="off">20% OFF</span></div>
+            <div class="color-swatches" data-product="f1"></div>
+            <div class="product-shipping"><i class="fas fa-truck"></i> Ships in 5–7 business days · Final Sale</div>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
           </div>
         </div>
 
-        <!-- Address -->
-        <div class="contact-detail-item">
-          <div class="contact-icon"><i class="fas fa-map-pin"></i></div>
-          <div>
-            <h4>Business address</h4>
-            <p>2 PEARSON WAY, ENFIELD CT 06082</p>
+        <!-- F2: Norfolk Pine Spray & Brown Line Vase Bundle -->
+        <div class="product-card" data-id="f2" data-brand="Norfolk" data-name="Norfolk Pine Spray & Brown Line Vase Bundle" data-price="175.99" data-compare="189.93" data-off="7% OFF" data-img="https://images.unsplash.com/photo-1602928321679-560bb453f190?w=400&q=80" data-colors='["#5a7a5a","#3a5a3a","#2a4a2a","#1a3a1a"]'>
+          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1602928321679-560bb453f190?w=400&q=80');">
+            <span class="product-badge sale">7% OFF</span>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">Norfolk</div>
+            <div class="product-name">Norfolk Pine Spray & Brown Line Vase Bundle</div>
+            <div class="product-price">$175.99 <span class="compare">$189.93</span> <span class="off">7% OFF</span></div>
+            <div class="color-swatches" data-product="f2"></div>
+            <div class="product-shipping"><i class="fas fa-undo"></i> 14-day return for refund or store credit</div>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
           </div>
         </div>
 
-        <!-- Email -->
-        <div class="contact-detail-item">
-          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-          <div>
-            <h4>Email</h4>
-            <p><a href="mailto:info@cknsworld.store">info@cknsworld.store</a></p>
-            <a href="mailto:e34821704@gmail.com" class="email-secondary">e34821704@gmail.com</a>
+        <!-- F3: Cranberry Heirloom Ensemble -->
+        <div class="product-card" data-id="f3" data-brand="Cranberry" data-name="Cranberry Heirloom Ensemble" data-price="399.99" data-compare="499.99" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1543589077-47d81606c1bf?w=400&q=80" data-colors='["#8b2020","#6b1818","#4b1010","#3b0808"]'>
+          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1543589077-47d81606c1bf?w=400&q=80');">
+            <span class="product-badge sale">20% OFF</span>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">Cranberry</div>
+            <div class="product-name">Cranberry Heirloom Ensemble</div>
+            <div class="product-price">$399.99 <span class="compare">$499.99</span> <span class="off">20% OFF</span></div>
+            <div class="color-swatches" data-product="f3"></div>
+            <div class="product-shipping"><i class="fas fa-truck"></i> Ships in 5–7 business days · Final Sale</div>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
           </div>
         </div>
 
-        <div class="contact-note">
-          <i class="fas fa-clock"></i>
-          <span>Mon–Fri, 9am–6pm EST · We reply within 24h</span>
+        <!-- F4: Square Glass Hurricanes -->
+        <div class="product-card" data-id="f4" data-brand="Glass" data-name="Square Glass Hurricanes with Antique Brass Base, Set of 2" data-price="189.99" data-img="https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80" data-colors='["#c8a878","#a88858","#886838","#685018"]'>
+          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80');">
+            <span class="product-badge">Set of 2</span>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">Glass</div>
+            <div class="product-name">Square Glass Hurricanes with Antique Brass Base, Set of 2</div>
+            <div class="product-price">$189.99</div>
+            <div class="color-swatches" data-product="f4"></div>
+            <div class="product-shipping"><i class="fas fa-undo"></i> 14-day return for refund or store credit</div>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+          </div>
+        </div>
+
+        <!-- F5: Rechargeable Flameless Votive Candle Set -->
+        <div class="product-card" data-id="f5" data-brand="Candle" data-name="Rechargeable Flameless Votive Candle Set of 4" data-price="99.99" data-img="https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80" data-colors='["#f0e8d8","#e0d8c8","#d0c8b8","#c0b8a8"]'>
+          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80');">
+            <span class="product-badge">Set of 4</span>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">Candle</div>
+            <div class="product-name">Rechargeable Flameless Votive Candle Set of 4</div>
+            <div class="product-price">$99.99</div>
+            <div class="color-swatches" data-product="f5"></div>
+            <div class="product-shipping"><i class="fas fa-undo"></i> 14-day return for refund or store credit</div>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+          </div>
+        </div>
+
+        <!-- F6: Hurricane Candle Holders 3 sizes -->
+        <div class="product-card" data-id="f6" data-brand="Hurricane" data-name="Hurricane Candle Holders: 3 sizes — Sold Individually" data-price="129.99" data-img="https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80" data-colors='["#b8a888","#a89878","#988868","#887858"]'>
+          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80');">
+            <span class="product-badge">3 sizes</span>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">Hurricane</div>
+            <div class="product-name">Hurricane Candle Holders: 3 Sizes — Sold Individually</div>
+            <div class="product-price">$129.99</div>
+            <div class="color-swatches" data-product="f6"></div>
+            <div class="product-shipping"><i class="fas fa-clock"></i> Longer shipping time: 5–7 days</div>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+          </div>
         </div>
       </div>
+    </section>
 
-      <!-- RIGHT: CONTACT FORM -->
-      <div class="contact-form-card">
-        <h2>Send a message</h2>
-        <p>Fill out the form and our team will get back to you shortly.</p>
-        <form onsubmit="event.preventDefault(); alert('Thank you! This is a demo form. In production, your message would be sent.');">
-          <div class="form-group">
-            <label for="name">Full name</label>
-            <input type="text" id="name" placeholder="Alex Morgan" required>
-          </div>
-          <div class="form-group">
-            <label for="email">Email address</label>
-            <input type="email" id="email" placeholder="alex@example.com" required>
-          </div>
-          <div class="form-group">
-            <label for="phone">Phone (optional)</label>
-            <input type="tel" id="phone" placeholder="(857) 555-0123">
-          </div>
-          <div class="form-group">
-            <label for="interest">I’m interested in</label>
-            <select id="interest">
-              <option value="property">Buying / renting a property</option>
-              <option value="deco">House deco planning</option>
-              <option value="both">Both real estate & deco</option>
-              <option value="other">Other inquiry</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" placeholder="Tell us about your project, timeline, or any questions..." required></textarea>
-          </div>
-          <button type="submit" class="btn-submit">Send message <i class="fas fa-paper-plane"></i></button>
-        </form>
-      </div>
-    </div>
+    <!-- ================= HOME CAPES SECTION (FOUR HANDS) ================= -->
+    <section class="catalogue-section" id="homecapes">
+      <h2><i class="fas fa-gem"></i> Home capes · Four Hands</h2>
+      <p class="section-desc">Premium Four Hands pieces. Complimentary white glove delivery on orders over $2,000.</p>
 
-    <!-- Trust / stats row (kept from original) -->
-    <div class="trust-row">
-      <div class="trust-item">
-        <i class="fas fa-home"></i>
-        <div><strong>320+</strong> <span>homes transformed</span></div>
-      </div>
-      <div class="trust-item">
-        <i class="fas fa-paint-brush"></i>
-        <div><strong>95+</strong> <span>deco plans delivered</span></div>
-      </div>
-      <div class="trust-item">
-        <i class="fas fa-star"></i>
-        <div><strong>4.9</strong> <span>client rating</span></div>
-      </div>
-      <div class="trust-item">
-        <i class="fas fa-clock"></i>
-        <div><strong>12</strong> <span>years of expertise</span></div>
-      </div>
-    </div>
+      <div class="product-grid" id="homecapesGrid">
+        <!-- H1: Matthes Reclaimed Pine Console Table -->
+        <div class="product-card" data-id="h1" data-brand="Four Hands" data-name="Matthes Reclaimed Pine Console Table — Aged Black Pine" data-price="719.20" data-compare="899.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1532372320572-cda25653a694?w=400&q=80" data-colors='["#2e2e2e","#4a4a4a","#6b6b6b","#8b8b8b"]'>
+          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1532372320572-cda25653a694?w=400&q=80');">
+            <span class="product-badge sale">20% OFF</span>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">Four Hands</div>
+            <div class="product-name">Matthes Reclaimed Pine Console Table — Aged Black Pine</div>
+            <div class="product-price">$719.20 <span class="compare">$899.00</span> <span class="off">20% OFF</span></div>
+            <div class="color-swatches" data-product="h1"></div>
+            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+          </div>
+        </div>
 
-    <!-- Footer -->
+        <!-- H2: Julius Swivel Chair -->
+        <div class="product-card" data-id="h2" data-brand="Four Hands" data-name="Julius Swivel Chair — Taupe Shearling" data-price="2959.20" data-compare="3699.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" data-colors='["#c8b8a8","#b8a898","#a89888","#988878"]'>
+          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80');">
+            <span class="product-badge sale">20% OFF</span>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">Four Hands</div>
+            <div class="product-name">Julius Swivel Chair — Taupe Shearling</div>
+            <div class="product-price">$2,959.20 <span class="compare">$3,699.00</span> <span class="off">20% OFF</span></div>
+            <div class="color-swatches" data-product="h2"></div>
+            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+          </div>
+        </div>
+
+        <!-- H3: Bingham Coffee Table -->
+        <div class="product-card" data-id="h3" data-brand="Four Hands" data-name="Bingham Coffee Table — Distressed Iron" data-price="1919.20" data-compare="2399.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=400&q=80" data-colors='["#3a3a3a","#4a4a4a","#5a5a5a","#6a6a6a"]'>
+          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=400&q=80');">
+            <span class="product-badge sale">20% OFF</span>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">Four Hands</div>
+            <div class="product-name">Bingham Coffee Table — Distressed Iron</div>
+            <div class="product-price">$1,919.20 <span class="compare">$2,399.00</span> <span class="off">20% OFF</span></div>
+            <div class="color-swatches" data-product="h3"></div>
+            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+          </div>
+        </div>
+
+        <!-- H4: Tolle Cabinet -->
+        <div class="product-card" data-id="h4" data-brand="Four Hands" data-name="Tolle Cabinet — Drifted Matte Black w/ Drifted Oak" data-price="3439.20" data-compare="4299.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80" data-colors='["#2a2a2a","#3a3a3a","#4a4a4a","#5a5a5a"]'>
+          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80');">
+            <span class="product-badge sale">20% OFF</span>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">Four Hands</div>
+            <div class="product-name">Tolle Cabinet — Drifted Matte Black w/ Drifted Oak</div>
+            <div class="product-price">$3,439.20 <span class="compare">$4,299.00</span> <span class="off">20% OFF</span></div>
+            <div class="color-swatches" data-product="h4"></div>
+            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+          </div>
+        </div>
+
+        <!-- H5: Abaso Rectangular Coffee Table -->
+        <div class="product-card" data-id="h5" data-brand="Four Hands" data-name="Abaso Rectangular Coffee Table — Rustic Wormwood Oak" data-price="2079.20" data-compare="2599.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1532372320572-cda25653a694?w=400&q=80" data-colors='["#8b6b4a","#7a5a3a","#6a4a2a","#5a3a1a"]'>
+          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1532372320572-cda25653a694?w=400&q=80');">
+            <span class="product-badge sale">20% OFF</span>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">Four Hands</div>
+            <div class="product-name">Abaso Rectangular Coffee Table — Rustic Wormwood Oak</div>
+            <div class="product-price">$2,079.20 <span class="compare">$2,599.00</span> <span class="off">20% OFF</span></div>
+            <div class="color-swatches" data-product="h5"></div>
+            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+          </div>
+        </div>
+
+        <!-- H6: Augustine Swivel Chair -->
+        <div class="product-card" data-id="h6" data-brand="Four Hands" data-name="Augustine Swivel Chair — Palermo Drift" data-price="2159.20" data-compare="2699.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" data-colors='["#d4c4b0","#c4b4a0","#b4a490","#a49480"]'>
+          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80');">
+            <span class="product-badge sale">20% OFF</span>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">Four Hands</div>
+            <div class="product-name">Augustine Swivel Chair — Palermo Drift</div>
+            <div class="product-price">$2,159.20 <span class="compare">$2,699.00</span> <span class="off">20% OFF</span></div>
+            <div class="color-swatches" data-product="h6"></div>
+            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+          </div>
+        </div>
+
+        <!-- H7: Redondo Media Console -->
+        <div class="product-card" data-id="h7" data-brand="Four Hands" data-name="Redondo Media Console" data-price="3679.20" data-compare="4599.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80" data-colors='["#4a3a2a","#3a2a1a","#2a1a0a","#1a0a00"]'>
+          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80');">
+            <span class="product-badge sale">20% OFF</span>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">Four Hands</div>
+            <div class="product-name">Redondo Media Console</div>
+            <div class="product-price">$3,679.20 <span class="compare">$4,599.00</span> <span class="off">20% OFF</span></div>
+            <div class="color-swatches" data-product="h7"></div>
+            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+          </div>
+        </div>
+
+        <!-- H8: Leo 6 Drawer Dresser -->
+        <div class="product-card" data-id="h8" data-brand="Four Hands" data-name="Leo 6 Drawer Dresser" data-price="2399.20" data-compare="2999.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80" data-colors='["#6b5a4a","#5b4a3a","#4b3a2a","#3b2a1a"]'>
+          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80');">
+            <span class="product-badge sale">20% OFF</span>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">Four Hands</div>
+            <div class="product-name">Leo 6 Drawer Dresser</div>
+            <div class="product-price">$2,399.20 <span class="compare">$2,999.00</span> <span class="off">20% OFF</span></div>
+            <div class="color-swatches" data-product="h8"></div>
+            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+          </div>
+        </div>
+
+        <!-- H9: Rothler Dining Chair -->
+        <div class="product-card" data-id="h9" data-brand="Four Hands" data-name="Rothler Dining Chair" data-price="559.20" data-compare="699.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" data-colors='["#c8b8a0","#b8a890","#a89880","#988870"]'>
+          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80');">
+            <span class="product-badge sale">20% OFF</span>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">Four Hands</div>
+            <div class="product-name">Rothler Dining Chair</div>
+            <div class="product-price">$559.20 <span class="compare">$699.00</span> <span class="off">20% OFF</span></div>
+            <div class="color-swatches" data-product="h9"></div>
+            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+          </div>
+        </div>
+
+        <!-- H10: Aurora Swivel Chair -->
+        <div class="product-card" data-id="h10" data-brand="Four Hands" data-name="Aurora Swivel Chair — Knoll Natural" data-price="799.20" data-compare="999.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" data-colors='["#e0d8c8","#d0c8b8","#c0b8a8","#b0a898"]'>
+          <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80');">
+            <span class="product-badge sale">20% OFF</span>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">Four Hands</div>
+            <div class="product-name">Aurora Swivel Chair — Knoll Natural</div>
+            <div class="product-price">$799.20 <span class="compare">$999.00</span> <span class="off">20% OFF</span></div>
+            <div class="color-swatches" data-product="h10"></div>
+            <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
+            <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> Add to cart</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
     <footer class="footer">
       <div class="brand">
         <a href="#" class="logo" style="font-size: 2rem;">CKNS</a>
@@ -967,8 +1178,8 @@
         <h4>Explore</h4>
         <ul>
           <li><a href="#">Properties</a></li>
+          <li><a href="#" style="color:#9b7b5c;">Catalogue</a></li>
           <li><a href="#">Deco planning</a></li>
-          <li><a href="#">Journal</a></li>
           <li><a href="#">Contact</a></li>
         </ul>
       </div>
@@ -993,5 +1204,203 @@
       </div>
     </footer>
   </div>
+
+  <!-- ================= CART SIDEBAR ================= -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3>Your cart</h3>
+      <button class="cart-close" id="cartClose"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty">
+        <i class="fas fa-shopping-bag"></i>
+        <p>Your cart is empty.</p>
+      </div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cartTotal">$0.00</span>
+      </div>
+      <button class="btn-stripe" id="stripeBtn">
+        <i class="fas fa-lock"></i> Proceed to checkout
+      </button>
+      <p class="stripe-note">
+        Stripe payment link placeholder — replace with your <a href="#" target="_blank">Stripe Checkout link</a>
+      </p>
+    </div>
+  </aside>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg">Added to cart</span></div>
+
+  <script>
+    // ----- STATE -----
+    let cart = [];
+    let cartCount = 0;
+    let cartTotal = 0;
+
+    // ----- COLOR SWATCH RENDERING -----
+    document.querySelectorAll('.product-card').forEach(card => {
+      const swatchContainer = card.querySelector('.color-swatches');
+      if (!swatchContainer) return;
+      const colors = JSON.parse(card.dataset.colors || '[]');
+      if (colors.length === 0) return;
+      colors.forEach((color, idx) => {
+        const swatch = document.createElement('div');
+        swatch.className = 'swatch' + (idx === 0 ? ' active' : '');
+        swatch.style.backgroundColor = color;
+        swatch.dataset.color = color;
+        swatch.addEventListener('click', () => {
+          swatchContainer.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+          swatch.classList.add('active');
+        });
+        swatchContainer.appendChild(swatch);
+      });
+    });
+
+    // ----- CART FUNCTIONS -----
+    function addToCart(btn) {
+      const card = btn.closest('.product-card');
+      const id = card.dataset.id;
+      const brand = card.dataset.brand;
+      const name = card.dataset.name;
+      const price = parseFloat(card.dataset.price);
+      const img = card.dataset.img;
+      // Get selected color
+      const activeSwatch = card.querySelector('.swatch.active');
+      const color = activeSwatch ? activeSwatch.dataset.color : '#ccc';
+      const colorName = activeSwatch ? getColorName(activeSwatch.dataset.color) : 'Default';
+
+      // Check if item with same id AND same color exists
+      const existing = cart.find(item => item.id === id && item.color === color);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ id, brand, name, price, img, color, colorName, qty: 1 });
+      }
+      updateCartUI();
+      showToast(`${brand} ${name} added`);
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartUI();
+    }
+
+    function updateQty(index, delta) {
+      cart[index].qty += delta;
+      if (cart[index].qty <= 0) {
+        cart.splice(index, 1);
+      }
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const itemsContainer = document.getElementById('cartItems');
+      const countEl = document.getElementById('cartCount');
+      const totalEl = document.getElementById('cartTotal');
+
+      cartCount = cart.reduce((sum, item) => sum + item.qty, 0);
+      cartTotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+      countEl.textContent = cartCount;
+      totalEl.textContent = '$' + cartTotal.toFixed(2);
+
+      if (cart.length === 0) {
+        itemsContainer.innerHTML = `
+          <div class="cart-empty">
+            <i class="fas fa-shopping-bag"></i>
+            <p>Your cart is empty.</p>
+          </div>
+        `;
+        return;
+      }
+
+      itemsContainer.innerHTML = cart.map((item, idx) => `
+        <div class="cart-item">
+          <div class="cart-item-img" style="background-image: url('${item.img}');"></div>
+          <div class="cart-item-info">
+            <div class="item-brand">${item.brand}</div>
+            <h4>${item.name}</h4>
+            <div style="display:flex; align-items:center; gap:8px; margin-top:2px;">
+              <span style="display:inline-block; width:14px; height:14px; border-radius:50%; background:${item.color}; border:1px solid #e4ddd6;"></span>
+              <span style="font-size:0.7rem; color:#6b6b6b;">${item.colorName}</span>
+            </div>
+            <div class="item-price">$${item.price.toFixed(2)}</div>
+            <div class="cart-item-actions">
+              <button class="qty-btn" onclick="updateQty(${idx}, -1)"><i class="fas fa-minus"></i></button>
+              <span class="qty-value">${item.qty}</span>
+              <button class="qty-btn" onclick="updateQty(${idx}, 1)"><i class="fas fa-plus"></i></button>
+              <button class="remove-item" onclick="removeFromCart(${idx})">Remove</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function getColorName(hex) {
+      const names = {
+        '#d4c5b0': 'Natural', '#b8a88a': 'Sand', '#8b7b6b': 'Taupe', '#5e5548': 'Walnut',
+        '#e8d8c8': 'Cream', '#c4b5a5': 'Oat', '#9b8b7a': 'Stone', '#6b5d50': 'Mocha',
+        '#c9b8a8': 'Beige', '#a89480': 'Camel', '#7d6b5a': 'Cocoa', '#4d4038': 'Espresso',
+        '#d9c8b0': 'Wheat', '#b89f80': 'Honey', '#8a6f50': 'Chestnut', '#5a4a3a': 'Dark Oak',
+        '#4a4a4a': 'Charcoal', '#6b6b6b': 'Slate', '#8b8b8b': 'Ash', '#a8a8a8': 'Pewter',
+        '#b8a0c0': 'Lavender', '#9a80a0': 'Mauve', '#7a6080': 'Plum', '#5a4060': 'Deep Purple',
+        '#d4a830': 'Gold', '#c89828': 'Amber', '#a87818': 'Bronze', '#885810': 'Copper',
+        '#5a7a5a': 'Pine', '#3a5a3a': 'Forest', '#2a4a2a': 'Evergreen', '#1a3a1a': 'Deep Green',
+        '#8b2020': 'Cranberry', '#6b1818': 'Merlot', '#4b1010': 'Burgundy', '#3b0808': 'Maroon',
+        '#2e2e2e': 'Black', '#4a3a2a': 'Brown', '#3a2a1a': 'Dark Brown', '#1a0a00': 'Ebony',
+        '#8b6b4a': 'Oak', '#7a5a3a': 'Rustic', '#6a4a2a': 'Wormwood', '#5a3a1a': 'Dark Rustic',
+        '#e0d8c8': 'Ivory', '#d0c8b8': 'Linen', '#c0b8a8': 'Flax', '#b0a898': 'Dune',
+        '#f0e8d8': 'White', '#e0d8c8': 'Alabaster', '#d0c8b8': 'Bone', '#c0b8a8': 'Parchment'
+      };
+      return names[hex] || 'Custom';
+    }
+
+    // ----- CART UI TOGGLE -----
+    const cartSidebar = document.getElementById('cartSidebar');
+    const cartOverlay = document.getElementById('cartOverlay');
+    const cartToggle = document.getElementById('cartToggle');
+    const cartClose = document.getElementById('cartClose');
+
+    function openCart() {
+      cartSidebar.classList.add('open');
+      cartOverlay.classList.add('open');
+    }
+
+    function closeCart() {
+      cartSidebar.classList.remove('open');
+      cartOverlay.classList.remove('open');
+    }
+
+    cartToggle.addEventListener('click', openCart);
+    cartClose.addEventListener('click', closeCart);
+    cartOverlay.addEventListener('click', closeCart);
+
+    // ----- TOAST -----
+    let toastTimer;
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    // ----- STRIPE PLACEHOLDER -----
+    document.getElementById('stripeBtn').addEventListener('click', () => {
+      if (cart.length === 0) {
+        showToast('Your cart is empty');
+        return;
+      }
+      // REPLACE THIS WITH YOUR ACTUAL STRIPE PAYMENT LINK
+      // Example: window.location.href = 'https://buy.stripe.com/your_link_here';
+      alert('Stripe Checkout placeholder.\n\nReplace this with your actual Stripe Payment Link.\n\nTotal: $' + cartTotal.toFixed(2));
+    });
+
+    // Initial render
+    updateCartUI();
+  </script>
 </body>
 </html>
