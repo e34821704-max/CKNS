@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms & Conditions · CKNS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: #faf9f7;
+      font-family: 'Inter', sans-serif;
+      color: #1e1e1e;
+      line-height: 1.7;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: #1e2b2c;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* Navigation */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 0 16px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .logo {
+      font-size: 1.9rem;
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #1e2b2c;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .logo span {
+      color: #9b7b5c;
+      font-weight: 400;
+      font-size: 1.2rem;
+      margin-left: 8px;
+      letter-spacing: 0.2px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .back-link {
+      text-decoration: none;
+      color: #1e2b2c;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      border: 1px solid #1e2b2c;
+      border-radius: 40px;
+      transition: all 0.2s;
+    }
+
+    .back-link:hover {
+      background: #1e2b2c;
+      color: white;
+    }
+
+    /* Page header */
+    .page-header {
+      padding: 60px 0 40px;
+      border-bottom: 1px solid #ece8e2;
+      margin-bottom: 50px;
+    }
+
+    .page-header h1 {
+      font-size: 3.2rem;
+      margin-bottom: 12px;
+      line-height: 1.15;
+    }
+
+    .page-header .meta {
+      color: #6b6b6b;
+      font-size: 0.95rem;
+    }
+
+    .page-header .meta i {
+      color: #9b7b5c;
+      margin-right: 6px;
+    }
+
+    /* Content */
+    .policy-content {
+      padding-bottom: 80px;
+    }
+
+    .policy-content h2 {
+      font-size: 1.9rem;
+      margin: 40px 0 16px;
+      padding-top: 10px;
+    }
+
+    .policy-content h2:first-of-type {
+      margin-top: 0;
+    }
+
+    .policy-content h3 {
+      font-size: 1.25rem;
+      margin: 28px 0 10px;
+    }
+
+    .policy-content p {
+      color: #3d3d3d;
+      margin-bottom: 16px;
+      font-size: 1rem;
+    }
+
+    .policy-content ul, .policy-content ol {
+      margin: 0 0 20px 24px;
+      color: #3d3d3d;
+    }
+
+    .policy-content ul li, .policy-content ol li {
+      margin-bottom: 10px;
+      padding-left: 4px;
+    }
+
+    .policy-content a {
+      color: #9b7b5c;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(155, 123, 92, 0.3);
+      transition: border-color 0.2s;
+    }
+
+    .policy-content a:hover {
+      border-color: #9b7b5c;
+    }
+
+    .callout {
+      background: #f8f5f1;
+      border-left: 3px solid #9b7b5c;
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 24px 0;
+      font-size: 0.95rem;
+      color: #4a4a4a;
+    }
+
+    .callout i {
+      color: #9b7b5c;
+      margin-right: 8px;
+    }
+
+    .contact-block {
+      background: white;
+      border: 1px solid #ece8e2;
+      border-radius: 20px;
+      padding: 28px 32px;
+      margin-top: 30px;
+    }
+
+    .contact-block h3 {
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
+
+    .contact-block p {
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    .contact-block i {
+      color: #9b7b5c;
+      width: 20px;
+      margin-right: 10px;
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid #e4ddd6;
+      padding: 36px 0;
+      text-align: center;
+      color: #9b9b9b;
+      font-size: 0.85rem;
+    }
+
+    .footer a {
+      color: #9b7b5c;
+      text-decoration: none;
+      margin: 0 12px;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 720px) {
+      .page-header h1 { font-size: 2.4rem; }
+      .navbar { flex-wrap: wrap; gap: 16px; }
+      .policy-content h2 { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Navigation -->
+    <nav class="navbar">
+      <a href="index.html" class="logo">CKNS <span>realty & deco</span></a>
+      <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Catalogue</a>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+      <h1>Terms & Conditions</h1>
+      <p class="meta"><i class="fas fa-calendar-alt"></i> Last updated: 23 November 2025</p>
+    </header>
+
+    <!-- Content -->
+    <main class="policy-content">
+      <p>Welcome to CKNS Realty & Deco Planning. These Terms & Conditions ("Terms") govern your use of our website <strong>cknsworld.store</strong> and any purchase you make from us. By accessing or shopping on our site, you agree to be bound by these Terms. If you do not agree, please do not use our website.</p>
+
+      <h2>1. About Us</h2>
+      <p>CKNS Realty & Deco Planning offers real estate services, house deco planning, and a curated catalogue of home furnishings including rugs, decor, and premium furniture.</p>
+      <p><strong>Business Address:</strong> 2 Pearson Way, Enfield, CT 06082<br>
+      <strong>Phone:</strong> <a href="tel:+18572689887">857-268-9887</a><br>
+      <strong>Email:</strong> <a href="mailto:info@cknsworld.store">info@cknsworld.store</a></p>
+
+      <h2>2. Eligibility</h2>
+      <p>By placing an order, you confirm that you are at least 18 years old (or the age of majority in your jurisdiction) and legally capable of entering into a binding contract. You agree to provide accurate, current, and complete information during checkout.</p>
+
+      <h2>3. Product Information & Colours</h2>
+      <p>We make every effort to display our products accurately, including colours and finishes. However:</p>
+      <ul>
+        <li><strong>Colour swatches</strong> shown on product pages are representative guides only. Actual colours may vary slightly due to screen settings, lighting, and natural material variation.</li>
+        <li><strong>Handcrafted items</strong> (such as hand-woven rugs and hair-on-hide pieces) naturally vary in pattern, texture, and tone — these variations are a feature of the product, not a defect.</li>
+        <li><strong>Dimensions</strong> are approximate. Please allow reasonable tolerances for handmade furniture and rugs.</li>
+      </ul>
+
+      <h2>4. Pricing & Payment</h2>
+      <p>All prices are listed in <strong>USD</strong> and are subject to change without notice. Prices do not include applicable taxes or shipping unless explicitly stated.</p>
+      <ul>
+        <li>We accept payment via <strong>Stripe</strong>, which securely processes credit and debit card transactions.</li>
+        <li>Your order is confirmed only after payment is successfully authorised.</li>
+        <li>We reserve the right to cancel any order due to pricing errors, stock unavailability, or suspected fraud. If payment has already been taken, a full refund will be issued.</li>
+      </ul>
+
+      <div class="callout">
+        <i class="fas fa-shield-alt"></i>
+        <strong>Fraud protection:</strong> For your security, payments flagged by our fraud protection systems are manually reviewed before your order ships. We may contact you for additional verification. Orders that cannot be verified may be cancelled and refunded.
+      </div>
+
+      <h2>5. Orders & Shipping</h2>
+      <ul>
+        <li>Order processing times vary by product. Some items ship within 2 weeks; others (particularly Four Hands furniture) may require longer lead times. Estimated shipping windows are shown on each product page.</li>
+        <li><strong>Free shipping</strong> applies to orders over $100 within the contiguous United States, unless otherwise noted.</li>
+        <li><strong>Complimentary white glove delivery</strong> applies to orders over $2,000 for eligible furniture items.</li>
+        <li>Risk of loss and title for items pass to you upon delivery to the carrier. We are not responsible for delays caused by carriers, weather, or events outside our control.</li>
+      </ul>
+
+      <h2>6. Returns & Refunds</h2>
+      <p>Return eligibility depends on the product category:</p>
+      <ul>
+        <li><strong>Final Sale items</strong> (clearly marked on the product page, e.g., seasonal ensembles) are <strong>not returnable</strong>.</li>
+        <li><strong>Standard-return items</strong> may be returned within <strong>14 days</strong> of delivery for a refund or store credit, provided they are unused, in original packaging, and in resalable condition. Return shipping costs are the customer's responsibility unless the item arrived damaged or incorrect.</li>
+        <li><strong>Damaged or incorrect items</strong> must be reported within 48 hours of delivery with photos. We will arrange replacement or refund at no cost to you.</li>
+        <li><strong>Custom or made-to-order items</strong> are non-refundable once production has begun.</li>
+      </ul>
+      <p>To initiate a return, contact us at <a href="mailto:info@cknsworld.store">info@cknsworld.store</a> with your order number.</p>
+
+      <h2>7. Intellectual Property</h2>
+      <p>All content on this website — including logos, text, images, product photography, and design — is the property of CKNS Realty & Deco Planning or its licensors and is protected by copyright and trademark laws. You may not reproduce, distribute, or use any content without our prior written permission.</p>
+
+      <h2>8. Limitation of Liability</h2>
+      <p>To the maximum extent permitted by law, CKNS Realty & Deco Planning shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the website or products purchased, including but not limited to loss of profits, data, or goodwill. Our total liability for any claim shall not exceed the amount you paid for the product giving rise to the claim.</p>
+
+      <h2>9. Indemnification</h2>
+      <p>You agree to indemnify and hold harmless CKNS Realty & Deco Planning, its owners, employees, and affiliates from any claims, damages, or expenses arising from your violation of these Terms or misuse of our website.</p>
+
+      <h2>10. Governing Law</h2>
+      <p>These Terms are governed by the laws of the <strong>State of Connecticut, USA</strong>, without regard to conflict of law principles. Any dispute shall be resolved in the state or federal courts located in Connecticut.</p>
+
+      <h2>11. Changes to These Terms</h2>
+      <p>We may update these Terms from time to time. Changes take effect when posted on this page, and your continued use of the website constitutes acceptance of the revised Terms. The "Last updated" date at the top reflects the most recent revision.</p>
+
+      <h2>12. Contact Us</h2>
+      <p>Questions about these Terms? Reach out:</p>
+
+      <div class="contact-block">
+        <h3>CKNS Realty & Deco Planning</h3>
+        <p><i class="fas fa-map-pin"></i> 2 Pearson Way, Enfield, CT 06082</p>
+        <p><i class="fas fa-phone-alt"></i> <a href="tel:+18572689887">857-268-9887</a></p>
+        <p><i class="fas fa-envelope"></i> <a href="mailto:info@cknsworld.store">info@cknsworld.store</a></p>
+        <p><i class="fas fa-envelope"></i> <a href="mailto:e34821704@gmail.com">e34821704@gmail.com</a></p>
+      </div>
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      © 2025 CKNS Realty & Deco Planning. All rights reserved.
+      <br><br>
+      <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms & Conditions</a> · <a href="index.html">Home</a>
+    </div>
+  </footer>
+</body>
+</html>
