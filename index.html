@@ -4,929 +4,219 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CKNS · catalogue · real estate & deco</title>
-  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    :root {
-      --bg: #faf9f7;
-      --ink: #1e2b2c;
-      --accent: #9b7b5c;
-      --line: #ece8e2;
-      --gold: #d4a830;
-    }
-
+    :root { --bg: #faf9f7; --ink: #1e2b2c; --accent: #9b7b5c; --line: #ece8e2; --gold: #d4a830; --spotify: #1DB954; }
     html { scroll-behavior: smooth; }
+    body { background-color: var(--bg); font-family: 'Inter', sans-serif; color: #1e1e1e; line-height: 1.5; overflow-x: hidden; position: relative; }
+    #bg-canvas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0.85; }
+    .bg-veil { position: fixed; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse 90% 60% at 50% 0%, rgba(250,249,247,0.15), rgba(250,249,247,0.6) 60%, rgba(250,249,247,0.92) 100%), linear-gradient(180deg, rgba(250,249,247,0.4), rgba(250,249,247,0.75)); }
+    .page-content { position: relative; z-index: 2; }
+    h1, h2, h3, .serif { font-family: 'Playfair Display', serif; font-weight: 500; letter-spacing: -0.02em; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
 
-    body {
-      background-color: var(--bg);
-      font-family: 'Inter', sans-serif;
-      color: #1e1e1e;
-      line-height: 1.5;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    /* ============ 3D BACKGROUND CANVAS ============ */
-    #bg-canvas {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0.85;
-    }
-
-    /* Soft veil to keep content legible over 3D */
-    .bg-veil {
-      position: fixed;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-      background:
-        radial-gradient(ellipse 90% 60% at 50% 0%, rgba(250,249,247,0.15), rgba(250,249,247,0.6) 60%, rgba(250,249,247,0.92) 100%),
-        linear-gradient(180deg, rgba(250,249,247,0.4), rgba(250,249,247,0.75));
-    }
-
-    /* All page content sits above the 3D layer */
-    .page-content {
-      position: relative;
-      z-index: 2;
-    }
-
-    h1, h2, h3, .serif {
-      font-family: 'Playfair Display', serif;
-      font-weight: 500;
-      letter-spacing: -0.02em;
-    }
-
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 28px;
-    }
-
-    /* ============ ANNOUNCEMENT BAR ============ */
-    .announcement {
-      background: linear-gradient(90deg, #1e2b2c, #2d3f41, #1e2b2c);
-      color: #f5f0ea;
-      font-size: 0.78rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      text-align: center;
-      padding: 11px 16px;
-      font-weight: 500;
-      position: relative;
-      overflow: hidden;
-    }
+    /* ANNOUNCEMENT */
+    .announcement { background: linear-gradient(90deg, #1e2b2c, #2d3f41, #1e2b2c); color: #f5f0ea; font-size: 0.78rem; letter-spacing: 1.5px; text-transform: uppercase; text-align: center; padding: 11px 16px; font-weight: 500; position: relative; overflow: hidden; }
     .announcement span { position: relative; z-index: 2; }
-    .announcement::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(212,168,48,0.25), transparent);
-      animation: shimmer 6s infinite;
-    }
-    @keyframes shimmer {
-      0% { left: -100%; }
-      60%, 100% { left: 100%; }
-    }
+    .announcement::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(212,168,48,0.25), transparent); animation: shimmer 6s infinite; }
+    @keyframes shimmer { 0% { left: -100%; } 60%, 100% { left: 100%; } }
 
-    /* ============ HEADER ============ */
-    .header-wrap {
-      position: sticky;
-      top: 0;
-      z-index: 900;
-      backdrop-filter: blur(14px);
-      background: rgba(250, 249, 247, 0.82);
-      border-bottom: 1px solid rgba(0,0,0,0.04);
-      transition: box-shadow 0.3s ease, background 0.3s ease;
-    }
-    .header-wrap.scrolled {
-      box-shadow: 0 10px 30px -12px rgba(0,0,0,0.12);
-      background: rgba(250, 249, 247, 0.95);
-    }
-
-    .utility-bar {
-      border-bottom: 1px solid rgba(0,0,0,0.04);
-      font-size: 0.72rem;
-      color: #6b6b6b;
-      letter-spacing: 0.6px;
-    }
-    .utility-bar .container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 8px;
-      padding-bottom: 8px;
-    }
-    .utility-left, .utility-right {
-      display: flex;
-      align-items: center;
-      gap: 22px;
-    }
-    .utility-bar a {
-      color: #6b6b6b;
-      text-decoration: none;
-      transition: color 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
+    /* HEADER */
+    .header-wrap { position: sticky; top: 0; z-index: 900; backdrop-filter: blur(14px); background: rgba(250, 249, 247, 0.82); border-bottom: 1px solid rgba(0,0,0,0.04); transition: box-shadow 0.3s ease, background 0.3s ease; }
+    .header-wrap.scrolled { box-shadow: 0 10px 30px -12px rgba(0,0,0,0.12); background: rgba(250, 249, 247, 0.95); }
+    .utility-bar { border-bottom: 1px solid rgba(0,0,0,0.04); font-size: 0.72rem; color: #6b6b6b; letter-spacing: 0.6px; }
+    .utility-bar .container { display: flex; justify-content: space-between; align-items: center; padding-top: 8px; padding-bottom: 8px; }
+    .utility-left, .utility-right { display: flex; align-items: center; gap: 22px; }
+    .utility-bar a { color: #6b6b6b; text-decoration: none; transition: color 0.2s; display: inline-flex; align-items: center; gap: 6px; }
     .utility-bar a:hover { color: var(--accent); }
     .utility-bar i { color: var(--accent); font-size: 0.7rem; }
-
-    .navbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 0 14px;
-      position: relative;
-    }
-
-    .logo {
-      font-size: 1.9rem;
-      font-family: 'Playfair Display', serif;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      color: var(--ink);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      transition: opacity 0.2s;
-    }
+    .navbar { display: flex; align-items: center; justify-content: space-between; padding: 18px 0 14px; position: relative; }
+    .logo { font-size: 1.9rem; font-family: 'Playfair Display', serif; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 4px; transition: opacity 0.2s; }
     .logo:hover { opacity: 0.8; }
-    .logo span {
-      color: var(--accent);
-      font-weight: 400;
-      font-size: 1.2rem;
-      margin-left: 8px;
-      letter-spacing: 0.2px;
-      font-family: 'Inter', sans-serif;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 36px;
-      font-weight: 400;
-      font-size: 0.95rem;
-      color: #2e2e2e;
-      align-items: center;
-    }
-    .nav-links a {
-      text-decoration: none;
-      color: inherit;
-      transition: color 0.2s;
-      letter-spacing: 0.2px;
-      position: relative;
-      padding: 4px 0;
-    }
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 0; height: 1px;
-      background: var(--accent);
-      transition: width 0.3s ease;
-    }
+    .logo span { color: var(--accent); font-weight: 400; font-size: 1.2rem; margin-left: 8px; letter-spacing: 0.2px; font-family: 'Inter', sans-serif; }
+    .nav-links { display: flex; gap: 30px; font-weight: 400; font-size: 0.95rem; color: #2e2e2e; align-items: center; }
+    .nav-links a { text-decoration: none; color: inherit; transition: color 0.2s; letter-spacing: 0.2px; position: relative; padding: 4px 0; }
+    .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.3s ease; }
     .nav-links a:hover { color: var(--accent); }
     .nav-links a:hover::after { width: 100%; }
     .nav-links a.active { color: var(--accent); font-weight: 500; }
     .nav-links a.active::after { width: 100%; }
 
-    .btn-outline {
-      border: 1px solid var(--ink);
-      background: transparent;
-      padding: 10px 24px;
-      border-radius: 40px;
-      font-weight: 500;
-      font-size: 0.9rem;
-      transition: all 0.25s ease;
-      cursor: pointer;
-      color: var(--ink);
-    }
-    .btn-outline:hover {
-      background: var(--ink);
-      color: white;
-      border-color: var(--ink);
-      transform: translateY(-1px);
-      box-shadow: 0 8px 18px -8px rgba(30,43,44,0.4);
-    }
+    /* ICON BUTTONS */
+    .icon-btn { position: relative; background: var(--ink); color: white; border: none; width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; cursor: pointer; transition: transform 0.15s, box-shadow 0.25s, background 0.2s; box-shadow: 0 10px 20px -8px rgba(30,43,44,0.5), inset 0 -2px 0 rgba(0,0,0,0.15); margin-left: 10px; }
+    .icon-btn:hover { background: #2d3f41; }
+    .icon-btn:active { transform: scale(0.92) translateY(1px); }
+    .icon-btn.wish { background: white; color: var(--ink); border: 1px solid var(--line); box-shadow: 0 6px 16px -8px rgba(0,0,0,0.15); }
+    .icon-btn.wish:hover { background: #fdf0f0; color: #c0392b; border-color: #f5c5c5; }
+    .icon-btn.wish.active { background: #fdf0f0; color: #c0392b; border-color: #f5c5c5; }
+    .badge-count { position: absolute; top: -6px; right: -6px; background: var(--accent); color: white; font-size: 0.7rem; font-weight: 700; min-width: 22px; height: 22px; border-radius: 11px; display: flex; align-items: center; justify-content: center; padding: 0 6px; border: 2px solid var(--bg); box-shadow: 0 4px 10px -2px rgba(155,123,92,0.5); }
+    .icon-btn.wish .badge-count { background: #c0392b; }
 
-    /* ============ CART TRIGGER ============ */
-    .cart-trigger {
-      position: relative;
-      background: var(--ink);
-      color: white;
-      border: none;
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      cursor: pointer;
-      transition: transform 0.15s ease, box-shadow 0.25s ease, background 0.2s;
-      margin-left: 10px;
-      box-shadow: 0 10px 20px -8px rgba(30,43,44,0.5), inset 0 -2px 0 rgba(0,0,0,0.15);
-    }
-    .cart-trigger:hover {
-      background: #2d3f41;
-      box-shadow: 0 14px 26px -8px rgba(30,43,44,0.6), inset 0 -2px 0 rgba(0,0,0,0.15);
-    }
-    .cart-trigger:active {
-      transform: scale(0.92) translateY(1px);
-      box-shadow: 0 4px 8px -4px rgba(30,43,44,0.5), inset 0 2px 4px rgba(0,0,0,0.2);
-    }
-    .cart-count {
-      position: absolute;
-      top: -6px;
-      right: -6px;
-      background: var(--accent);
-      color: white;
-      font-size: 0.7rem;
-      font-weight: 700;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid var(--bg);
-      box-shadow: 0 4px 10px -2px rgba(155,123,92,0.5);
-    }
+    /* HERO */
+    .hero-strip { padding: 56px 0 12px; display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
+    .hero-strip h1 { font-size: 3.4rem; line-height: 1.05; color: var(--ink); max-width: 640px; }
+    .hero-strip h1 em { font-style: italic; color: var(--accent); }
+    .hero-strip p { color: #5a5a5a; max-width: 340px; font-size: 1rem; font-weight: 300; border-left: 2px solid var(--accent); padding-left: 18px; }
 
-    /* ============ HERO STRIP ============ */
-    .hero-strip {
-      padding: 56px 0 12px;
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 40px;
-      flex-wrap: wrap;
-    }
-    .hero-strip h1 {
-      font-size: 3.4rem;
-      line-height: 1.05;
-      color: var(--ink);
-      max-width: 640px;
-    }
-    .hero-strip h1 em {
-      font-style: italic;
-      color: var(--accent);
-    }
-    .hero-strip p {
-      color: #5a5a5a;
-      max-width: 340px;
-      font-size: 1rem;
-      font-weight: 300;
-      border-left: 2px solid var(--accent);
-      padding-left: 18px;
-    }
-
-    /* ============ SECTION HEADINGS ============ */
+    /* SECTIONS */
     .catalogue-section { padding: 50px 0 20px; }
-    .catalogue-section h2 {
-      font-size: 2.6rem;
-      color: var(--ink);
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
+    .catalogue-section h2 { font-size: 2.6rem; color: var(--ink); margin-bottom: 8px; display: flex; align-items: center; gap: 16px; }
     .catalogue-section h2 i { color: var(--accent); font-size: 1.8rem; }
-    .section-desc {
-      color: #6b6b6b;
-      font-size: 1.05rem;
-      margin-bottom: 20px;
-      font-weight: 300;
-      border-left: 3px solid var(--accent);
-      padding-left: 18px;
-    }
+    .section-desc { color: #6b6b6b; font-size: 1.05rem; margin-bottom: 20px; font-weight: 300; border-left: 3px solid var(--accent); padding-left: 18px; }
 
-    /* ============ REVIEW TEASER ============ */
-    .review-teaser {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 16px;
-      text-decoration: none;
-      color: var(--accent);
-      font-weight: 500;
-      font-size: 0.9rem;
-      padding: 11px 22px;
-      border-radius: 40px;
-      background: white;
-      border: 1px solid var(--line);
-      transition: all 0.25s ease;
-      box-shadow: 0 6px 16px -8px rgba(0,0,0,0.08);
-    }
-    .review-teaser:hover {
-      background: #f8f5f1;
-      border-color: var(--accent);
-      transform: translateY(-2px);
-      box-shadow: 0 12px 22px -10px rgba(155,123,92,0.3);
-    }
+    /* REVIEW TEASER */
+    .review-teaser { display: inline-flex; align-items: center; gap: 10px; margin-top: 16px; text-decoration: none; color: var(--accent); font-weight: 500; font-size: 0.9rem; padding: 11px 22px; border-radius: 40px; background: white; border: 1px solid var(--line); transition: all 0.25s ease; box-shadow: 0 6px 16px -8px rgba(0,0,0,0.08); }
+    .review-teaser:hover { background: #f8f5f1; border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 12px 22px -10px rgba(155,123,92,0.3); }
     .review-teaser .stars { color: var(--gold); letter-spacing: 1px; }
 
-    /* ============ PRODUCT GRID ============ */
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
-      margin-bottom: 40px;
-      perspective: 1400px;
-    }
-
-    .product-card {
-      background: rgba(255,255,255,0.96);
-      backdrop-filter: blur(6px);
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 8px 22px -10px rgba(0,0,0,0.08);
-      transition: transform 0.25s ease, box-shadow 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      transform-style: preserve-3d;
-      will-change: transform;
-      border: 1px solid rgba(0,0,0,0.02);
-    }
-    .product-card:hover {
-      box-shadow: 0 28px 48px -18px rgba(30,43,44,0.28);
-    }
-    .product-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 20px;
-      background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.18), transparent 40%);
-      opacity: 0;
-      transition: opacity 0.3s;
-      pointer-events: none;
-      z-index: 3;
-    }
-    .product-card:hover::after { opacity: 1; }
-
-    .product-img {
-      height: 200px;
-      background-size: cover;
-      background-position: center;
-      position: relative;
-      flex-shrink: 0;
-      transform: translateZ(20px);
-    }
-    .product-badge {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(2px);
-      padding: 4px 14px;
-      border-radius: 30px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.3px;
-      color: var(--ink);
-      z-index: 2;
-    }
+    /* PRODUCT GRID */
+    .product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 40px; perspective: 1400px; }
+    .product-card { background: rgba(255,255,255,0.96); backdrop-filter: blur(6px); border-radius: 20px; overflow: hidden; box-shadow: 0 8px 22px -10px rgba(0,0,0,0.08); transition: transform 0.25s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; position: relative; transform-style: preserve-3d; will-change: transform; border: 1px solid rgba(0,0,0,0.02); }
+    .product-card:hover { box-shadow: 0 28px 48px -18px rgba(30,43,44,0.28); }
+    .product-img { height: 200px; background-size: cover; background-position: center; position: relative; flex-shrink: 0; transform: translateZ(20px); }
+    .product-badge { position: absolute; top: 12px; left: 12px; background: rgba(255,255,255,0.92); backdrop-filter: blur(2px); padding: 4px 14px; border-radius: 30px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.3px; color: var(--ink); z-index: 2; }
     .product-badge.sale { background: var(--accent); color: white; }
 
-    .product-info {
-      padding: 16px 18px 18px;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      transform: translateZ(12px);
-    }
-    .product-brand {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 2px;
-    }
-    .product-name {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 4px;
-      line-height: 1.3;
-    }
-    .product-price {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--ink);
-      font-family: 'Playfair Display', serif;
-      margin-bottom: 8px;
-    }
-    .product-price .compare {
-      font-size: 0.85rem;
-      font-weight: 400;
-      color: #9b9b9b;
-      text-decoration: line-through;
-      margin-left: 8px;
-      font-family: 'Inter', sans-serif;
-    }
-    .product-price .off {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #c0392b;
-      background: #fdf0ee;
-      padding: 2px 8px;
-      border-radius: 20px;
-      margin-left: 8px;
-      font-family: 'Inter', sans-serif;
-    }
+    /* WISHLIST HEART ON CARD */
+    .wish-toggle { position: absolute; top: 10px; right: 10px; width: 36px; height: 36px; border-radius: 50%; border: none; background: rgba(255,255,255,0.95); backdrop-filter: blur(4px); color: #9b9b9b; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; z-index: 5; box-shadow: 0 4px 10px -4px rgba(0,0,0,0.15); }
+    .wish-toggle:hover { transform: scale(1.1); color: #c0392b; }
+    .wish-toggle.active { color: #c0392b; background: #fff5f5; }
 
-    .color-swatches { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
-    .swatch {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 2px solid transparent;
-      cursor: pointer;
-      transition: border 0.2s, transform 0.15s, box-shadow 0.2s;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1), inset 0 -2px 3px rgba(0,0,0,0.15);
-    }
+    .product-info { padding: 16px 18px 18px; display: flex; flex-direction: column; flex: 1; transform: translateZ(12px); }
+    .product-brand { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; color: var(--accent); margin-bottom: 2px; }
+    .product-name { font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 4px; line-height: 1.3; }
+    .product-price { font-size: 1.1rem; font-weight: 600; color: var(--ink); font-family: 'Playfair Display', serif; margin-bottom: 8px; }
+    .product-price .compare { font-size: 0.85rem; font-weight: 400; color: #9b9b9b; text-decoration: line-through; margin-left: 8px; font-family: 'Inter', sans-serif; }
+    .product-price .off { font-size: 0.75rem; font-weight: 600; color: #c0392b; background: #fdf0ee; padding: 2px 8px; border-radius: 20px; margin-left: 8px; font-family: 'Inter', sans-serif; }
+
+    .color-swatches { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+    .swatch { width: 28px; height: 28px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; transition: border 0.2s, transform 0.15s, box-shadow 0.2s; box-shadow: 0 2px 6px rgba(0,0,0,0.1), inset 0 -2px 3px rgba(0,0,0,0.15); }
     .swatch:hover { transform: scale(1.12); }
-    .swatch.active {
-      border-color: var(--ink);
-      box-shadow: 0 0 0 3px rgba(30,43,44,0.15), inset 0 -2px 3px rgba(0,0,0,0.15);
-    }
+    .swatch.active { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(30,43,44,0.15), inset 0 -2px 3px rgba(0,0,0,0.15); }
 
-    .product-shipping {
-      font-size: 0.7rem;
-      color: #7a7a7a;
-      margin-top: auto;
-      padding-top: 8px;
-      border-top: 1px solid #f0ebe6;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
+    /* SPOTIFY LINK ON CARD */
+    .spotify-link { display: inline-flex; align-items: center; gap: 7px; font-size: 0.72rem; font-weight: 500; color: #1e7a3b; text-decoration: none; padding: 5px 10px 5px 8px; border-radius: 20px; background: #eaf6ee; border: 1px solid #c8e6d0; margin-bottom: 12px; transition: all 0.2s; }
+    .spotify-link:hover { background: #1DB954; color: white; border-color: #1DB954; }
+    .spotify-link i { color: #1DB954; font-size: 0.85rem; }
+    .spotify-link:hover i { color: white; }
+
+    /* QTY PICKER ON CARD */
+    .qty-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .qty-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: #9b9b9b; }
+    .qty-stepper { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 30px; overflow: hidden; background: #faf9f7; }
+    .qty-step-btn { width: 30px; height: 30px; border: none; background: transparent; cursor: pointer; color: var(--ink); font-size: 0.75rem; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    .qty-step-btn:hover { background: #ece8e2; }
+    .qty-step-btn:active { background: #e4ddd6; }
+    .qty-input { width: 38px; height: 30px; border: none; background: transparent; text-align: center; font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--ink); -moz-appearance: textfield; }
+    .qty-input::-webkit-outer-spin-button, .qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    .qty-input:focus { outline: none; }
+
+    .product-shipping { font-size: 0.7rem; color: #7a7a7a; margin-top: auto; padding-top: 8px; border-top: 1px solid #f0ebe6; display: flex; align-items: center; gap: 6px; }
     .product-shipping i { color: var(--accent); font-size: 0.7rem; }
 
-    .btn-add {
-      background: #f2eee9;
-      border: 1px solid #e4ddd6;
-      padding: 10px 18px;
-      border-radius: 40px;
-      font-weight: 500;
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 12px;
-      color: var(--ink);
-      width: 100%;
-      position: relative;
-      overflow: hidden;
-    }
-    .btn-add::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: var(--ink);
-      transform: translateY(100%);
-      transition: transform 0.3s ease;
-      z-index: 0;
-    }
+    .btn-add { background: #f2eee9; border: 1px solid #e4ddd6; padding: 10px 18px; border-radius: 40px; font-weight: 500; font-size: 0.8rem; cursor: pointer; transition: all 0.25s ease; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 12px; color: var(--ink); width: 100%; position: relative; overflow: hidden; }
+    .btn-add::before { content: ''; position: absolute; inset: 0; background: var(--ink); transform: translateY(100%); transition: transform 0.3s ease; z-index: 0; }
     .btn-add span, .btn-add i { position: relative; z-index: 1; transition: color 0.3s; }
     .btn-add:hover::before { transform: translateY(0); }
     .btn-add:hover { color: white; border-color: var(--ink); }
     .btn-add:hover span, .btn-add:hover i { color: white; }
     .btn-add:active { transform: scale(0.97); }
-    .btn-add i { font-size: 0.75rem; }
 
-    /* ============ CART SIDEBAR ============ */
-    .cart-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(20, 25, 25, 0.45);
-      backdrop-filter: blur(6px);
-      z-index: 1000;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.35s, visibility 0.35s;
-    }
-    .cart-overlay.open { opacity: 1; visibility: visible; }
+    /* SIDEBARS */
+    .cart-overlay, .wish-overlay { position: fixed; inset: 0; background: rgba(20,25,25,0.45); backdrop-filter: blur(6px); z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.35s, visibility 0.35s; }
+    .cart-overlay.open, .wish-overlay.open { opacity: 1; visibility: visible; }
+    .cart-sidebar, .wish-sidebar { position: fixed; top: 0; right: 0; width: 440px; max-width: 100%; height: 100%; background: var(--bg); z-index: 1001; transform: translateX(100%); transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1); display: flex; flex-direction: column; box-shadow: -20px 0 60px rgba(0,0,0,0.18); }
+    .cart-sidebar.open, .wish-sidebar.open { transform: translateX(0); }
 
-    .cart-sidebar {
-      position: fixed;
-      top: 0; right: 0;
-      width: 440px;
-      max-width: 100%;
-      height: 100%;
-      background: var(--bg);
-      z-index: 1001;
-      transform: translateX(100%);
-      transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
-      display: flex;
-      flex-direction: column;
-      box-shadow: -20px 0 60px rgba(0,0,0,0.18);
-      border-left: 1px solid rgba(0,0,0,0.04);
-    }
-    .cart-sidebar.open { transform: translateX(0); }
-
-    .cart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 28px 28px 18px;
-      border-bottom: 1px solid var(--line);
-      background: linear-gradient(180deg, #ffffff, var(--bg));
-    }
+    .cart-header { display: flex; justify-content: space-between; align-items: center; padding: 28px 28px 18px; border-bottom: 1px solid var(--line); background: linear-gradient(180deg, #ffffff, var(--bg)); }
     .cart-header h3 { font-size: 1.7rem; color: var(--ink); }
-    .cart-close {
-      background: none;
-      border: none;
-      font-size: 1.3rem;
-      color: #6b6b6b;
-      cursor: pointer;
-      transition: all 0.2s;
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid var(--line);
-    }
-    .cart-close:hover {
-      background: var(--ink);
-      color: white;
-      border-color: var(--ink);
-      transform: rotate(90deg);
-    }
-
-    .cart-items {
-      flex: 1;
-      overflow-y: auto;
-      padding: 20px 28px;
-    }
+    .cart-close { background: none; border: none; font-size: 1.3rem; color: #6b6b6b; cursor: pointer; transition: all 0.2s; width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--line); }
+    .cart-close:hover { background: var(--ink); color: white; border-color: var(--ink); transform: rotate(90deg); }
+    .cart-items { flex: 1; overflow-y: auto; padding: 20px 28px; }
     .cart-items::-webkit-scrollbar { width: 6px; }
     .cart-items::-webkit-scrollbar-thumb { background: #ddd6ce; border-radius: 10px; }
-    .cart-items::-webkit-scrollbar-track { background: transparent; }
-
     .cart-empty { text-align: center; padding: 80px 0; color: #9b9b9b; }
     .cart-empty i { font-size: 3rem; color: #ddd6ce; margin-bottom: 16px; display: block; }
-
-    .cart-item {
-      display: flex;
-      gap: 16px;
-      padding: 16px 0;
-      border-bottom: 1px solid #f0ebe6;
-      align-items: flex-start;
-      animation: fadeUp 0.35s ease;
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .cart-item-img {
-      width: 74px;
-      height: 74px;
-      border-radius: 14px;
-      background-size: cover;
-      background-position: center;
-      flex-shrink: 0;
-      box-shadow: 0 6px 14px -6px rgba(0,0,0,0.15);
-    }
+    .cart-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid #f0ebe6; align-items: flex-start; animation: fadeUp 0.35s ease; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .cart-item-img { width: 74px; height: 74px; border-radius: 14px; background-size: cover; background-position: center; flex-shrink: 0; box-shadow: 0 6px 14px -6px rgba(0,0,0,0.15); }
     .cart-item-info { flex: 1; min-width: 0; }
-    .cart-item-info h4 {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 2px;
-    }
-    .cart-item-info .item-brand {
-      font-size: 0.65rem;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-weight: 600;
-    }
-    .cart-item-info .item-price {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--ink);
-      margin-top: 4px;
-      font-family: 'Playfair Display', serif;
-    }
-    .cart-item-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 6px;
-    }
-    .qty-btn {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      border: 1px solid #e4ddd6;
-      background: white;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
-      color: var(--ink);
-      transition: all 0.2s;
-    }
-    .qty-btn:hover {
-      background: var(--ink);
-      color: white;
-      border-color: var(--ink);
-      transform: scale(1.08);
-    }
-    .qty-value {
-      font-size: 0.85rem;
-      font-weight: 600;
-      min-width: 18px;
-      text-align: center;
-    }
-    .remove-item {
-      background: none;
-      border: none;
-      color: #c0392b;
-      font-size: 0.72rem;
-      cursor: pointer;
-      text-decoration: underline;
-      padding: 0;
-      margin-left: 4px;
-    }
+    .cart-item-info h4 { font-size: 0.85rem; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
+    .cart-item-info .item-brand { font-size: 0.65rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+    .cart-item-info .item-price { font-size: 0.9rem; font-weight: 600; color: var(--ink); margin-top: 4px; font-family: 'Playfair Display', serif; }
+    .cart-item-actions { display: flex; align-items: center; gap: 10px; margin-top: 6px; flex-wrap: wrap; }
+    .qty-btn { width: 26px; height: 26px; border-radius: 50%; border: 1px solid #e4ddd6; background: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: var(--ink); transition: all 0.2s; }
+    .qty-btn:hover { background: var(--ink); color: white; border-color: var(--ink); transform: scale(1.08); }
+
+    /* CART QTY INPUT */
+    .cart-qty-input { width: 44px; height: 30px; text-align: center; font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--ink); background: #faf9f7; border: 1px solid var(--line); border-radius: 8px; -moz-appearance: textfield; padding: 0; transition: border-color 0.2s, box-shadow 0.2s; }
+    .cart-qty-input::-webkit-outer-spin-button, .cart-qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    .cart-qty-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(155,123,92,0.12); }
+
+    .remove-item { background: none; border: none; color: #c0392b; font-size: 0.72rem; cursor: pointer; text-decoration: underline; padding: 0; margin-left: 4px; }
     .remove-item:hover { opacity: 0.7; }
 
-    .cart-footer {
-      padding: 22px 28px 28px;
-      border-top: 1px solid var(--line);
-      background: linear-gradient(0deg, #ffffff, var(--bg));
-    }
-    .cart-total {
-      display: flex;
-      justify-content: space-between;
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 20px;
-      font-family: 'Playfair Display', serif;
-    }
+    .cart-footer { padding: 22px 28px 28px; border-top: 1px solid var(--line); background: linear-gradient(0deg, #ffffff, var(--bg)); }
+    .cart-total { display: flex; justify-content: space-between; font-size: 1.05rem; font-weight: 600; color: var(--ink); margin-bottom: 20px; font-family: 'Playfair Display', serif; }
     .cart-total span:last-child { font-size: 1.5rem; color: var(--accent); }
-
-    .btn-stripe {
-      background: var(--ink);
-      border: none;
-      padding: 17px 24px;
-      border-radius: 40px;
-      font-weight: 500;
-      font-size: 0.95rem;
-      color: white;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      box-shadow: 0 12px 24px -10px rgba(30,43,44,0.5);
-      position: relative;
-      overflow: hidden;
-    }
-    .btn-stripe::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-      transition: left 0.6s;
-    }
-    .btn-stripe:hover::before { left: 100%; }
-    .btn-stripe:hover {
-      background: #2d3f41;
-      transform: translateY(-1px);
-      box-shadow: 0 16px 30px -10px rgba(30,43,44,0.6);
-    }
-    .btn-stripe:active { transform: translateY(1px) scale(0.99); }
-    .btn-stripe i { font-size: 1rem; }
-
-    .fraud-review-note {
-      margin-top: 14px;
-      padding: 12px 16px;
-      background: #f8f5f1;
-      border-left: 3px solid var(--accent);
-      border-radius: 10px;
-      font-size: 0.72rem;
-      color: #6b6b6b;
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      line-height: 1.5;
-    }
-    .fraud-review-note i {
-      color: var(--accent);
-      font-size: 0.9rem;
-      margin-top: 1px;
-      flex-shrink: 0;
-    }
+    .btn-stripe { background: var(--ink); border: none; padding: 17px 24px; border-radius: 40px; font-weight: 500; font-size: 0.95rem; color: white; cursor: pointer; transition: all 0.25s ease; width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 12px 24px -10px rgba(30,43,44,0.5); position: relative; overflow: hidden; }
+    .btn-stripe:hover { background: #2d3f41; transform: translateY(-1px); }
+    .fraud-review-note { margin-top: 14px; padding: 12px 16px; background: #f8f5f1; border-left: 3px solid var(--accent); border-radius: 10px; font-size: 0.72rem; color: #6b6b6b; display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; }
+    .fraud-review-note i { color: var(--accent); font-size: 0.9rem; margin-top: 1px; flex-shrink: 0; }
     .fraud-review-note strong { color: var(--ink); font-weight: 600; }
-
-    .stripe-note {
-      text-align: center;
-      font-size: 0.7rem;
-      color: #9b9b9b;
-      margin-top: 12px;
-      letter-spacing: 0.2px;
-      line-height: 1.6;
-    }
+    .stripe-note { text-align: center; font-size: 0.7rem; color: #9b9b9b; margin-top: 12px; letter-spacing: 0.2px; line-height: 1.6; }
     .stripe-note a { color: var(--accent); text-decoration: none; }
     .stripe-note a:hover { text-decoration: underline; }
 
-    /* ============ TOAST ============ */
-    .toast {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%) translateY(80px);
-      background: var(--ink);
-      color: white;
-      padding: 14px 28px;
-      border-radius: 40px;
-      font-size: 0.9rem;
-      z-index: 2000;
-      opacity: 0;
-      transition: opacity 0.35s, transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
-      pointer-events: none;
-      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.3);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
+    /* TOAST */
+    .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--ink); color: white; padding: 14px 28px; border-radius: 40px; font-size: 0.9rem; z-index: 2000; opacity: 0; transition: opacity 0.35s, transform 0.35s; pointer-events: none; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 10px; }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
     .toast i { color: var(--gold); }
 
-    /* ============ FOOTER ============ */
-    .footer {
-      padding: 60px 0 30px;
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 40px;
-      border-top: 1px solid #e4ddd6;
-      margin-top: 60px;
-      background: linear-gradient(180deg, transparent, rgba(242,238,233,0.5));
-    }
-    .footer .brand p {
-      margin: 18px 0;
-      color: #6b6b6b;
-      font-size: 0.9rem;
-      max-width: 280px;
-    }
-    .footer h4 {
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
-      font-size: 0.9rem;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      color: var(--ink);
-      margin-bottom: 20px;
-    }
+    /* FOOTER */
+    .footer { padding: 60px 0 30px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; border-top: 1px solid #e4ddd6; margin-top: 60px; background: linear-gradient(180deg, transparent, rgba(242,238,233,0.5)); }
+    .footer .brand p { margin: 18px 0; color: #6b6b6b; font-size: 0.9rem; max-width: 280px; }
+    .footer h4 { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9rem; letter-spacing: 0.5px; text-transform: uppercase; color: var(--ink); margin-bottom: 20px; }
     .footer ul { list-style: none; }
     .footer ul li { margin-bottom: 12px; }
-    .footer ul a {
-      text-decoration: none;
-      color: #6b6b6b;
-      font-size: 0.9rem;
-      transition: all 0.2s;
-      display: inline-block;
-    }
+    .footer ul a { text-decoration: none; color: #6b6b6b; font-size: 0.9rem; transition: all 0.2s; display: inline-block; }
     .footer ul a:hover { color: var(--accent); transform: translateX(3px); }
-    .copyright {
-      grid-column: 1 / -1;
-      text-align: center;
-      color: #9b9b9b;
-      font-size: 0.8rem;
-      padding-top: 30px;
-      border-top: 1px solid var(--line);
-      margin-top: 20px;
-    }
-    .copyright a {
-      color: var(--accent);
-      text-decoration: none;
-      margin: 0 8px;
-      transition: opacity 0.2s;
-    }
+    .copyright { grid-column: 1 / -1; text-align: center; color: #9b9b9b; font-size: 0.8rem; padding-top: 30px; border-top: 1px solid var(--line); margin-top: 20px; }
+    .copyright a { color: var(--accent); text-decoration: none; margin: 0 8px; }
     .copyright a:hover { text-decoration: underline; }
 
-    /* ============ SCROLL REVEAL ============ */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
-    }
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* ============ FLOATING CTA ============ */
-    .float-cta {
-      position: fixed;
-      bottom: 26px;
-      left: 26px;
-      z-index: 800;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(8px);
-      border: 1px solid var(--line);
-      border-radius: 50px;
-      padding: 10px 18px 10px 10px;
-      text-decoration: none;
-      color: var(--ink);
-      font-size: 0.82rem;
-      font-weight: 500;
-      box-shadow: 0 12px 28px -10px rgba(0,0,0,0.15);
-      transition: transform 0.25s, box-shadow 0.25s;
-    }
-    .float-cta:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 18px 36px -12px rgba(0,0,0,0.22);
-    }
-    .float-cta .icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: var(--accent);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.85rem;
-    }
+    /* FLOATING CTA */
+    .float-cta { position: fixed; bottom: 26px; left: 26px; z-index: 800; display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); border: 1px solid var(--line); border-radius: 50px; padding: 10px 18px 10px 10px; text-decoration: none; color: var(--ink); font-size: 0.82rem; font-weight: 500; box-shadow: 0 12px 28px -10px rgba(0,0,0,0.15); transition: transform 0.25s, box-shadow 0.25s; }
+    .float-cta:hover { transform: translateY(-3px); box-shadow: 0 18px 36px -12px rgba(0,0,0,0.22); }
+    .float-cta .icon { width: 34px; height: 34px; border-radius: 50%; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
 
-    /* ============ RESPONSIVE ============ */
-    @media (max-width: 1100px) {
-      .product-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (max-width: 900px) {
-      .product-grid { grid-template-columns: repeat(2, 1fr); }
-      .footer { grid-template-columns: 1fr 1fr; }
-      .hero-strip h1 { font-size: 2.6rem; }
-      #bg-canvas { opacity: 0.55; }
-    }
+    @media (max-width: 1100px) { .product-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 900px) { .product-grid { grid-template-columns: repeat(2, 1fr); } .footer { grid-template-columns: 1fr 1fr; } .hero-strip h1 { font-size: 2.6rem; } #bg-canvas { opacity: 0.55; } }
     @media (max-width: 720px) {
-      .navbar { flex-wrap: wrap; gap: 16px; }
-      .nav-links { gap: 18px; font-size: 0.85rem; flex-wrap: wrap; }
-      .utility-left { display: none; }
-      .product-grid { grid-template-columns: 1fr; }
-      .footer { grid-template-columns: 1fr; }
-      .cart-sidebar { width: 100%; }
-      .catalogue-section h2 { font-size: 2rem; }
-      .hero-strip h1 { font-size: 2.2rem; }
-      .float-cta { display: none; }
-      #bg-canvas { opacity: 0.4; }
+      .navbar { flex-wrap: wrap; gap: 16px; } .nav-links { gap: 18px; font-size: 0.85rem; flex-wrap: wrap; } .utility-left { display: none; }
+      .product-grid { grid-template-columns: 1fr; } .footer { grid-template-columns: 1fr; } .cart-sidebar, .wish-sidebar { width: 100%; }
+      .catalogue-section h2 { font-size: 2rem; } .hero-strip h1 { font-size: 2.2rem; } .float-cta { display: none; } #bg-canvas { opacity: 0.4; }
     }
-
-    .btn-add i, .btn-stripe i, .review-teaser i { transition: transform 0.25s; }
-    .btn-add:hover i, .btn-stripe:hover i, .review-teaser:hover i { transform: translateX(4px); }
-
-    /* respect reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-      * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-      .reveal { opacity: 1 !important; transform: none !important; }
-      #bg-canvas { display: none; }
-    }
+    @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } .reveal { opacity: 1 !important; transform: none !important; } #bg-canvas { display: none; } }
   </style>
 </head>
 <body>
-
-  <!-- ============ 3D BACKGROUND ============ -->
   <canvas id="bg-canvas"></canvas>
   <div class="bg-veil"></div>
 
-  <!-- Everything below is above the 3D layer -->
   <div class="page-content">
-
-    <!-- ANNOUNCEMENT BAR -->
     <div class="announcement">
       <span>✦ Complimentary white glove delivery on furniture orders over $2,000 ✦</span>
     </div>
 
-    <!-- HEADER -->
     <div class="header-wrap" id="headerWrap">
       <div class="utility-bar">
         <div class="container">
@@ -935,7 +225,7 @@
             <a href="mailto:info@cknsworld.store"><i class="fas fa-envelope"></i> info@cknsworld.store</a>
           </div>
           <div class="utility-right">
-            <a href="feedback.html"><i class="fas fa-star"></i> 4.7 · 23 reviews</a>
+            <a href="feedback.html"><i class="fas fa-star"></i> Verified reviews</a>
             <a href="privacy.html">Privacy</a>
             <a href="terms.html">Terms</a>
           </div>
@@ -949,178 +239,278 @@
           <a href="index.html" class="active">Catalogue</a>
           <a href="#">Deco planning</a>
           <a href="#">Contact</a>
-          <button class="cart-trigger" id="cartToggle">
+          <button class="icon-btn wish" id="wishToggle" title="Wishlist" aria-label="Open wishlist">
+            <i class="fas fa-heart"></i>
+            <span class="badge-count" id="wishCount">0</span>
+          </button>
+          <button class="icon-btn" id="cartToggle" title="Cart" aria-label="Open cart">
             <i class="fas fa-shopping-bag"></i>
-            <span class="cart-count" id="cartCount">0</span>
+            <span class="badge-count" id="cartCount">0</span>
           </button>
         </div>
       </nav>
     </div>
 
     <div class="container">
-      <!-- HERO STRIP -->
       <section class="hero-strip reveal">
         <h1>The art of <em>living well</em>,<br>curated for you.</h1>
         <p>Thoughtfully sourced rugs, furniture, and decor — each piece chosen to bring warmth and character to your home.</p>
       </section>
 
-      <!-- RUGS & FLOORING -->
+      <!-- RUGS -->
       <section class="catalogue-section reveal" id="rugs">
         <h2><i class="fas fa-rug"></i> Rugs & flooring</h2>
         <p class="section-desc">Hand-picked rugs from Momeni, KAS, Nourison, Chandra, and Four Hands. Select your colour below.</p>
-
-        <a href="feedback.html" class="review-teaser">
-          <span class="stars">★★★★★</span>
-          4.7 from 23 verified reviews
-          <i class="fas fa-arrow-right" style="font-size:0.75rem;"></i>
+        <a href="feedback.html" class="review-teaser" id="reviewTeaserLink">
+          <span class="stars">★★★★★</span> Read verified reviews <i class="fas fa-arrow-right" style="font-size:0.75rem;"></i>
         </a>
 
         <div class="product-grid" id="rugsGrid" style="margin-top: 36px;">
           <!-- RUG 1 -->
-          <div class="product-card" data-id="rug1" data-brand="Momeni" data-name="Orchard Floral Hand-Woven Jute and Wool Runner Rug" data-price="427.14" data-img="https://images.unsplash.com/photo-1600166898405-da9535204843?w=400&q=80" data-colors='["#d4c5b0","#b8a88a","#8b7b6b","#5e5548"]'>
+          <div class="product-card" data-id="rug1" data-brand="Momeni" data-name="Orchard Floral Hand-Woven Jute and Wool Runner Rug" data-price="427.14" data-img="https://images.unsplash.com/photo-1600166898405-da9535204843?w=400&q=80" data-colors='["#d4c5b0","#b8a88a","#8b7b6b","#5e5548"]' data-spotify="https://open.spotify.com/playlist/37i9dQZF1DX4sWSpwq3LiO">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600166898405-da9535204843?w=400&q=80');">
               <span class="product-badge">New</span>
+              <button class="wish-toggle" onclick="toggleWish(this)" aria-label="Save to wishlist"><i class="far fa-heart"></i></button>
             </div>
             <div class="product-info">
               <div class="product-brand">Momeni</div>
               <div class="product-name">Orchard Floral Hand-Woven Jute & Wool Runner</div>
               <div class="product-price">$427.14</div>
               <div class="color-swatches" data-product="rug1"></div>
+              <a href="#" class="spotify-link" onclick="openSpotify(this); return false;" title="Listen to our curated playlist"><i class="fab fa-spotify"></i> Listen while you browse</a>
+              <div class="qty-row">
+                <span class="qty-label">Qty</span>
+                <div class="qty-stepper">
+                  <button class="qty-step-btn" onclick="adjustQty(this, -1)">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="99">
+                  <button class="qty-step-btn" onclick="adjustQty(this, 1)">+</button>
+                </div>
+              </div>
               <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
               <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
             </div>
           </div>
 
           <!-- RUG 2 -->
-          <div class="product-card" data-id="rug2" data-brand="KAS" data-name="Syriana Hand-Tufted Wool Floral Runner Area Rug" data-price="319" data-img="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=400&q=80" data-colors='["#e8d8c8","#c4b5a5","#9b8b7a","#6b5d50"]'>
+          <div class="product-card" data-id="rug2" data-brand="KAS" data-name="Syriana Hand-Tufted Wool Floral Runner Area Rug" data-price="319" data-img="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=400&q=80" data-colors='["#e8d8c8","#c4b5a5","#9b8b7a","#6b5d50"]' data-spotify="https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=400&q=80');">
               <span class="product-badge">New</span>
+              <button class="wish-toggle" onclick="toggleWish(this)" aria-label="Save to wishlist"><i class="far fa-heart"></i></button>
             </div>
             <div class="product-info">
               <div class="product-brand">KAS</div>
               <div class="product-name">Syriana Hand-Tufted Wool Floral Runner Area Rug</div>
               <div class="product-price">$319.00</div>
               <div class="color-swatches" data-product="rug2"></div>
+              <a href="#" class="spotify-link" onclick="openSpotify(this); return false;"><i class="fab fa-spotify"></i> Listen while you browse</a>
+              <div class="qty-row">
+                <span class="qty-label">Qty</span>
+                <div class="qty-stepper">
+                  <button class="qty-step-btn" onclick="adjustQty(this, -1)">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="99">
+                  <button class="qty-step-btn" onclick="adjustQty(this, 1)">+</button>
+                </div>
+              </div>
               <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
               <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
             </div>
           </div>
 
           <!-- RUG 3 -->
-          <div class="product-card" data-id="rug3" data-brand="Nourison" data-name="Sultana Floral Area Rug with Vintage Style" data-price="653.00" data-compare="932.86" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&q=80" data-colors='["#c9b8a8","#a89480","#7d6b5a","#4d4038"]'>
+          <div class="product-card" data-id="rug3" data-brand="Nourison" data-name="Sultana Floral Area Rug with Vintage Style" data-price="653.00" data-compare="932.86" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&q=80" data-colors='["#c9b8a8","#a89480","#7d6b5a","#4d4038"]' data-spotify="https://open.spotify.com/playlist/37i9dQZF1DWZeKCadgRdKQ">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&q=80');">
               <span class="product-badge sale">30% OFF</span>
+              <button class="wish-toggle" onclick="toggleWish(this)" aria-label="Save to wishlist"><i class="far fa-heart"></i></button>
             </div>
             <div class="product-info">
               <div class="product-brand">Nourison</div>
               <div class="product-name">Sultana Floral Area Rug with Vintage Style</div>
               <div class="product-price">$653.00 <span class="compare">$932.86</span> <span class="off">30% OFF</span></div>
               <div class="color-swatches" data-product="rug3"></div>
+              <a href="#" class="spotify-link" onclick="openSpotify(this); return false;"><i class="fab fa-spotify"></i> Listen while you browse</a>
+              <div class="qty-row">
+                <span class="qty-label">Qty</span>
+                <div class="qty-stepper">
+                  <button class="qty-step-btn" onclick="adjustQty(this, -1)">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="99">
+                  <button class="qty-step-btn" onclick="adjustQty(this, 1)">+</button>
+                </div>
+              </div>
               <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
               <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
             </div>
           </div>
 
           <!-- RUG 4 -->
-          <div class="product-card" data-id="rug4" data-brand="Chandra" data-name="Amazon AMA-5603 Hand-Woven Wool Blend Area Rug with Tiger Print" data-price="744.00" data-compare="1062.86" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=400&q=80" data-colors='["#d9c8b0","#b89f80","#8a6f50","#5a4a3a"]'>
+          <div class="product-card" data-id="rug4" data-brand="Chandra" data-name="Amazon AMA-5603 Hand-Woven Wool Blend Area Rug with Tiger Print" data-price="744.00" data-compare="1062.86" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=400&q=80" data-colors='["#d9c8b0","#b89f80","#8a6f50","#5a4a3a"]' data-spotify="https://open.spotify.com/playlist/37i9dQZF1DX4WYpdgoIcn6">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=400&q=80');">
               <span class="product-badge sale">30% OFF</span>
+              <button class="wish-toggle" onclick="toggleWish(this)" aria-label="Save to wishlist"><i class="far fa-heart"></i></button>
             </div>
             <div class="product-info">
               <div class="product-brand">Chandra</div>
               <div class="product-name">Amazon AMA-5603 Hand-Woven Wool Blend Rug — Tiger Print</div>
               <div class="product-price">$744.00 <span class="compare">$1,062.86</span> <span class="off">30% OFF</span></div>
               <div class="color-swatches" data-product="rug4"></div>
+              <a href="#" class="spotify-link" onclick="openSpotify(this); return false;"><i class="fab fa-spotify"></i> Listen while you browse</a>
+              <div class="qty-row">
+                <span class="qty-label">Qty</span>
+                <div class="qty-stepper">
+                  <button class="qty-step-btn" onclick="adjustQty(this, -1)">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="99">
+                  <button class="qty-step-btn" onclick="adjustQty(this, 1)">+</button>
+                </div>
+              </div>
               <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
               <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
             </div>
           </div>
 
           <!-- RUG 5 -->
-          <div class="product-card" data-id="rug5" data-brand="Nourison" data-name="2000 Bordered Runner Area Rug in Beige" data-price="803.00" data-compare="1147.14" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&q=80" data-colors='["#e8dcc8","#d4c4b0","#b8a898","#9c8878"]'>
+          <div class="product-card" data-id="rug5" data-brand="Nourison" data-name="2000 Bordered Runner Area Rug in Beige" data-price="803.00" data-compare="1147.14" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&q=80" data-colors='["#e8dcc8","#d4c4b0","#b8a898","#9c8878"]' data-spotify="https://open.spotify.com/playlist/37i9dQZF1DX3YSRoSdA634">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&q=80');">
               <span class="product-badge sale">30% OFF</span>
+              <button class="wish-toggle" onclick="toggleWish(this)" aria-label="Save to wishlist"><i class="far fa-heart"></i></button>
             </div>
             <div class="product-info">
               <div class="product-brand">Nourison</div>
               <div class="product-name">2000 Bordered Runner Area Rug in Beige</div>
               <div class="product-price">$803.00 <span class="compare">$1,147.14</span> <span class="off">30% OFF</span></div>
               <div class="color-swatches" data-product="rug5"></div>
+              <a href="#" class="spotify-link" onclick="openSpotify(this); return false;"><i class="fab fa-spotify"></i> Listen while you browse</a>
+              <div class="qty-row">
+                <span class="qty-label">Qty</span>
+                <div class="qty-stepper">
+                  <button class="qty-step-btn" onclick="adjustQty(this, -1)">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="99">
+                  <button class="qty-step-btn" onclick="adjustQty(this, 1)">+</button>
+                </div>
+              </div>
               <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
               <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
             </div>
           </div>
 
           <!-- RUG 6 -->
-          <div class="product-card" data-id="rug6" data-brand="Chandra" data-name="Zara 7'9&quot; Round Hand-Woven Shag Area Rug in Dark Lavender" data-price="804.00" data-img="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80" data-colors='["#b8a0c0","#9a80a0","#7a6080","#5a4060"]'>
+          <div class="product-card" data-id="rug6" data-brand="Chandra" data-name="Zara 7'9&quot; Round Hand-Woven Shag Area Rug in Dark Lavender" data-price="804.00" data-img="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80" data-colors='["#b8a0c0","#9a80a0","#7a6080","#5a4060"]' data-spotify="https://open.spotify.com/playlist/37i9dQZF1DWWQRwui0ExPn">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80');">
               <span class="product-badge">Round</span>
+              <button class="wish-toggle" onclick="toggleWish(this)" aria-label="Save to wishlist"><i class="far fa-heart"></i></button>
             </div>
             <div class="product-info">
               <div class="product-brand">Chandra</div>
               <div class="product-name">Zara 7'9" Round Hand-Woven Shag Area Rug — Dark Lavender</div>
               <div class="product-price">$804.00</div>
               <div class="color-swatches" data-product="rug6"></div>
+              <a href="#" class="spotify-link" onclick="openSpotify(this); return false;"><i class="fab fa-spotify"></i> Listen while you browse</a>
+              <div class="qty-row">
+                <span class="qty-label">Qty</span>
+                <div class="qty-stepper">
+                  <button class="qty-step-btn" onclick="adjustQty(this, -1)">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="99">
+                  <button class="qty-step-btn" onclick="adjustQty(this, 1)">+</button>
+                </div>
+              </div>
               <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
               <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
             </div>
           </div>
 
           <!-- RUG 7 -->
-          <div class="product-card" data-id="rug7" data-brand="Four Hands" data-name="Mateo Leopard Print Hair-on-Hide Area Rug — Brown and Black" data-price="519.20" data-compare="649.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=400&q=80" data-colors='["#c9a86a","#a88450","#7a6038","#4a3820"]'>
+          <div class="product-card" data-id="rug7" data-brand="Four Hands" data-name="Mateo Leopard Print Hair-on-Hide Area Rug — Brown and Black" data-price="519.20" data-compare="649.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=400&q=80" data-colors='["#c9a86a","#a88450","#7a6038","#4a3820"]' data-spotify="https://open.spotify.com/playlist/37i9dQZF1DXbTxeAdrVG2l">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=400&q=80');">
               <span class="product-badge sale">20% OFF</span>
+              <button class="wish-toggle" onclick="toggleWish(this)" aria-label="Save to wishlist"><i class="far fa-heart"></i></button>
             </div>
             <div class="product-info">
               <div class="product-brand">Four Hands</div>
               <div class="product-name">Mateo Leopard Print Hair-on-Hide Area Rug — Brown & Black</div>
               <div class="product-price">$519.20 <span class="compare">$649.00</span> <span class="off">20% OFF</span></div>
               <div class="color-swatches" data-product="rug7"></div>
+              <a href="#" class="spotify-link" onclick="openSpotify(this); return false;"><i class="fab fa-spotify"></i> Listen while you browse</a>
+              <div class="qty-row">
+                <span class="qty-label">Qty</span>
+                <div class="qty-stepper">
+                  <button class="qty-step-btn" onclick="adjustQty(this, -1)">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="99">
+                  <button class="qty-step-btn" onclick="adjustQty(this, 1)">+</button>
+                </div>
+              </div>
               <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
               <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
             </div>
           </div>
 
           <!-- RUG 8 -->
-          <div class="product-card" data-id="rug8" data-brand="Chandra" data-name="Veleno Hand-Tufted Floral Area Rug in Charcoal Grey Beige" data-price="934.00" data-compare="1334.29" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=400&q=80" data-colors='["#4a4a4a","#6b6b6b","#8b8b8b","#a8a8a8"]'>
+          <div class="product-card" data-id="rug8" data-brand="Chandra" data-name="Veleno Hand-Tufted Floral Area Rug in Charcoal Grey Beige" data-price="934.00" data-compare="1334.29" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=400&q=80" data-colors='["#4a4a4a","#6b6b6b","#8b8b8b","#a8a8a8"]' data-spotify="https://open.spotify.com/playlist/37i9dQZF1DX4sWSpwq3LiO">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=400&q=80');">
               <span class="product-badge sale">30% OFF</span>
+              <button class="wish-toggle" onclick="toggleWish(this)" aria-label="Save to wishlist"><i class="far fa-heart"></i></button>
             </div>
             <div class="product-info">
               <div class="product-brand">Chandra</div>
               <div class="product-name">Veleno Hand-Tufted Floral Area Rug — Charcoal Grey Beige</div>
               <div class="product-price">$934.00 <span class="compare">$1,334.29</span> <span class="off">30% OFF</span></div>
               <div class="color-swatches" data-product="rug8"></div>
+              <a href="#" class="spotify-link" onclick="openSpotify(this); return false;"><i class="fab fa-spotify"></i> Listen while you browse</a>
+              <div class="qty-row">
+                <span class="qty-label">Qty</span>
+                <div class="qty-stepper">
+                  <button class="qty-step-btn" onclick="adjustQty(this, -1)">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="99">
+                  <button class="qty-step-btn" onclick="adjustQty(this, 1)">+</button>
+                </div>
+              </div>
               <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
               <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
             </div>
           </div>
 
           <!-- RUG 9 -->
-          <div class="product-card" data-id="rug9" data-brand="Chandra" data-name="Giovanna 5x7 Braided Area Rug in Multi-Tone Wool Viscose Cotton" data-price="916.00" data-compare="1308.57" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=400&q=80" data-colors='["#d4a878","#b88858","#a07048","#806038"]'>
+          <div class="product-card" data-id="rug9" data-brand="Chandra" data-name="Giovanna 5x7 Braided Area Rug in Multi-Tone Wool Viscose Cotton" data-price="916.00" data-compare="1308.57" data-off="30% OFF" data-img="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=400&q=80" data-colors='["#d4a878","#b88858","#a07048","#806038"]' data-spotify="https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=400&q=80');">
               <span class="product-badge sale">30% OFF</span>
+              <button class="wish-toggle" onclick="toggleWish(this)" aria-label="Save to wishlist"><i class="far fa-heart"></i></button>
             </div>
             <div class="product-info">
               <div class="product-brand">Chandra</div>
               <div class="product-name">Giovanna 5x7 Braided Area Rug — Multi-Tone Wool Viscose Cotton</div>
               <div class="product-price">$916.00 <span class="compare">$1,308.57</span> <span class="off">30% OFF</span></div>
               <div class="color-swatches" data-product="rug9"></div>
+              <a href="#" class="spotify-link" onclick="openSpotify(this); return false;"><i class="fab fa-spotify"></i> Listen while you browse</a>
+              <div class="qty-row">
+                <span class="qty-label">Qty</span>
+                <div class="qty-stepper">
+                  <button class="qty-step-btn" onclick="adjustQty(this, -1)">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="99">
+                  <button class="qty-step-btn" onclick="adjustQty(this, 1)">+</button>
+                </div>
+              </div>
               <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
               <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
             </div>
           </div>
 
           <!-- RUG 10 -->
-          <div class="product-card" data-id="rug10" data-brand="Four Hands" data-name="Mateo Zebra Printed Hair-on-Hide Area Rug — Natural Black and White" data-price="519.20" data-compare="649.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=400&q=80" data-colors='["#2e2e2e","#4a4a4a","#6b6b6b","#9b9b9b"]'>
+          <div class="product-card" data-id="rug10" data-brand="Four Hands" data-name="Mateo Zebra Printed Hair-on-Hide Area Rug — Natural Black and White" data-price="519.20" data-compare="649.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=400&q=80" data-colors='["#2e2e2e","#4a4a4a","#6b6b6b","#9b9b9b"]' data-spotify="https://open.spotify.com/playlist/37i9dQZF1DXdPec7aLTmlC">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=400&q=80');">
               <span class="product-badge sale">20% OFF</span>
+              <button class="wish-toggle" onclick="toggleWish(this)" aria-label="Save to wishlist"><i class="far fa-heart"></i></button>
             </div>
             <div class="product-info">
               <div class="product-brand">Four Hands</div>
               <div class="product-name">Mateo Zebra Printed Hair-on-Hide Area Rug — Natural Black & White</div>
               <div class="product-price">$519.20 <span class="compare">$649.00</span> <span class="off">20% OFF</span></div>
               <div class="color-swatches" data-product="rug10"></div>
+              <a href="#" class="spotify-link" onclick="openSpotify(this); return false;"><i class="fab fa-spotify"></i> Listen while you browse</a>
+              <div class="qty-row">
+                <span class="qty-label">Qty</span>
+                <div class="qty-stepper">
+                  <button class="qty-step-btn" onclick="adjustQty(this, -1)">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="99">
+                  <button class="qty-step-btn" onclick="adjustQty(this, 1)">+</button>
+                </div>
+              </div>
               <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100</div>
               <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
             </div>
@@ -1128,91 +518,150 @@
         </div>
       </section>
 
-      <!-- FURNISHINGS & DECOR -->
+      <!-- FURNISHINGS -->
       <section class="catalogue-section reveal" id="furnishings">
         <h2><i class="fas fa-couch"></i> Furnishings & decor</h2>
         <p class="section-desc">Seasonal accents and elegant candle holders to complete your space.</p>
-
         <div class="product-grid" id="furnishingsGrid">
-          <div class="product-card" data-id="f1" data-brand="Majestic" data-name="Illuminated Ensemble: 4 garlands + 6 Lighted Ornaments + Remote + 10 ball ornaments" data-price="399.99" data-compare="499.99" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=400&q=80" data-colors='["#d4a830","#c89828","#a87818","#885810"]'>
+          <div class="product-card" data-id="f1" data-brand="Majestic" data-name="Illuminated Ensemble: 4 garlands + 6 Lighted Ornaments + Remote + 10 ball ornaments" data-price="399.99" data-compare="499.99" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=400&q=80" data-colors='["#d4a830","#c89828","#a87818","#885810"]' data-spotify="https://open.spotify.com/playlist/37i9dQZF1DX4sWSpwq3LiO">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=400&q=80');">
               <span class="product-badge sale">20% OFF</span>
+              <button class="wish-toggle" onclick="toggleWish(this)"><i class="far fa-heart"></i></button>
             </div>
             <div class="product-info">
               <div class="product-brand">Majestic</div>
               <div class="product-name">Illuminated Ensemble: 4 Garlands + 6 Lighted Ornaments + Remote + 10 Ball Ornaments</div>
               <div class="product-price">$399.99 <span class="compare">$499.99</span> <span class="off">20% OFF</span></div>
               <div class="color-swatches" data-product="f1"></div>
+              <a href="#" class="spotify-link" onclick="openSpotify(this); return false;"><i class="fab fa-spotify"></i> Listen while you browse</a>
+              <div class="qty-row">
+                <span class="qty-label">Qty</span>
+                <div class="qty-stepper">
+                  <button class="qty-step-btn" onclick="adjustQty(this, -1)">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="99">
+                  <button class="qty-step-btn" onclick="adjustQty(this, 1)">+</button>
+                </div>
+              </div>
               <div class="product-shipping"><i class="fas fa-truck"></i> Ships in 5–7 business days · Final Sale</div>
               <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
             </div>
           </div>
 
-          <div class="product-card" data-id="f2" data-brand="Norfolk" data-name="Norfolk Pine Spray & Brown Line Vase Bundle" data-price="175.99" data-compare="189.93" data-off="7% OFF" data-img="https://images.unsplash.com/photo-1602928321679-560bb453f190?w=400&q=80" data-colors='["#5a7a5a","#3a5a3a","#2a4a2a","#1a3a1a"]'>
+          <div class="product-card" data-id="f2" data-brand="Norfolk" data-name="Norfolk Pine Spray & Brown Line Vase Bundle" data-price="175.99" data-compare="189.93" data-off="7% OFF" data-img="https://images.unsplash.com/photo-1602928321679-560bb453f190?w=400&q=80" data-colors='["#5a7a5a","#3a5a3a","#2a4a2a","#1a3a1a"]' data-spotify="https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1602928321679-560bb453f190?w=400&q=80');">
               <span class="product-badge sale">7% OFF</span>
+              <button class="wish-toggle" onclick="toggleWish(this)"><i class="far fa-heart"></i></button>
             </div>
             <div class="product-info">
               <div class="product-brand">Norfolk</div>
               <div class="product-name">Norfolk Pine Spray & Brown Line Vase Bundle</div>
               <div class="product-price">$175.99 <span class="compare">$189.93</span> <span class="off">7% OFF</span></div>
               <div class="color-swatches" data-product="f2"></div>
+              <a href="#" class="spotify-link" onclick="openSpotify(this); return false;"><i class="fab fa-spotify"></i> Listen while you browse</a>
+              <div class="qty-row">
+                <span class="qty-label">Qty</span>
+                <div class="qty-stepper">
+                  <button class="qty-step-btn" onclick="adjustQty(this, -1)">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="99">
+                  <button class="qty-step-btn" onclick="adjustQty(this, 1)">+</button>
+                </div>
+              </div>
               <div class="product-shipping"><i class="fas fa-undo"></i> 14-day return for refund or store credit</div>
               <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
             </div>
           </div>
 
-          <div class="product-card" data-id="f3" data-brand="Cranberry" data-name="Cranberry Heirloom Ensemble" data-price="399.99" data-compare="499.99" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1543589077-47d81606c1bf?w=400&q=80" data-colors='["#8b2020","#6b1818","#4b1010","#3b0808"]'>
+          <div class="product-card" data-id="f3" data-brand="Cranberry" data-name="Cranberry Heirloom Ensemble" data-price="399.99" data-compare="499.99" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1543589077-47d81606c1bf?w=400&q=80" data-colors='["#8b2020","#6b1818","#4b1010","#3b0808"]' data-spotify="https://open.spotify.com/playlist/37i9dQZF1DWZeKCadgRdKQ">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1543589077-47d81606c1bf?w=400&q=80');">
               <span class="product-badge sale">20% OFF</span>
+              <button class="wish-toggle" onclick="toggleWish(this)"><i class="far fa-heart"></i></button>
             </div>
             <div class="product-info">
               <div class="product-brand">Cranberry</div>
               <div class="product-name">Cranberry Heirloom Ensemble</div>
               <div class="product-price">$399.99 <span class="compare">$499.99</span> <span class="off">20% OFF</span></div>
               <div class="color-swatches" data-product="f3"></div>
+              <a href="#" class="spotify-link" onclick="openSpotify(this); return false;"><i class="fab fa-spotify"></i> Listen while you browse</a>
+              <div class="qty-row">
+                <span class="qty-label">Qty</span>
+                <div class="qty-stepper">
+                  <button class="qty-step-btn" onclick="adjustQty(this, -1)">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="99">
+                  <button class="qty-step-btn" onclick="adjustQty(this, 1)">+</button>
+                </div>
+              </div>
               <div class="product-shipping"><i class="fas fa-truck"></i> Ships in 5–7 business days · Final Sale</div>
               <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
             </div>
           </div>
 
-          <div class="product-card" data-id="f4" data-brand="Glass" data-name="Square Glass Hurricanes with Antique Brass Base, Set of 2" data-price="189.99" data-img="https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80" data-colors='["#c8a878","#a88858","#886838","#685018"]'>
+          <div class="product-card" data-id="f4" data-brand="Glass" data-name="Square Glass Hurricanes with Antique Brass Base, Set of 2" data-price="189.99" data-img="https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80" data-colors='["#c8a878","#a88858","#886838","#685018"]' data-spotify="https://open.spotify.com/playlist/37i9dQZF1DX4WYpdgoIcn6">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80');">
               <span class="product-badge">Set of 2</span>
+              <button class="wish-toggle" onclick="toggleWish(this)"><i class="far fa-heart"></i></button>
             </div>
             <div class="product-info">
               <div class="product-brand">Glass</div>
               <div class="product-name">Square Glass Hurricanes with Antique Brass Base, Set of 2</div>
               <div class="product-price">$189.99</div>
               <div class="color-swatches" data-product="f4"></div>
+              <a href="#" class="spotify-link" onclick="openSpotify(this); return false;"><i class="fab fa-spotify"></i> Listen while you browse</a>
+              <div class="qty-row">
+                <span class="qty-label">Qty</span>
+                <div class="qty-stepper">
+                  <button class="qty-step-btn" onclick="adjustQty(this, -1)">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="99">
+                  <button class="qty-step-btn" onclick="adjustQty(this, 1)">+</button>
+                </div>
+              </div>
               <div class="product-shipping"><i class="fas fa-undo"></i> 14-day return for refund or store credit</div>
               <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
             </div>
           </div>
 
-          <div class="product-card" data-id="f5" data-brand="Candle" data-name="Rechargeable Flameless Votive Candle Set of 4" data-price="99.99" data-img="https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80" data-colors='["#f0e8d8","#e0d8c8","#d0c8b8","#c0b8a8"]'>
+          <div class="product-card" data-id="f5" data-brand="Candle" data-name="Rechargeable Flameless Votive Candle Set of 4" data-price="99.99" data-img="https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80" data-colors='["#f0e8d8","#e0d8c8","#d0c8b8","#c0b8a8"]' data-spotify="https://open.spotify.com/playlist/37i9dQZF1DX3YSRoSdA634">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80');">
               <span class="product-badge">Set of 4</span>
+              <button class="wish-toggle" onclick="toggleWish(this)"><i class="far fa-heart"></i></button>
             </div>
             <div class="product-info">
               <div class="product-brand">Candle</div>
               <div class="product-name">Rechargeable Flameless Votive Candle Set of 4</div>
               <div class="product-price">$99.99</div>
               <div class="color-swatches" data-product="f5"></div>
+              <a href="#" class="spotify-link" onclick="openSpotify(this); return false;"><i class="fab fa-spotify"></i> Listen while you browse</a>
+              <div class="qty-row">
+                <span class="qty-label">Qty</span>
+                <div class="qty-stepper">
+                  <button class="qty-step-btn" onclick="adjustQty(this, -1)">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="99">
+                  <button class="qty-step-btn" onclick="adjustQty(this, 1)">+</button>
+                </div>
+              </div>
               <div class="product-shipping"><i class="fas fa-undo"></i> 14-day return for refund or store credit</div>
               <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
             </div>
           </div>
 
-          <div class="product-card" data-id="f6" data-brand="Hurricane" data-name="Hurricane Candle Holders: 3 sizes — Sold Individually" data-price="129.99" data-img="https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80" data-colors='["#b8a888","#a89878","#988868","#887858"]'>
+          <div class="product-card" data-id="f6" data-brand="Hurricane" data-name="Hurricane Candle Holders: 3 sizes — Sold Individually" data-price="129.99" data-img="https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80" data-colors='["#b8a888","#a89878","#988868","#887858"]' data-spotify="https://open.spotify.com/playlist/37i9dQZF1DWWQRwui0ExPn">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80');">
               <span class="product-badge">3 sizes</span>
+              <button class="wish-toggle" onclick="toggleWish(this)"><i class="far fa-heart"></i></button>
             </div>
             <div class="product-info">
               <div class="product-brand">Hurricane</div>
               <div class="product-name">Hurricane Candle Holders: 3 Sizes — Sold Individually</div>
               <div class="product-price">$129.99</div>
               <div class="color-swatches" data-product="f6"></div>
+              <a href="#" class="spotify-link" onclick="openSpotify(this); return false;"><i class="fab fa-spotify"></i> Listen while you browse</a>
+              <div class="qty-row">
+                <span class="qty-label">Qty</span>
+                <div class="qty-stepper">
+                  <button class="qty-step-btn" onclick="adjustQty(this, -1)">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="99">
+                  <button class="qty-step-btn" onclick="adjustQty(this, 1)">+</button>
+                </div>
+              </div>
               <div class="product-shipping"><i class="fas fa-clock"></i> Longer shipping time: 5–7 days</div>
               <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
             </div>
@@ -1224,143 +673,242 @@
       <section class="catalogue-section reveal" id="homecapes">
         <h2><i class="fas fa-gem"></i> Home capes · Four Hands</h2>
         <p class="section-desc">Premium Four Hands pieces. Complimentary white glove delivery on orders over $2,000.</p>
-
         <div class="product-grid" id="homecapesGrid">
-          <div class="product-card" data-id="h1" data-brand="Four Hands" data-name="Matthes Reclaimed Pine Console Table — Aged Black Pine" data-price="719.20" data-compare="899.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1532372320572-cda25653a694?w=400&q=80" data-colors='["#2e2e2e","#4a4a4a","#6b6b6b","#8b8b8b"]'>
+          <div class="product-card" data-id="h1" data-brand="Four Hands" data-name="Matthes Reclaimed Pine Console Table — Aged Black Pine" data-price="719.20" data-compare="899.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1532372320572-cda25653a694?w=400&q=80" data-colors='["#2e2e2e","#4a4a4a","#6b6b6b","#8b8b8b"]' data-spotify="https://open.spotify.com/playlist/37i9dQZF1DXbTxeAdrVG2l">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1532372320572-cda25653a694?w=400&q=80');">
               <span class="product-badge sale">20% OFF</span>
+              <button class="wish-toggle" onclick="toggleWish(this)"><i class="far fa-heart"></i></button>
             </div>
             <div class="product-info">
               <div class="product-brand">Four Hands</div>
               <div class="product-name">Matthes Reclaimed Pine Console Table — Aged Black Pine</div>
               <div class="product-price">$719.20 <span class="compare">$899.00</span> <span class="off">20% OFF</span></div>
               <div class="color-swatches" data-product="h1"></div>
+              <a href="#" class="spotify-link" onclick="openSpotify(this); return false;"><i class="fab fa-spotify"></i> Listen while you browse</a>
+              <div class="qty-row">
+                <span class="qty-label">Qty</span>
+                <div class="qty-stepper">
+                  <button class="qty-step-btn" onclick="adjustQty(this, -1)">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="99">
+                  <button class="qty-step-btn" onclick="adjustQty(this, 1)">+</button>
+                </div>
+              </div>
               <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
               <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
             </div>
           </div>
 
-          <div class="product-card" data-id="h2" data-brand="Four Hands" data-name="Julius Swivel Chair — Taupe Shearling" data-price="2959.20" data-compare="3699.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" data-colors='["#c8b8a8","#b8a898","#a89888","#988878"]'>
+          <div class="product-card" data-id="h2" data-brand="Four Hands" data-name="Julius Swivel Chair — Taupe Shearling" data-price="2959.20" data-compare="3699.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" data-colors='["#c8b8a8","#b8a898","#a89888","#988878"]' data-spotify="https://open.spotify.com/playlist/37i9dQZF1DWWQRwui0ExPn">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80');">
               <span class="product-badge sale">20% OFF</span>
+              <button class="wish-toggle" onclick="toggleWish(this)"><i class="far fa-heart"></i></button>
             </div>
             <div class="product-info">
               <div class="product-brand">Four Hands</div>
               <div class="product-name">Julius Swivel Chair — Taupe Shearling</div>
               <div class="product-price">$2,959.20 <span class="compare">$3,699.00</span> <span class="off">20% OFF</span></div>
               <div class="color-swatches" data-product="h2"></div>
+              <a href="#" class="spotify-link" onclick="openSpotify(this); return false;"><i class="fab fa-spotify"></i> Listen while you browse</a>
+              <div class="qty-row">
+                <span class="qty-label">Qty</span>
+                <div class="qty-stepper">
+                  <button class="qty-step-btn" onclick="adjustQty(this, -1)">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="99">
+                  <button class="qty-step-btn" onclick="adjustQty(this, 1)">+</button>
+                </div>
+              </div>
               <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
               <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
             </div>
           </div>
 
-          <div class="product-card" data-id="h3" data-brand="Four Hands" data-name="Bingham Coffee Table — Distressed Iron" data-price="1919.20" data-compare="2399.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=400&q=80" data-colors='["#3a3a3a","#4a4a4a","#5a5a5a","#6a6a6a"]'>
+          <div class="product-card" data-id="h3" data-brand="Four Hands" data-name="Bingham Coffee Table — Distressed Iron" data-price="1919.20" data-compare="2399.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=400&q=80" data-colors='["#3a3a3a","#4a4a4a","#5a5a5a","#6a6a6a"]' data-spotify="https://open.spotify.com/playlist/37i9dQZF1DXdPec7aLTmlC">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=400&q=80');">
               <span class="product-badge sale">20% OFF</span>
+              <button class="wish-toggle" onclick="toggleWish(this)"><i class="far fa-heart"></i></button>
             </div>
             <div class="product-info">
               <div class="product-brand">Four Hands</div>
               <div class="product-name">Bingham Coffee Table — Distressed Iron</div>
               <div class="product-price">$1,919.20 <span class="compare">$2,399.00</span> <span class="off">20% OFF</span></div>
               <div class="color-swatches" data-product="h3"></div>
+              <a href="#" class="spotify-link" onclick="openSpotify(this); return false;"><i class="fab fa-spotify"></i> Listen while you browse</a>
+              <div class="qty-row">
+                <span class="qty-label">Qty</span>
+                <div class="qty-stepper">
+                  <button class="qty-step-btn" onclick="adjustQty(this, -1)">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="99">
+                  <button class="qty-step-btn" onclick="adjustQty(this, 1)">+</button>
+                </div>
+              </div>
               <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
               <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
             </div>
           </div>
 
-          <div class="product-card" data-id="h4" data-brand="Four Hands" data-name="Tolle Cabinet — Drifted Matte Black w/ Drifted Oak" data-price="3439.20" data-compare="4299.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80" data-colors='["#2a2a2a","#3a3a3a","#4a4a4a","#5a5a5a"]'>
+          <div class="product-card" data-id="h4" data-brand="Four Hands" data-name="Tolle Cabinet — Drifted Matte Black w/ Drifted Oak" data-price="3439.20" data-compare="4299.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80" data-colors='["#2a2a2a","#3a3a3a","#4a4a4a","#5a5a5a"]' data-spotify="https://open.spotify.com/playlist/37i9dQZF1DX4sWSpwq3LiO">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80');">
               <span class="product-badge sale">20% OFF</span>
+              <button class="wish-toggle" onclick="toggleWish(this)"><i class="far fa-heart"></i></button>
             </div>
             <div class="product-info">
               <div class="product-brand">Four Hands</div>
               <div class="product-name">Tolle Cabinet — Drifted Matte Black w/ Drifted Oak</div>
               <div class="product-price">$3,439.20 <span class="compare">$4,299.00</span> <span class="off">20% OFF</span></div>
               <div class="color-swatches" data-product="h4"></div>
+              <a href="#" class="spotify-link" onclick="openSpotify(this); return false;"><i class="fab fa-spotify"></i> Listen while you browse</a>
+              <div class="qty-row">
+                <span class="qty-label">Qty</span>
+                <div class="qty-stepper">
+                  <button class="qty-step-btn" onclick="adjustQty(this, -1)">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="99">
+                  <button class="qty-step-btn" onclick="adjustQty(this, 1)">+</button>
+                </div>
+              </div>
               <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
               <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
             </div>
           </div>
 
-          <div class="product-card" data-id="h5" data-brand="Four Hands" data-name="Abaso Rectangular Coffee Table — Rustic Wormwood Oak" data-price="2079.20" data-compare="2599.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1532372320572-cda25653a694?w=400&q=80" data-colors='["#8b6b4a","#7a5a3a","#6a4a2a","#5a3a1a"]'>
+          <div class="product-card" data-id="h5" data-brand="Four Hands" data-name="Abaso Rectangular Coffee Table — Rustic Wormwood Oak" data-price="2079.20" data-compare="2599.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1532372320572-cda25653a694?w=400&q=80" data-colors='["#8b6b4a","#7a5a3a","#6a4a2a","#5a3a1a"]' data-spotify="https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1532372320572-cda25653a694?w=400&q=80');">
               <span class="product-badge sale">20% OFF</span>
+              <button class="wish-toggle" onclick="toggleWish(this)"><i class="far fa-heart"></i></button>
             </div>
             <div class="product-info">
               <div class="product-brand">Four Hands</div>
               <div class="product-name">Abaso Rectangular Coffee Table — Rustic Wormwood Oak</div>
               <div class="product-price">$2,079.20 <span class="compare">$2,599.00</span> <span class="off">20% OFF</span></div>
               <div class="color-swatches" data-product="h5"></div>
+              <a href="#" class="spotify-link" onclick="openSpotify(this); return false;"><i class="fab fa-spotify"></i> Listen while you browse</a>
+              <div class="qty-row">
+                <span class="qty-label">Qty</span>
+                <div class="qty-stepper">
+                  <button class="qty-step-btn" onclick="adjustQty(this, -1)">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="99">
+                  <button class="qty-step-btn" onclick="adjustQty(this, 1)">+</button>
+                </div>
+              </div>
               <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
               <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
             </div>
           </div>
 
-          <div class="product-card" data-id="h6" data-brand="Four Hands" data-name="Augustine Swivel Chair — Palermo Drift" data-price="2159.20" data-compare="2699.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" data-colors='["#d4c4b0","#c4b4a0","#b4a490","#a49480"]'>
+          <div class="product-card" data-id="h6" data-brand="Four Hands" data-name="Augustine Swivel Chair — Palermo Drift" data-price="2159.20" data-compare="2699.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" data-colors='["#d4c4b0","#c4b4a0","#b4a490","#a49480"]' data-spotify="https://open.spotify.com/playlist/37i9dQZF1DWZeKCadgRdKQ">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80');">
               <span class="product-badge sale">20% OFF</span>
+              <button class="wish-toggle" onclick="toggleWish(this)"><i class="far fa-heart"></i></button>
             </div>
             <div class="product-info">
               <div class="product-brand">Four Hands</div>
               <div class="product-name">Augustine Swivel Chair — Palermo Drift</div>
               <div class="product-price">$2,159.20 <span class="compare">$2,699.00</span> <span class="off">20% OFF</span></div>
               <div class="color-swatches" data-product="h6"></div>
+              <a href="#" class="spotify-link" onclick="openSpotify(this); return false;"><i class="fab fa-spotify"></i> Listen while you browse</a>
+              <div class="qty-row">
+                <span class="qty-label">Qty</span>
+                <div class="qty-stepper">
+                  <button class="qty-step-btn" onclick="adjustQty(this, -1)">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="99">
+                  <button class="qty-step-btn" onclick="adjustQty(this, 1)">+</button>
+                </div>
+              </div>
               <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
               <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
             </div>
           </div>
 
-          <div class="product-card" data-id="h7" data-brand="Four Hands" data-name="Redondo Media Console" data-price="3679.20" data-compare="4599.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80" data-colors='["#4a3a2a","#3a2a1a","#2a1a0a","#1a0a00"]'>
+          <div class="product-card" data-id="h7" data-brand="Four Hands" data-name="Redondo Media Console" data-price="3679.20" data-compare="4599.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80" data-colors='["#4a3a2a","#3a2a1a","#2a1a0a","#1a0a00"]' data-spotify="https://open.spotify.com/playlist/37i9dQZF1DX4WYpdgoIcn6">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80');">
               <span class="product-badge sale">20% OFF</span>
+              <button class="wish-toggle" onclick="toggleWish(this)"><i class="far fa-heart"></i></button>
             </div>
             <div class="product-info">
               <div class="product-brand">Four Hands</div>
               <div class="product-name">Redondo Media Console</div>
               <div class="product-price">$3,679.20 <span class="compare">$4,599.00</span> <span class="off">20% OFF</span></div>
               <div class="color-swatches" data-product="h7"></div>
+              <a href="#" class="spotify-link" onclick="openSpotify(this); return false;"><i class="fab fa-spotify"></i> Listen while you browse</a>
+              <div class="qty-row">
+                <span class="qty-label">Qty</span>
+                <div class="qty-stepper">
+                  <button class="qty-step-btn" onclick="adjustQty(this, -1)">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="99">
+                  <button class="qty-step-btn" onclick="adjustQty(this, 1)">+</button>
+                </div>
+              </div>
               <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
               <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
             </div>
           </div>
 
-          <div class="product-card" data-id="h8" data-brand="Four Hands" data-name="Leo 6 Drawer Dresser" data-price="2399.20" data-compare="2999.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80" data-colors='["#6b5a4a","#5b4a3a","#4b3a2a","#3b2a1a"]'>
+          <div class="product-card" data-id="h8" data-brand="Four Hands" data-name="Leo 6 Drawer Dresser" data-price="2399.20" data-compare="2999.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80" data-colors='["#6b5a4a","#5b4a3a","#4b3a2a","#3b2a1a"]' data-spotify="https://open.spotify.com/playlist/37i9dQZF1DX3YSRoSdA634">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80');">
               <span class="product-badge sale">20% OFF</span>
+              <button class="wish-toggle" onclick="toggleWish(this)"><i class="far fa-heart"></i></button>
             </div>
             <div class="product-info">
               <div class="product-brand">Four Hands</div>
               <div class="product-name">Leo 6 Drawer Dresser</div>
               <div class="product-price">$2,399.20 <span class="compare">$2,999.00</span> <span class="off">20% OFF</span></div>
               <div class="color-swatches" data-product="h8"></div>
+              <a href="#" class="spotify-link" onclick="openSpotify(this); return false;"><i class="fab fa-spotify"></i> Listen while you browse</a>
+              <div class="qty-row">
+                <span class="qty-label">Qty</span>
+                <div class="qty-stepper">
+                  <button class="qty-step-btn" onclick="adjustQty(this, -1)">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="99">
+                  <button class="qty-step-btn" onclick="adjustQty(this, 1)">+</button>
+                </div>
+              </div>
               <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
               <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
             </div>
           </div>
 
-          <div class="product-card" data-id="h9" data-brand="Four Hands" data-name="Rothler Dining Chair" data-price="559.20" data-compare="699.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" data-colors='["#c8b8a0","#b8a890","#a89880","#988870"]'>
+          <div class="product-card" data-id="h9" data-brand="Four Hands" data-name="Rothler Dining Chair" data-price="559.20" data-compare="699.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" data-colors='["#c8b8a0","#b8a890","#a89880","#988870"]' data-spotify="https://open.spotify.com/playlist/37i9dQZF1DWWQRwui0ExPn">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80');">
               <span class="product-badge sale">20% OFF</span>
+              <button class="wish-toggle" onclick="toggleWish(this)"><i class="far fa-heart"></i></button>
             </div>
             <div class="product-info">
               <div class="product-brand">Four Hands</div>
               <div class="product-name">Rothler Dining Chair</div>
               <div class="product-price">$559.20 <span class="compare">$699.00</span> <span class="off">20% OFF</span></div>
               <div class="color-swatches" data-product="h9"></div>
+              <a href="#" class="spotify-link" onclick="openSpotify(this); return false;"><i class="fab fa-spotify"></i> Listen while you browse</a>
+              <div class="qty-row">
+                <span class="qty-label">Qty</span>
+                <div class="qty-stepper">
+                  <button class="qty-step-btn" onclick="adjustQty(this, -1)">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="99">
+                  <button class="qty-step-btn" onclick="adjustQty(this, 1)">+</button>
+                </div>
+              </div>
               <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
               <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
             </div>
           </div>
 
-          <div class="product-card" data-id="h10" data-brand="Four Hands" data-name="Aurora Swivel Chair — Knoll Natural" data-price="799.20" data-compare="999.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" data-colors='["#e0d8c8","#d0c8b8","#c0b8a8","#b0a898"]'>
+          <div class="product-card" data-id="h10" data-brand="Four Hands" data-name="Aurora Swivel Chair — Knoll Natural" data-price="799.20" data-compare="999.00" data-off="20% OFF" data-img="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" data-colors='["#e0d8c8","#d0c8b8","#c0b8a8","#b0a898"]' data-spotify="https://open.spotify.com/playlist/37i9dQZF1DXdPec7aLTmlC">
             <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80');">
               <span class="product-badge sale">20% OFF</span>
+              <button class="wish-toggle" onclick="toggleWish(this)"><i class="far fa-heart"></i></button>
             </div>
             <div class="product-info">
               <div class="product-brand">Four Hands</div>
               <div class="product-name">Aurora Swivel Chair — Knoll Natural</div>
               <div class="product-price">$799.20 <span class="compare">$999.00</span> <span class="off">20% OFF</span></div>
               <div class="color-swatches" data-product="h10"></div>
+              <a href="#" class="spotify-link" onclick="openSpotify(this); return false;"><i class="fab fa-spotify"></i> Listen while you browse</a>
+              <div class="qty-row">
+                <span class="qty-label">Qty</span>
+                <div class="qty-stepper">
+                  <button class="qty-step-btn" onclick="adjustQty(this, -1)">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="99">
+                  <button class="qty-step-btn" onclick="adjustQty(this, 1)">+</button>
+                </div>
+              </div>
               <div class="product-shipping"><i class="fas fa-truck"></i> Free shipping over $100 · White glove over $2,000</div>
               <button class="btn-add" onclick="addToCart(this)"><i class="fas fa-plus"></i> <span>Add to cart</span></button>
             </div>
@@ -1379,42 +927,10 @@
             <i class="fab fa-houzz"></i>
           </div>
         </div>
-        <div>
-          <h4>Explore</h4>
-          <ul>
-            <li><a href="#">Properties</a></li>
-            <li><a href="index.html" style="color:var(--accent);">Catalogue</a></li>
-            <li><a href="#">Deco planning</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4>Studio</h4>
-          <ul>
-            <li><a href="#">About CKNS</a></li>
-            <li><a href="#">Our process</a></li>
-            <li><a href="feedback.html">Customer Feedback</a></li>
-            <li><a href="#">Careers</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4>Legal & Support</h4>
-          <ul>
-            <li><a href="privacy.html">Privacy Policy</a></li>
-            <li><a href="terms.html">Terms & Conditions</a></li>
-            <li><a href="feedback.html">Leave Feedback</a></li>
-            <li><a href="mailto:info@cknsworld.store">info@cknsworld.store</a></li>
-            <li><a href="tel:+18572689887">857-268-9887</a></li>
-          </ul>
-        </div>
-        <div class="copyright">
-          © 2025–2026 CKNS real estate & deco planning. All rights reserved.
-          <br><br>
-          <a href="privacy.html">Privacy</a> ·
-          <a href="terms.html">Terms</a> ·
-          <a href="feedback.html">Feedback</a> ·
-          <a href="index.html">Home</a>
-        </div>
+        <div><h4>Explore</h4><ul><li><a href="#">Properties</a></li><li><a href="index.html" style="color:var(--accent);">Catalogue</a></li><li><a href="#">Deco planning</a></li><li><a href="#">Contact</a></li></ul></div>
+        <div><h4>Studio</h4><ul><li><a href="#">About CKNS</a></li><li><a href="#">Our process</a></li><li><a href="feedback.html">Customer Feedback</a></li><li><a href="#">Careers</a></li></ul></div>
+        <div><h4>Legal & Support</h4><ul><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms & Conditions</a></li><li><a href="feedback.html">Leave Feedback</a></li><li><a href="mailto:info@cknsworld.store">info@cknsworld.store</a></li><li><a href="tel:+18572689887">857-268-9887</a></li></ul></div>
+        <div class="copyright">© 2025–2026 CKNS real estate & deco planning. All rights reserved.<br><br><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="feedback.html">Feedback</a> · <a href="index.html">Home</a></div>
       </footer>
     </div>
   </div>
@@ -1422,295 +938,151 @@
   <!-- CART SIDEBAR -->
   <div class="cart-overlay" id="cartOverlay"></div>
   <aside class="cart-sidebar" id="cartSidebar">
-    <div class="cart-header">
-      <h3>Your cart</h3>
-      <button class="cart-close" id="cartClose"><i class="fas fa-times"></i></button>
-    </div>
-    <div class="cart-items" id="cartItems">
-      <div class="cart-empty">
-        <i class="fas fa-shopping-bag"></i>
-        <p>Your cart is empty.</p>
-      </div>
-    </div>
+    <div class="cart-header"><h3>Your cart</h3><button class="cart-close" id="cartClose"><i class="fas fa-times"></i></button></div>
+    <div class="cart-items" id="cartItems"><div class="cart-empty"><i class="fas fa-shopping-bag"></i><p>Your cart is empty.</p></div></div>
     <div class="cart-footer">
-      <div class="cart-total">
-        <span>Total</span>
-        <span id="cartTotal">$0.00</span>
-      </div>
-      <button class="btn-stripe" id="stripeBtn">
-        <i class="fas fa-lock"></i> Proceed to checkout
-      </button>
-
-      <p class="stripe-note" style="margin-top: 10px;">
-        By proceeding, you agree to our
-        <a href="terms.html" target="_blank">Terms & Conditions</a> and
-        <a href="privacy.html" target="_blank">Privacy Policy</a>.
-      </p>
-
-      <div class="fraud-review-note">
-        <i class="fas fa-shield-alt"></i>
-        <span>
-          <strong>For your security,</strong> payments flagged by our fraud protection are manually reviewed before your order ships. We'll email you if we need anything further — usually within 24 hours.
-        </span>
-      </div>
-
-      <p class="stripe-note">
-        Stripe payment link placeholder — replace with your <a href="#" target="_blank">Stripe Checkout link</a>
-      </p>
+      <div class="cart-total"><span>Total</span><span id="cartTotal">$0.00</span></div>
+      <button class="btn-stripe" id="stripeBtn"><i class="fas fa-lock"></i> Proceed to checkout</button>
+      <p class="stripe-note" style="margin-top: 10px;">By proceeding, you agree to our <a href="terms.html" target="_blank">Terms & Conditions</a> and <a href="privacy.html" target="_blank">Privacy Policy</a>.</p>
+      <div class="fraud-review-note"><i class="fas fa-shield-alt"></i><span><strong>For your security,</strong> payments flagged by our fraud protection are manually reviewed before your order ships. We'll email you if we need anything further — usually within 24 hours.</span></div>
+      <p class="stripe-note">Stripe payment link placeholder — replace with your <a href="#" target="_blank">Stripe Checkout link</a></p>
     </div>
+  </aside>
+
+  <!-- WISHLIST SIDEBAR -->
+  <div class="wish-overlay" id="wishOverlay"></div>
+  <aside class="wish-sidebar" id="wishSidebar">
+    <div class="cart-header"><h3>Your wishlist</h3><button class="cart-close" id="wishClose"><i class="fas fa-times"></i></button></div>
+    <div class="cart-items" id="wishItems"><div class="cart-empty"><i class="far fa-heart"></i><p>Your wishlist is empty.</p></div></div>
+    <div class="cart-footer"><p style="font-size:0.8rem;color:#6b6b6b;text-align:center;">Items you save will be here when you're ready. Tap the heart on any product to add it.</p></div>
   </aside>
 
   <!-- Toast -->
   <div class="toast" id="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg">Added to cart</span></div>
 
   <!-- Floating CTA -->
-  <a href="feedback.html" class="float-cta">
-    <span class="icon"><i class="fas fa-star"></i></span>
-    <span>Read 23 verified reviews</span>
-  </a>
+  <a href="feedback.html" class="float-cta"><span class="icon"><i class="fas fa-star"></i></span><span>Read verified reviews</span></a>
 
-  <!-- Three.js for 3D background -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
   <script>
     /* ============================================================
-       3D BACKGROUND — floating architectural forms
+       3D BACKGROUND
        ============================================================ */
     (function init3D() {
-      // Respect reduced motion
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
       const canvas = document.getElementById('bg-canvas');
       const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
       renderer.setSize(window.innerWidth, window.innerHeight);
-
       const scene = new THREE.Scene();
       scene.fog = new THREE.FogExp2(0xfaf9f7, 0.032);
-
       const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 100);
       camera.position.set(0, 2.5, 14);
       camera.lookAt(0, 0, 0);
-
-      // Lighting — soft, warm
-      const ambient = new THREE.AmbientLight(0xfff5ea, 0.85);
-      scene.add(ambient);
-
-      const key = new THREE.DirectionalLight(0xffe4c4, 1.1);
-      key.position.set(6, 10, 8);
-      scene.add(key);
-
-      const rim = new THREE.DirectionalLight(0x9b7b5c, 0.7);
-      rim.position.set(-8, 4, -6);
-      scene.add(rim);
-
-      // === Central architectural form: stylized house frame ===
-      const houseGroup = new THREE.Group();
-      scene.add(houseGroup);
-
+      scene.add(new THREE.AmbientLight(0xfff5ea, 0.85));
+      const key = new THREE.DirectionalLight(0xffe4c4, 1.1); key.position.set(6, 10, 8); scene.add(key);
+      const rim = new THREE.DirectionalLight(0x9b7b5c, 0.7); rim.position.set(-8, 4, -6); scene.add(rim);
+      const houseGroup = new THREE.Group(); scene.add(houseGroup);
       const lineMat = new THREE.LineBasicMaterial({ color: 0x9b7b5c, transparent: true, opacity: 0.55 });
-
-      // Helper to add a line segment
-      function addEdge(x1, y1, z1, x2, y2, z2) {
-        const g = new THREE.BufferGeometry().setFromPoints([
-          new THREE.Vector3(x1, y1, z1),
-          new THREE.Vector3(x2, y2, z2)
-        ]);
-        const l = new THREE.Line(g, lineMat);
-        houseGroup.add(l);
-      }
-
-      // House base (cube outline) — w=3, h=2.2, d=3
-      const w = 3, h = 2.2, d = 3;
-      const hw = w/2, hh = h/2, hd = d/2;
-      // Bottom square
-      addEdge(-hw, -hh, -hd,  hw, -hh, -hd);
-      addEdge( hw, -hh, -hd,  hw, -hh,  hd);
-      addEdge( hw, -hh,  hd, -hw, -hh,  hd);
-      addEdge(-hw, -hh,  hd, -hw, -hh, -hd);
-      // Top square
-      addEdge(-hw,  hh, -hd,  hw,  hh, -hd);
-      addEdge( hw,  hh, -hd,  hw,  hh,  hd);
-      addEdge( hw,  hh,  hd, -hw,  hh,  hd);
-      addEdge(-hw,  hh,  hd, -hw,  hh, -hd);
-      // Verticals
-      addEdge(-hw, -hh, -hd, -hw,  hh, -hd);
-      addEdge( hw, -hh, -hd,  hw,  hh, -hd);
-      addEdge( hw, -hh,  hd,  hw,  hh,  hd);
-      addEdge(-hw, -hh,  hd, -hw,  hh,  hd);
-
-      // Roof — apex above center
-      const apexY = hh + 1.4;
-      addEdge(-hw, hh, -hd, 0, apexY, 0);
-      addEdge( hw, hh, -hd, 0, apexY, 0);
-      addEdge( hw, hh,  hd, 0, apexY, 0);
-      addEdge(-hw, hh,  hd, 0, apexY, 0);
-
-      // Door
-      addEdge(-0.4, -hh, -hd - 0.001, -0.4, hh*0.55, -hd - 0.001);
-      addEdge( 0.4, -hh, -hd - 0.001,  0.4, hh*0.55, -hd - 0.001);
-      addEdge(-0.4, hh*0.55, -hd - 0.001, 0.4, hh*0.55, -hd - 0.001);
-
-      // Window (small square on side)
-      addEdge(hw + 0.001, -0.3, -0.5, hw + 0.001, 0.6, -0.5);
-      addEdge(hw + 0.001, -0.3,  0.5, hw + 0.001, 0.6,  0.5);
-      addEdge(hw + 0.001, -0.3, -0.5, hw + 0.001, -0.3, 0.5);
-      addEdge(hw + 0.001,  0.6, -0.5, hw + 0.001,  0.6, 0.5);
-
-      // Scale + position
-      houseGroup.position.set(0, -0.3, 0);
-      houseGroup.scale.set(1.1, 1.1, 1.1);
-
-      // === Orbiting rings (deco feel) ===
-      const ringMat = new THREE.LineBasicMaterial({ color: 0xd4a830, transparent: true, opacity: 0.35 });
+      function addEdge(x1,y1,z1,x2,y2,z2){ const g = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x1,y1,z1), new THREE.Vector3(x2,y2,z2)]); houseGroup.add(new THREE.Line(g, lineMat)); }
+      const w=3,h=2.2,d=3,hw=w/2,hh=h/2,hd=d/2;
+      addEdge(-hw,-hh,-hd, hw,-hh,-hd); addEdge(hw,-hh,-hd, hw,-hh,hd); addEdge(hw,-hh,hd, -hw,-hh,hd); addEdge(-hw,-hh,hd, -hw,-hh,-hd);
+      addEdge(-hw,hh,-hd, hw,hh,-hd); addEdge(hw,hh,-hd, hw,hh,hd); addEdge(hw,hh,hd, -hw,hh,hd); addEdge(-hw,hh,hd, -hw,hh,-hd);
+      addEdge(-hw,-hh,-hd, -hw,hh,-hd); addEdge(hw,-hh,-hd, hw,hh,-hd); addEdge(hw,-hh,hd, hw,hh,hd); addEdge(-hw,-hh,hd, -hw,hh,hd);
+      const apexY=hh+1.4;
+      addEdge(-hw,hh,-hd,0,apexY,0); addEdge(hw,hh,-hd,0,apexY,0); addEdge(hw,hh,hd,0,apexY,0); addEdge(-hw,hh,hd,0,apexY,0);
+      addEdge(-0.4,-hh,-hd-0.001,-0.4,hh*0.55,-hd-0.001); addEdge(0.4,-hh,-hd-0.001,0.4,hh*0.55,-hd-0.001); addEdge(-0.4,hh*0.55,-hd-0.001,0.4,hh*0.55,-hd-0.001);
+      addEdge(hw+0.001,-0.3,-0.5,hw+0.001,0.6,-0.5); addEdge(hw+0.001,-0.3,0.5,hw+0.001,0.6,0.5); addEdge(hw+0.001,-0.3,-0.5,hw+0.001,-0.3,0.5); addEdge(hw+0.001,0.6,-0.5,hw+0.001,0.6,0.5);
+      houseGroup.position.set(0,-0.3,0); houseGroup.scale.set(1.1,1.1,1.1);
       const rings = [];
-      for (let i = 0; i < 3; i++) {
-        const radius = 4.5 + i * 1.2;
-        const segments = 80;
-        const pts = [];
-        for (let j = 0; j <= segments; j++) {
-          const t = (j / segments) * Math.PI * 2;
-          pts.push(new THREE.Vector3(Math.cos(t) * radius, Math.sin(t) * radius * 0.28, Math.sin(t) * radius * 0.6));
-        }
-        const g = new THREE.BufferGeometry().setFromPoints(pts);
-        const ring = new THREE.Line(g, ringMat.clone());
-        ring.rotation.x = (i - 1) * 0.3;
-        ring.rotation.z = i * 0.4;
-        scene.add(ring);
-        rings.push(ring);
-      }
-
-      // === Floating particles (dust motes) ===
-      const particleCount = 220;
-      const positions = new Float32Array(particleCount * 3);
-      const particleSizes = new Float32Array(particleCount);
-      for (let i = 0; i < particleCount; i++) {
-        positions[i*3]     = (Math.random() - 0.5) * 30;
-        positions[i*3 + 1] = (Math.random() - 0.5) * 20;
-        positions[i*3 + 2] = (Math.random() - 0.5) * 25 - 5;
-        particleSizes[i] = Math.random() * 0.06 + 0.02;
-      }
-      const pGeo = new THREE.BufferGeometry();
-      pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      pGeo.setAttribute('size', new THREE.BufferAttribute(particleSizes, 1));
-
-      const pMat = new THREE.PointsMaterial({
-        color: 0x9b7b5c,
-        size: 0.07,
-        transparent: true,
-        opacity: 0.5,
-        depthWrite: false,
-        blending: THREE.AdditiveBlending
-      });
-      const particles = new THREE.Points(pGeo, pMat);
+      for (let i=0;i<3;i++){ const radius=4.5+i*1.2; const pts=[]; for(let j=0;j<=80;j++){ const t=(j/80)*Math.PI*2; pts.push(new THREE.Vector3(Math.cos(t)*radius, Math.sin(t)*radius*0.28, Math.sin(t)*radius*0.6)); } const g=new THREE.BufferGeometry().setFromPoints(pts); const ring=new THREE.Line(g, new THREE.LineBasicMaterial({color:0xd4a830, transparent:true, opacity:0.35})); ring.rotation.x=(i-1)*0.3; ring.rotation.z=i*0.4; scene.add(ring); rings.push(ring); }
+      const particleCount=220; const positions=new Float32Array(particleCount*3);
+      for(let i=0;i<particleCount;i++){ positions[i*3]=(Math.random()-0.5)*30; positions[i*3+1]=(Math.random()-0.5)*20; positions[i*3+2]=(Math.random()-0.5)*25-5; }
+      const pGeo=new THREE.BufferGeometry(); pGeo.setAttribute('position', new THREE.BufferAttribute(positions,3));
+      const particles = new THREE.Points(pGeo, new THREE.PointsMaterial({ color:0x9b7b5c, size:0.07, transparent:true, opacity:0.5, depthWrite:false, blending:THREE.AdditiveBlending }));
       scene.add(particles);
-
-      // === Interaction: subtle mouse parallax ===
-      let mouseX = 0, mouseY = 0;
-      let targetX = 0, targetY = 0;
-      document.addEventListener('mousemove', (e) => {
-        mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-        mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
-      });
-
-      // === Resize ===
-      let resizeTimer;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
-          camera.aspect = window.innerWidth / window.innerHeight;
-          camera.updateProjectionMatrix();
-          renderer.setSize(window.innerWidth, window.innerHeight);
-        }, 150);
-      });
-
-      // === Pause when tab hidden ===
-      let paused = false;
-      document.addEventListener('visibilitychange', () => {
-        paused = document.hidden;
-      });
-
-      // === Animation loop ===
+      let mouseX=0,mouseY=0,targetX=0,targetY=0;
+      document.addEventListener('mousemove', e => { mouseX=(e.clientX/window.innerWidth)*2-1; mouseY=-(e.clientY/window.innerHeight)*2+1; });
+      let resizeTimer; window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer=setTimeout(() => { camera.aspect=window.innerWidth/window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); }, 150); });
+      let paused=false; document.addEventListener('visibilitychange', () => { paused = document.hidden; });
       const clock = new THREE.Clock();
-      function animate() {
-        requestAnimationFrame(animate);
-        if (paused) return;
-
-        const t = clock.getElapsedTime();
-
-        // Smooth mouse follow
-        targetX += (mouseX - targetX) * 0.04;
-        targetY += (mouseY - targetY) * 0.04;
-
-        // House gentle rotation + float
-        houseGroup.rotation.y = t * 0.12 + targetX * 0.3;
-        houseGroup.rotation.x = Math.sin(t * 0.4) * 0.05 + targetY * 0.08;
-        houseGroup.position.y = -0.3 + Math.sin(t * 0.6) * 0.15;
-
-        // Rings orbit
-        rings.forEach((ring, i) => {
-          ring.rotation.y += 0.0015 * (i + 1) + 0.0005;
-          ring.rotation.x += 0.0008 * (i % 2 === 0 ? 1 : -1);
-        });
-
-        // Particles drift
-        particles.rotation.y = t * 0.02;
-        particles.rotation.x = Math.sin(t * 0.1) * 0.05;
-
-        // Camera parallax
-        camera.position.x += (targetX * 1.2 - camera.position.x) * 0.03;
-        camera.position.y += (2.5 + targetY * 0.8 - camera.position.y) * 0.03;
-        camera.lookAt(0, 0, 0);
-
-        renderer.render(scene, camera);
-      }
+      function animate(){ requestAnimationFrame(animate); if(paused) return; const t=clock.getElapsedTime(); targetX+=(mouseX-targetX)*0.04; targetY+=(mouseY-targetY)*0.04; houseGroup.rotation.y=t*0.12+targetX*0.3; houseGroup.rotation.x=Math.sin(t*0.4)*0.05+targetY*0.08; houseGroup.position.y=-0.3+Math.sin(t*0.6)*0.15; rings.forEach((ring,i)=>{ ring.rotation.y+=0.0015*(i+1)+0.0005; ring.rotation.x+=0.0008*(i%2===0?1:-1); }); particles.rotation.y=t*0.02; particles.rotation.x=Math.sin(t*0.1)*0.05; camera.position.x+=(targetX*1.2-camera.position.x)*0.03; camera.position.y+=(2.5+targetY*0.8-camera.position.y)*0.03; camera.lookAt(0,0,0); renderer.render(scene, camera); }
       animate();
     })();
 
     /* ============================================================
-       EXISTING SITE LOGIC (cart, swatches, tilt, reveal, etc.)
+       LIVE REVIEW COUNT
        ============================================================ */
+    (function syncReviewTeaser(){
+      try{
+        const stored = JSON.parse(localStorage.getItem('ckns_reviews_v1') || '[]');
+        const total = 23 + stored.length;
+        const teaser = document.getElementById('reviewTeaserLink');
+        if (teaser) teaser.innerHTML = `<span class="stars">★★★★★</span> Read ${total} verified review${total===1?'':'s'} <i class="fas fa-arrow-right" style="font-size:0.75rem;"></i>`;
+        const floatText = document.querySelector('.float-cta span:last-child');
+        if (floatText) floatText.textContent = `Read ${total} verified review${total===1?'':'s'}`;
+      } catch(e){}
+    })();
+
+    /* ============================================================
+       WISHLIST + CART + QTY + SPOTIFY
+       ============================================================ */
+    const WISHLIST_KEY = 'ckns_wishlist_v1';
     let cart = [];
-    let cartCount = 0;
-    let cartTotal = 0;
+    let wishlist = [];
+    try { wishlist = JSON.parse(localStorage.getItem(WISHLIST_KEY) || '[]'); } catch(e){ wishlist = []; }
 
     // Color swatches
     document.querySelectorAll('.product-card').forEach(card => {
-      const swatchContainer = card.querySelector('.color-swatches');
-      if (!swatchContainer) return;
+      const container = card.querySelector('.color-swatches');
+      if (!container) return;
       const colors = JSON.parse(card.dataset.colors || '[]');
-      if (colors.length === 0) return;
       colors.forEach((color, idx) => {
-        const swatch = document.createElement('div');
-        swatch.className = 'swatch' + (idx === 0 ? ' active' : '');
-        swatch.style.backgroundColor = color;
-        swatch.dataset.color = color;
-        swatch.addEventListener('click', () => {
-          swatchContainer.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
-          swatch.classList.add('active');
+        const s = document.createElement('div');
+        s.className = 'swatch' + (idx === 0 ? ' active' : '');
+        s.style.backgroundColor = color;
+        s.dataset.color = color;
+        s.addEventListener('click', () => {
+          container.querySelectorAll('.swatch').forEach(x => x.classList.remove('active'));
+          s.classList.add('active');
         });
-        swatchContainer.appendChild(swatch);
+        container.appendChild(s);
       });
     });
 
-    // 3D tilt on product cards
+    // 3D tilt
     document.querySelectorAll('.product-card').forEach(card => {
       card.addEventListener('mousemove', e => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const cx = rect.width / 2;
-        const cy = rect.height / 2;
-        const dx = (x - cx) / cx;
-        const dy = (y - cy) / cy;
-        const tiltX = dy * 6;
-        const tiltY = -dx * 6;
-        card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-6px)`;
-        card.style.setProperty('--mx', x + 'px');
-        card.style.setProperty('--my', y + 'px');
+        const r = card.getBoundingClientRect();
+        const x = e.clientX - r.left, y = e.clientY - r.top;
+        const dx = (x - r.width/2)/(r.width/2);
+        const dy = (y - r.height/2)/(r.height/2);
+        card.style.transform = `perspective(1000px) rotateX(${dy*6}deg) rotateY(${-dx*6}deg) translateY(-6px)`;
       });
       card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)';
+        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+      });
+    });
+
+    function openSpotify(el) {
+      const card = el.closest('.product-card');
+      const url = card ? card.dataset.spotify : '';
+      if (url) window.open(url, '_blank', 'noopener');
+      else showToast('No playlist linked to this product yet');
+    }
+
+    function adjustQty(btn, delta) {
+      const input = btn.parentElement.querySelector('.qty-input');
+      let val = parseInt(input.value || '1', 10);
+      val = Math.max(1, Math.min(99, val + delta));
+      input.value = val;
+    }
+    document.querySelectorAll('.qty-input').forEach(inp => {
+      inp.addEventListener('change', () => {
+        let v = parseInt(inp.value || '1', 10);
+        if (isNaN(v) || v < 1) v = 1;
+        if (v > 99) v = 99;
+        inp.value = v;
       });
     });
 
@@ -1723,65 +1095,71 @@
       const img = card.dataset.img;
       const activeSwatch = card.querySelector('.swatch.active');
       const color = activeSwatch ? activeSwatch.dataset.color : '#ccc';
-      const colorName = activeSwatch ? getColorName(activeSwatch.dataset.color) : 'Default';
+      const colorName = activeSwatch ? getColorName(color) : 'Default';
+      const qtyInput = card.querySelector('.qty-input');
+      const qty = qtyInput ? Math.max(1, Math.min(99, parseInt(qtyInput.value || '1', 10))) : 1;
 
-      const existing = cart.find(item => item.id === id && item.color === color);
-      if (existing) {
-        existing.qty += 1;
-      } else {
-        cart.push({ id, brand, name, price, img, color, colorName, qty: 1 });
-      }
+      const existing = cart.find(it => it.id === id && it.color === color);
+      if (existing) existing.qty += qty;
+      else cart.push({ id, brand, name, price, img, color, colorName, qty });
+
+      if (qtyInput) qtyInput.value = 1;
+
       updateCartUI();
-      showToast(`${brand} ${name} added`);
+      showToast(`${qty}× ${brand} ${name} added`);
     }
 
-    function removeFromCart(index) {
-      cart.splice(index, 1);
+    function removeFromCart(i) { if (!cart[i]) return; cart.splice(i, 1); updateCartUI(); }
+
+    function updateQty(i, delta) {
+      if (!cart[i]) return;
+      cart[i].qty = Math.max(1, Math.min(99, cart[i].qty + delta));
       updateCartUI();
     }
 
-    function updateQty(index, delta) {
-      cart[index].qty += delta;
-      if (cart[index].qty <= 0) cart.splice(index, 1);
+    function setQty(i, value) {
+      if (!cart[i]) return;
+      let v = parseInt(value, 10);
+      if (isNaN(v) || v < 1) v = 1;
+      if (v > 99) v = 99;
+      cart[i].qty = v;
       updateCartUI();
     }
 
     function updateCartUI() {
-      const itemsContainer = document.getElementById('cartItems');
+      const box = document.getElementById('cartItems');
       const countEl = document.getElementById('cartCount');
       const totalEl = document.getElementById('cartTotal');
-
-      cartCount = cart.reduce((sum, item) => sum + item.qty, 0);
-      cartTotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-      countEl.textContent = cartCount;
-      totalEl.textContent = '$' + cartTotal.toFixed(2);
-
-      if (cart.length === 0) {
-        itemsContainer.innerHTML = `
-          <div class="cart-empty">
-            <i class="fas fa-shopping-bag"></i>
-            <p>Your cart is empty.</p>
-          </div>
-        `;
+      const count = cart.reduce((s, i) => s + i.qty, 0);
+      const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+      countEl.textContent = count;
+      totalEl.textContent = '$' + total.toFixed(2);
+      if (!cart.length) {
+        box.innerHTML = `<div class="cart-empty"><i class="fas fa-shopping-bag"></i><p>Your cart is empty.</p></div>`;
         return;
       }
-
-      itemsContainer.innerHTML = cart.map((item, idx) => `
+      box.innerHTML = cart.map((it, idx) => `
         <div class="cart-item">
-          <div class="cart-item-img" style="background-image: url('${item.img}');"></div>
+          <div class="cart-item-img" style="background-image:url('${it.img}')"></div>
           <div class="cart-item-info">
-            <div class="item-brand">${item.brand}</div>
-            <h4>${item.name}</h4>
-            <div style="display:flex; align-items:center; gap:8px; margin-top:2px;">
-              <span style="display:inline-block; width:14px; height:14px; border-radius:50%; background:${item.color}; border:1px solid #e4ddd6;"></span>
-              <span style="font-size:0.7rem; color:#6b6b6b;">${item.colorName}</span>
+            <div class="item-brand">${it.brand}</div>
+            <h4>${it.name}</h4>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:2px">
+              <span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:${it.color};border:1px solid #e4ddd6"></span>
+              <span style="font-size:0.7rem;color:#6b6b6b">${it.colorName}</span>
             </div>
-            <div class="item-price">$${item.price.toFixed(2)}</div>
+            <div class="item-price">$${it.price.toFixed(2)} each</div>
             <div class="cart-item-actions">
-              <button class="qty-btn" onclick="updateQty(${idx}, -1)"><i class="fas fa-minus"></i></button>
-              <span class="qty-value">${item.qty}</span>
-              <button class="qty-btn" onclick="updateQty(${idx}, 1)"><i class="fas fa-plus"></i></button>
+              <button class="qty-btn" onclick="updateQty(${idx}, -1)" aria-label="Decrease quantity"><i class="fas fa-minus"></i></button>
+              <input type="number" class="cart-qty-input" value="${it.qty}" min="1" max="99"
+                     onchange="setQty(${idx}, this.value)"
+                     onkeydown="if(event.key==='Enter'){this.blur()}"
+                     aria-label="Quantity">
+              <button class="qty-btn" onclick="updateQty(${idx}, 1)" aria-label="Increase quantity"><i class="fas fa-plus"></i></button>
               <button class="remove-item" onclick="removeFromCart(${idx})">Remove</button>
+            </div>
+            <div style="font-size:0.72rem;color:#9b7b5c;font-weight:600;margin-top:6px;font-family:'Playfair Display',serif;">
+              Line total: $${(it.price * it.qty).toFixed(2)}
             </div>
           </div>
         </div>
@@ -1789,43 +1167,137 @@
     }
 
     function getColorName(hex) {
-      const names = {
-        '#d4c5b0': 'Natural', '#b8a88a': 'Sand', '#8b7b6b': 'Taupe', '#5e5548': 'Walnut',
-        '#e8d8c8': 'Cream', '#c4b5a5': 'Oat', '#9b8b7a': 'Stone', '#6b5d50': 'Mocha',
-        '#c9b8a8': 'Beige', '#a89480': 'Camel', '#7d6b5a': 'Cocoa', '#4d4038': 'Espresso',
-        '#d9c8b0': 'Wheat', '#b89f80': 'Honey', '#8a6f50': 'Chestnut', '#5a4a3a': 'Dark Oak',
-        '#4a4a4a': 'Charcoal', '#6b6b6b': 'Slate', '#8b8b8b': 'Ash', '#a8a8a8': 'Pewter',
-        '#b8a0c0': 'Lavender', '#9a80a0': 'Mauve', '#7a6080': 'Plum', '#5a4060': 'Deep Purple',
-        '#d4a830': 'Gold', '#c89828': 'Amber', '#a87818': 'Bronze', '#885810': 'Copper',
-        '#5a7a5a': 'Pine', '#3a5a3a': 'Forest', '#2a4a2a': 'Evergreen', '#1a3a1a': 'Deep Green',
-        '#8b2020': 'Cranberry', '#6b1818': 'Merlot', '#4b1010': 'Burgundy', '#3b0808': 'Maroon',
-        '#2e2e2e': 'Black', '#4a3a2a': 'Brown', '#3a2a1a': 'Dark Brown', '#1a0a00': 'Ebony',
-        '#8b6b4a': 'Oak', '#7a5a3a': 'Rustic', '#6a4a2a': 'Wormwood', '#5a3a1a': 'Dark Rustic',
-        '#e0d8c8': 'Ivory', '#d0c8b8': 'Linen', '#c0b8a8': 'Flax', '#b0a898': 'Dune',
-        '#f0e8d8': 'White', '#e0d8c8': 'Alabaster', '#d0c8b8': 'Bone', '#c0b8a8': 'Parchment'
+      const m = {
+        '#d4c5b0':'Natural','#b8a88a':'Sand','#8b7b6b':'Taupe','#5e5548':'Walnut',
+        '#e8d8c8':'Cream','#c4b5a5':'Oat','#9b8b7a':'Stone','#6b5d50':'Mocha',
+        '#c9b8a8':'Beige','#a89480':'Camel','#7d6b5a':'Cocoa','#4d4038':'Espresso',
+        '#d9c8b0':'Wheat','#b89f80':'Honey','#8a6f50':'Chestnut','#5a4a3a':'Dark Oak',
+        '#4a4a4a':'Charcoal','#6b6b6b':'Slate','#8b8b8b':'Ash','#a8a8a8':'Pewter',
+        '#b8a0c0':'Lavender','#9a80a0':'Mauve','#7a6080':'Plum','#5a4060':'Deep Purple',
+        '#d4a830':'Gold','#c89828':'Amber','#a87818':'Bronze','#885810':'Copper',
+        '#5a7a5a':'Pine','#3a5a3a':'Forest','#2a4a2a':'Evergreen','#1a3a1a':'Deep Green',
+        '#8b2020':'Cranberry','#6b1818':'Merlot','#4b1010':'Burgundy','#3b0808':'Maroon',
+        '#2e2e2e':'Black','#4a3a2a':'Brown','#3a2a1a':'Dark Brown','#1a0a00':'Ebony',
+        '#8b6b4a':'Oak','#7a5a3a':'Rustic','#6a4a2a':'Wormwood','#5a3a1a':'Dark Rustic',
+        '#e0d8c8':'Ivory','#d0c8b8':'Linen','#c0b8a8':'Flax','#b0a898':'Dune',
+        '#f0e8d8':'White','#e0d8c8':'Alabaster','#d0c8b8':'Bone','#c0b8a8':'Parchment'
       };
-      return names[hex] || 'Custom';
+      return m[hex] || 'Custom';
     }
 
+    /* WISHLIST */
+    function saveWishlist() { try { localStorage.setItem(WISHLIST_KEY, JSON.stringify(wishlist)); } catch(e){} }
+    function isInWishlist(id) { return wishlist.some(w => w.id === id); }
+
+    function toggleWish(btn) {
+      const card = btn.closest('.product-card');
+      const id = card.dataset.id;
+      const brand = card.dataset.brand;
+      const name = card.dataset.name;
+      const price = parseFloat(card.dataset.price);
+      const img = card.dataset.img;
+
+      const existingIdx = wishlist.findIndex(w => w.id === id);
+      if (existingIdx >= 0) {
+        wishlist.splice(existingIdx, 1);
+        btn.classList.remove('active');
+        btn.innerHTML = '<i class="far fa-heart"></i>';
+        showToast(`Removed from wishlist`);
+      } else {
+        wishlist.push({ id, brand, name, price, img });
+        btn.classList.add('active');
+        btn.innerHTML = '<i class="fas fa-heart"></i>';
+        showToast(`Saved to wishlist`);
+      }
+      saveWishlist();
+      updateWishUI();
+    }
+
+    function updateWishUI() {
+      document.getElementById('wishCount').textContent = wishlist.length;
+      document.querySelectorAll('.product-card').forEach(card => {
+        const btn = card.querySelector('.wish-toggle');
+        if (!btn) return;
+        if (isInWishlist(card.dataset.id)) {
+          btn.classList.add('active');
+          btn.innerHTML = '<i class="fas fa-heart"></i>';
+        } else {
+          btn.classList.remove('active');
+          btn.innerHTML = '<i class="far fa-heart"></i>';
+        }
+      });
+      const box = document.getElementById('wishItems');
+      if (!wishlist.length) {
+        box.innerHTML = `<div class="cart-empty"><i class="far fa-heart"></i><p>Your wishlist is empty.</p></div>`;
+        return;
+      }
+      box.innerHTML = wishlist.map((it, idx) => `
+        <div class="cart-item">
+          <div class="cart-item-img" style="background-image:url('${it.img}')"></div>
+          <div class="cart-item-info">
+            <div class="item-brand">${it.brand}</div>
+            <h4>${it.name}</h4>
+            <div class="item-price">$${it.price.toFixed(2)}</div>
+            <div class="cart-item-actions">
+              <button class="qty-btn" onclick="moveWishToCart(${idx})" title="Add to cart" style="width:auto;padding:0 12px;border-radius:20px;">
+                <i class="fas fa-shopping-bag"></i> <span style="margin-left:4px;font-size:0.75rem;">Move to cart</span>
+              </button>
+              <button class="remove-item" onclick="removeWish(${idx})">Remove</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function removeWish(idx) { wishlist.splice(idx, 1); saveWishlist(); updateWishUI(); }
+    function moveWishToCart(idx) {
+      const it = wishlist[idx];
+      const existing = cart.find(c => c.id === it.id);
+      if (existing) existing.qty += 1;
+      else cart.push({ ...it, color: '#ccc', colorName: 'Default', qty: 1 });
+      removeWish(idx);
+      updateCartUI();
+      showToast(`Moved to cart`);
+    }
+
+    /* SIDEBARS */
     const cartSidebar = document.getElementById('cartSidebar');
     const cartOverlay = document.getElementById('cartOverlay');
     const cartToggle = document.getElementById('cartToggle');
     const cartClose = document.getElementById('cartClose');
 
+    const wishSidebar = document.getElementById('wishSidebar');
+    const wishOverlay = document.getElementById('wishOverlay');
+    const wishToggle = document.getElementById('wishToggle');
+    const wishClose = document.getElementById('wishClose');
+
     function openCart() {
-      cartSidebar.classList.add('open');
-      cartOverlay.classList.add('open');
+      cartSidebar.classList.add('open'); cartOverlay.classList.add('open');
+      wishSidebar.classList.remove('open'); wishOverlay.classList.remove('open');
       if (window.Tawk_API && typeof Tawk_API.hideWidget === 'function') Tawk_API.hideWidget();
     }
     function closeCart() {
-      cartSidebar.classList.remove('open');
-      cartOverlay.classList.remove('open');
+      cartSidebar.classList.remove('open'); cartOverlay.classList.remove('open');
       if (window.Tawk_API && typeof Tawk_API.showWidget === 'function') Tawk_API.showWidget();
     }
+    function openWish() {
+      wishSidebar.classList.add('open'); wishOverlay.classList.add('open');
+      cartSidebar.classList.remove('open'); cartOverlay.classList.remove('open');
+      if (window.Tawk_API && typeof Tawk_API.hideWidget === 'function') Tawk_API.hideWidget();
+    }
+    function closeWish() {
+      wishSidebar.classList.remove('open'); wishOverlay.classList.remove('open');
+      if (window.Tawk_API && typeof Tawk_API.showWidget === 'function') Tawk_API.showWidget();
+    }
+
     cartToggle.addEventListener('click', openCart);
     cartClose.addEventListener('click', closeCart);
     cartOverlay.addEventListener('click', closeCart);
+    wishToggle.addEventListener('click', openWish);
+    wishClose.addEventListener('click', closeWish);
+    wishOverlay.addEventListener('click', closeWish);
 
+    /* TOAST + STRIPE + HEADER + REVEAL */
     let toastTimer;
     function showToast(msg) {
       const toast = document.getElementById('toast');
@@ -1836,31 +1308,23 @@
     }
 
     document.getElementById('stripeBtn').addEventListener('click', () => {
-      if (cart.length === 0) {
-        showToast('Your cart is empty');
-        return;
-      }
-      alert('Stripe Checkout placeholder.\n\nReplace this with your actual Stripe Payment Link.\n\nTotal: $' + cartTotal.toFixed(2));
+      if (!cart.length) { showToast('Your cart is empty'); return; }
+      const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+      alert('Stripe Checkout placeholder.\n\nReplace with your actual Stripe Payment Link.\n\nTotal: $' + total.toFixed(2));
     });
 
     const headerWrap = document.getElementById('headerWrap');
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 20) headerWrap.classList.add('scrolled');
-      else headerWrap.classList.remove('scrolled');
+      headerWrap.classList.toggle('scrolled', window.scrollY > 20);
     });
 
-    const revealEls = document.querySelectorAll('.reveal');
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          io.unobserve(entry.target);
-        }
-      });
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
     }, { threshold: 0.08 });
-    revealEls.forEach(el => io.observe(el));
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
     updateCartUI();
+    updateWishUI();
   </script>
 
   <!--Start of Tawk.to Script-->
